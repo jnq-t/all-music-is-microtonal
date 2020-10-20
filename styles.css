@@ -1,0 +1,160 @@
+/*classes*/
+.smallnum
+{
+    border:Transparent;
+    background-color: Transparent;
+    position: relative;
+    height: 35px;
+    width: 65px;
+    top: 3px;
+}
+.mednum
+{
+    border:Transparent;
+    background-color: Transparent;
+    position: relative;height: 35px;
+    width: 86px;top: 3px;
+}
+.bignum
+{
+    border:Transparent;
+    background-color: Transparent;
+    position: relative;height: 35px;
+    width: 97px;top: 3px;
+}
+.title
+{
+text-align: left;
+color: blue;
+}
+.large
+{
+    font-size: large;
+    font-weight: bold;
+}
+.blue
+{
+    color: blue;
+}
+.padded
+{
+    padding: 10px;
+}
+.button
+{
+    background-color: Transparent;
+    border: 0;
+    outline: 0 !important;
+    opacity: 70%;
+}
+
+.center
+{
+    margin-left: auto;
+    margin-right:auto;
+    text-align: center;
+}
+
+
+/*clases for keyboard */
+.keyboard
+{
+    font-size:30px;
+    background-color: white;
+    opacity: 0.7;
+}
+.tuner
+{
+    width: 4%;
+    font-size:30px;
+    background-color: white;
+    opacity: 0.6;
+}
+.edit
+{
+    font-size:30px;
+    background-color: white;
+    opacity: 0.7;
+    border-width: 15px;
+    outline: none;
+}
+.edit_period
+{
+    font-size:30px;
+    background-color: red;
+    opacity: 0.7;
+    border-width: 15px;
+    outline: none;
+}
+
+
+
+.keyboard_period
+{
+    font-size:30px;
+    background-color: red;
+    opacity: 0.7;
+}
+.pushed
+{
+    font-size:30px;
+    background-color: white;
+}
+.period_pushed
+{
+    font-size:30px;
+    background-color: red;
+}
+.left
+{
+    float: left;
+}
+.right
+{
+    float: right;
+    color: #F5F5F5;
+}
+
+/*formating */
+td
+{
+    border: 5px solid white;
+}
+body
+{
+    background-image: url("marble for html.jpg");
+    padding: 10px;
+}
+
+table
+{
+    text-align: center;
+    border: 5px solid white;
+    border-collapse: collapse;
+}
+
+/*input[type=number]*/
+/*{*/
+/*    border:Transparent;*/
+/*    background-color: Transparent;*/
+/*    position: relative;*/
+/*    height: 35px;*/
+/*    width: 65px;*/
+/*    top: 3px;*/
+/*}*/
+/*.positive_tuner*/
+/*{*/
+/*    width: 4%;*/
+/*    font-size:30px;*/
+/*    background-color: white;*/
+/*    color: green;*/
+/*    opacity: 0.7;*/
+/*}*/
+/*.negative_tuner*/
+/*{*/
+/*    width: 4%;*/
+/*    font-size:30px;*/
+/*    background-color: white;*/
+/*    color: red;*/
+/*    opacity: 0.7;*/
+/*}*/
