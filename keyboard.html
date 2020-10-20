@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <head>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <script src = "Tone.js"></script>
+        <script src="script.js"></script>
+        <title>keyboard</title>
+
+    </head>
+    <!---->
+    <!--TO DO! create an edit mode that is triggered when editToggle is called! should mute all synths, and allow only one key at a -->
+    <!--time to be highlighted, perhaps in a way that is even more obvious than when the key is sustained. once the edit is turned off -->
+    <!--you can go back to playing. make a toggle button for period equivalence -->
+    <body>
+        <h1>
+            <!--possible to have te get element by id call edit the value even when value is set by a class?-->
+            <div id = "toggle 0" style= "display: none" class = "right">edit</div>
+            <div>no. of scale degrees(<input type = "number" id = "keys" value = 12  min = "1" max="99" class = "smallnum">)</div>
+        </h1>
+        <h1>
+            <div class = "right" id = "toggle 1" style= "display: none">
+                detune by(<input style= "color: #F5F5F5" type = "number" id = "keys" value = 00  min = "-99" max="99" class = "mednum">)cents
+            </div>
+            size of period(<input type = "number" id = "period1" max = "99" min = 1 value = "2" class = "smallnum">:<input type = "number" id = "period2" max =" 99" min = "1" value = "1" class = "smallnum">)
+        </h1>
+        <h1>
+            <div class = "right" id = "toggle 2" style = "display: none">
+                set ratio to fundamental(<input style = "color: #F5F5F5" type = "number" id = "ratio1" max = "999" min = 1 value = "1" class = "smallnum">
+                :<input type = "number" style = "color: #F5F5F5" id = "ratio2" max ="999" min = "1" value = "1" class = "smallnum">)
+            </div>
+           starting frequency(<input type = "number" id = "frequency" max = "999" value = "240" class = "bignum">)Hz
+        </h1>
+        <h1>
+           <button id = "toggle 3" style = " background-color: Transparent; border: 0; outline: 0 !important; display: none;" class = "right" onclick="apply()">{apply}</button>
+           no. of periods(<input type = "number" id = "periods" min = "1" max = "99" value = "2" class = "smallnum">)
+        </h1>
+        <h1>
+            <input class="button" onclick="change('sustain')" type="button" value="{sustain}" id="sustain"></input>
+        </h1>
+        <h1>
+            <input class="button" onclick="editToggle(4)" type="button" value="{edit}" id="edit"></input>
+        </h1>
+        <h1>
+            <button class = "button" onclick="buildKeyboardET()">{create}</button>
+        </h1>
+    </body>
+
+</html>
