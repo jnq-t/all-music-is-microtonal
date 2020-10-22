@@ -29,8 +29,12 @@ function minFourDigits(n)
 {
     return (n < 1000 ? '0' : '') + n;
 }
-
-
+////detune is currently bortken. wrong math? 
+//detunes by cents 
+function detune(currentFrequency, cents)
+{
+   return currentFrequency * Math.pow(2, cents/1200);
+}
 //toggles various features (sustain, edit)
 function change(button)
 {
@@ -81,7 +85,8 @@ function synth(frequency, note_index, period)
 {
     //for toggle
     globalNoteIndex = note_index;
-
+    //for detune
+    globalFrequency = frequency;
 
     //if edit on
     if (document.getElementById("edit").value == "{edit on}")
@@ -185,7 +190,7 @@ function buildKeyboardET()
     if (document.getElementById("edit").value == "{edit on}")
     {
          //turn off edit. using 4 here becuase there are 4 elements to toggle
-         editToggle(4);
+         editToggle(5);
     }
     //clear any previous buttons
     while (document.getElementById("note") != null)
@@ -266,8 +271,6 @@ function buildKeyboardET()
         variable_pitch *= Math.pow(period, 1/x);
 
     }
-    //LOOKING INSIDE THIS SYSTEM
-    console.log(keys);
 }
 
 function editToggle(numberOfItemsToToggle)
@@ -335,17 +338,48 @@ function editToggle(numberOfItemsToToggle)
     }
 }
 
-function apply()
+function apply(index)
 {
-    //TODO
-    var pitch = document.getElementById("frequency").value;
-    var numerator = document.getElementById("ratio1").value;
-    var denominator = document.getElementById("ratio2").value;
-    var period = document.getElementById("keys").value;
-    //making JI interval
-    ratioPitch = (pitch*numerator)/denominator;
+        //if {set ratio} is pushed
+        if (index == 1)
+        {
+            var pitch = document.getElementById("frequency").value;
+            var numerator = document.getElementById("ratio1").value;
+            var denominator = document.getElementById("ratio2").value;
+            var period = document.getElementById("keys").value;
+            ratioPitch = (pitch*numerator)/denominator;
+            document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
+            keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
 
+            //updating global frequency for multiple detunes
+            globalFrequency = ratioPitch;
+        }
 
-    document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`
-    keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
+        //if {detune} is pushed
+        else 
+        {
+            //little function to remove <sup> text from inner            
+            var text = document.getElementById("selected").innerHTML;
+            var temp = "";
+            for (var i = 0; i < text.length; i++)
+            {
+                if (text[i] == "<")
+                {
+                    break;
+                }
+                else
+                {
+                    temp += (text[i]);
+                }
+            }
+
+            //detuning
+            var cents = document.getElementById("detune").value;
+            var detuned = detune(globalFrequency, cents);
+            document.getElementById("selected").innerHTML = `${temp}<sup> ${minFourDigits(Math.round(detuned))} <sup/> Hz`
+            keys[globalNoteIndex].setAttribute("onclick", `synth(${detuned}, ${globalNoteIndex}, ${period})`);
+
+            //updating global frequency for multiple detunings
+            globalFrequency = detuned;
+        }
 }
