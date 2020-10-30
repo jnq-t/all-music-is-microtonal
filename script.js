@@ -56,17 +56,19 @@ function change(button)
                 }
             }
             //revert all "pushed" classes
-            for(i = 0; i  < keys.length; i++)
-            {
+            for (i = 0; i  < keys.length; i++)
+            { 
                 //if special case (modulo the period)
                 if(i % document.getElementById("keys").value == 0)
                 {
                     keys[i].setAttribute("class", "keyboard_period");
+                    keys[i].setAttribute("id", "note");
                 }
                 //base case
                 else
                 {
                     keys[i].setAttribute("class", "keyboard");
+                    keys[i].setAttribute("id", "note");
                 }
             }
         }
@@ -91,32 +93,45 @@ function synth(frequency, note_index, period)
     //if edit on
     if (document.getElementById("edit").value == "{edit on}")
     {
-        //if prior element is special case
-        if (document.getElementById("selected_period") !=null)
+        var periodLock = priorEditIndex;
+        while (periodLock < keys.length)
         {
-            keys[priorEditIndex].setAttribute("class", "keyboard_period");
-            keys[priorEditIndex].setAttribute("id", "note");
-        }
-        //if prior element is base case
-        if (document.getElementById("selected") !=null)
-        {
-            keys[priorEditIndex].setAttribute("class", "keyboard");
-            keys[priorEditIndex].setAttribute("id", "note");
-        }
-        if (note_index % period == 0)
-        {
-            keys[note_index].setAttribute("class", "edit_period");
-            keys[note_index].setAttribute("id", "selected_period");
-        }
-        else
-        {
-            keys[note_index].setAttribute("class", "edit");
-            keys[note_index].setAttribute("id", "selected");
+            if (periodLock % period == 0)
+            {
+                keys[periodLock].setAttribute("class", "keyboard_period");
+                keys[periodLock].setAttribute("id", "note");
+            }
+            else 
+            {
+                keys[periodLock].setAttribute("class", "keyboard");
+                keys[periodLock].setAttribute("id", "note");
+            }
+            periodLock += period;
         }
 
-        //set index for next edit
-        priorEditIndex = note_index;
-        //return without triggering synth
+        //set index for next edit(modulo the period to index by the first period)
+        priorEditIndex = note_index % period;
+        
+
+        //loop to lock octaves, starting from lowest period 
+        periodLock = note_index % period;
+        while (periodLock < keys.length)
+        {
+            
+            if (periodLock % period == 0)
+            {
+                keys[periodLock].setAttribute("class", "edit_period");
+                keys[periodLock].setAttribute("id", "selected_period");
+            }
+            else
+            {
+                keys[periodLock].setAttribute("class", "edit");
+                keys[periodLock].setAttribute("id", "selected");
+            }
+            periodLock += period;
+        }
+        
+       //return without triggering synth
         return;
     }
     //if edit off
@@ -186,10 +201,11 @@ function synth(frequency, note_index, period)
 //when {create} is clicked, builds all buttons
 function buildKeyboardET()
 {
+    var i;
 
     if (document.getElementById("edit").value == "{edit on}")
     {
-         //turn off edit. using 4 here becuase there are 4 elements to toggle
+         //turn off edit. using 4 here becuase there are  elements to toggle
          editToggle(5);
     }
     //clear any previous buttons
@@ -227,7 +243,6 @@ function buildKeyboardET()
         sustain = [];
         synths = [];
         keys = [];
-        tuners = [];
 
     //gather paramaters
     var x = document.getElementById("keys").value;
@@ -243,7 +258,7 @@ function buildKeyboardET()
     var rounding_constant = 1000000000000;
 
     //loop once for each pitch class set(music theory)
-    for(var i=0; i <= (range*x); i++)
+    for (i=0; i <= (range*x); i++)
     {
 
         //create buttons(use the digit functions and the synth function)
@@ -256,7 +271,7 @@ function buildKeyboardET()
         btn.setAttribute("onclick", `synth(${variable_pitch}, ${i}, ${x})`);
 
         //if special case (modul0 the period)
-        if(i % x == 0)
+        if (i % x == 0)
         {
             btn.setAttribute("class", "keyboard_period");
         }
@@ -294,11 +309,14 @@ function editToggle(numberOfItemsToToggle)
         if (i % document.getElementById("keys").value == 0)
         {
             keys[i].setAttribute("class", "keyboard_period");
+            keys[i].setAttribute("id", "note");
+
         }
         //base case
         else
         {
             keys[i].setAttribute("class", "keyboard");
+            keys[i].setAttribute("id", "note");
         }
     }
 
@@ -357,7 +375,7 @@ function apply(index)
 
         //if {detune} is pushed
         else 
-        {
+        { 
             //little function to remove <sup> text from inner            
             var text = document.getElementById("selected").innerHTML;
             var temp = "";
