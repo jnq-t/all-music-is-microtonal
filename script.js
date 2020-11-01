@@ -220,7 +220,7 @@ function buildKeyboardET()
     }
     while (document.querySelector(".period_pushed") != null)
     {
-        var note = document.querySelector(".pushed"); 
+        var note = document.querySelector(".period_pushed"); 
         document.body.removeChild(note);
     }
         //turn off all sustained synths
@@ -369,67 +369,92 @@ function editToggle(numberOfItemsToToggle)
 
 function apply(index)
 {
-        var counter = 0;
-        //if {set ratio} is pushed
-        if (index == 1)
+    var pitch = document.getElementById("frequency").value;
+    var periodKeys = parseInt(document.getElementById("keys").value, 10);
+    var numerator = document.getElementById("period1").value;
+    var denominator = document.getElementById("period2").value;
+    var period = numerator/denominator;
+    var counter = 0;
+
+    //if {set ratio} is pushed
+    if (index == 1)
+    {
+        var pitch = document.getElementById("frequency").value;
+        var numeratorRatio = document.getElementById("ratio1").value;
+        var denominatorRatio = document.getElementById("ratio2").value;
+        var periodKeys = parseInt(document.getElementById("keys").value, 10);
+        var ratioPitch = (pitch*numeratorRatio)/denominatorRatio;
+        var numerator = document.getElementById("period1").value;
+        var denominator = document.getElementById("period2").value;
+        var period = numerator/denominator;
+        // document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
+        // keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
+
+        //updating global frequency for multiple detunes
+        globalFrequency = ratioPitch;
+    
+        //loop to frequency lock periods
+        var periodIndex = globalNoteIndex % periodKeys;
+        for (var i = 0; i < keys.length; i++)
         {
-            var pitch = document.getElementById("frequency").value;
-            var numeratorRatio = document.getElementById("ratio1").value;
-            var denominatorRatio = document.getElementById("ratio2").value;
-            var periodKeys = parseInt(document.getElementById("keys").value, 10);
-            var ratioPitch = (pitch*numeratorRatio)/denominatorRatio;
-            var numerator = document.getElementById("period1").value;
-            var denominator = document.getElementById("period2").value;
-            var period = numerator/denominator;
-            // document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
-            // keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
-
-            //updating global frequency for multiple detunes
-            globalFrequency = ratioPitch;
-        
-            //loop to frequency lock periods
-            var periodIndex = globalNoteIndex % periodKeys;
-            for (var i =0; i < keys.length; i++)
+            if (i == periodIndex)
             {
-                if (i == periodIndex)
-                {
-                    let multiplyer = Math.pow(period, counter);
-                    let number = ratioPitch * multiplyer;
-                    keys[i].innerHTML = `${numeratorRatio}:${denominatorRatio}<sup> ${minFourDigits(Math.round(number))} <sup/> Hz`;
-                    keys[i].setAttribute("onclick", `synth(${number}, ${periodIndex}, ${temp})`);
-                    periodIndex += periodKeys;
-                    counter++;
-                }
+                let multiplyer = Math.pow(period, counter);
+                let number = ratioPitch * multiplyer;
+                keys[i].innerHTML = `${numeratorRatio}:${denominatorRatio}<sup> ${minFourDigits(Math.round(number))} <sup/> Hz`;
+                keys[i].setAttribute("onclick", `synth(${number}, ${periodIndex}, ${temp})`);
+                periodIndex += periodKeys;
+                counter++;
             }
         }
+    }
 
+    //if {detune} is pushed
+    else 
+    { 
 
+        //loop to locate each selected key 
 
-        //if {detune} is pushed
-        else 
-        { 
-            //little function to remove <sup> text from inner            
-            var text = document.getElementById("selected").innerHTML;
-            var temp = "";
-            for (var i = 0; i < text.length; i++)
+        periodIndex = globalNoteIndex % periodKeys;
+        console.log(`check, period keys is ${periodKeys}`);
+        console.log(`check, period index is ${periodIndex}`);
+        var text;
+        var temp;
+        counter = 0;
+        for (i = 0; i < keys.length; i++)
+        {
+            temp = "";
+            if (i == periodIndex)
             {
-                if (text[i] == "<")
+                console.log(`check, i is ${i}`);
+                //selects each key in the correct period
+                text = keys[i].innerHTML;
+                for (j = 0; j < text.length; j++)
                 {
-                    break;
+                    if (text[j] == "<")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        temp += text[j];
+                    }
                 }
-                else
-                {
-                    temp += text[i];
-                }
-            }
-
-            //detuning
-            var cents = document.getElementById("detune").value;
-            var detuned = detune(globalFrequency, cents);
-            document.getElementById("selected").innerHTML = `${temp}<sup> ${minFourDigits(Math.round(detuned))} <sup/> Hz`
-            keys[globalNoteIndex].setAttribute("onclick", `synth(${detuned}, ${globalNoteIndex}, ${period})`);
-
-            //updating global frequency for multiple detunings
-            globalFrequency = detuned;
+            
+            //detune here
+                var cents = document.getElementById("detune").value;
+                let multiplyer = Math.pow(period, counter);
+                var detuned = detune(globalFrequency, cents);
+                var finalPitch = detuned * multiplyer;
+                keys[i].innerHTML = `${temp}<sup> ${minFourDigits(Math.round(finalPitch))} <sup/> Hz`;
+                keys[i].setAttribute("onclick", `synth(${finalPitch}, ${i}, ${periodKeys})`);
+                periodIndex += periodKeys;
+                counter++;
+            } 
         }
+
+        //detuning
+        //updating global frequency for multiple detunings
+        globalFrequency = detuned;
+    }
 }
