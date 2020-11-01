@@ -62,13 +62,11 @@ function change(button)
                 if(i % document.getElementById("keys").value == 0)
                 {
                     keys[i].setAttribute("class", "keyboard_period");
-                    keys[i].setAttribute("id", "note");
                 }
                 //base case
                 else
                 {
                     keys[i].setAttribute("class", "keyboard");
-                    keys[i].setAttribute("id", "note");
                 }
             }
         }
@@ -99,12 +97,10 @@ function synth(frequency, note_index, period)
             if (periodLock % period == 0)
             {
                 keys[periodLock].setAttribute("class", "keyboard_period");
-                keys[periodLock].setAttribute("id", "note");
             }
             else 
             {
                 keys[periodLock].setAttribute("class", "keyboard");
-                keys[periodLock].setAttribute("id", "note");
             }
             periodLock += period;
         }
@@ -121,12 +117,10 @@ function synth(frequency, note_index, period)
             if (periodLock % period == 0)
             {
                 keys[periodLock].setAttribute("class", "edit_period");
-                keys[periodLock].setAttribute("id", "selected_period");
             }
             else
             {
                 keys[periodLock].setAttribute("class", "edit");
-                keys[periodLock].setAttribute("id", "selected");
             }
             periodLock += period;
         }
@@ -208,13 +202,27 @@ function buildKeyboardET()
          //turn off edit. using 4 here becuase there are  elements to toggle
          editToggle(5);
     }
-    //clear any previous buttons
-    while (document.getElementById("note") != null)
+    //clear any previous buttons (PLEASE REFACTOR ME LOL)
+    while (document.querySelector(".keyboard") != null)
     {
-        var note = document.getElementById("note");
+        var note = document.querySelector(".keyboard");
         document.body.removeChild(note);
     }
-
+    while (document.querySelector(".keyboard_period") != null)
+    {
+        var note = document.querySelector(".keyboard_period");
+        document.body.removeChild(note);
+    }
+    while (document.querySelector(".pushed") != null)
+    {
+        var note = document.querySelector(".pushed");
+        document.body.removeChild(note);
+    }
+    while (document.querySelector(".period_pushed") != null)
+    {
+        var note = document.querySelector(".pushed"); 
+        document.body.removeChild(note);
+    }
         //turn off all sustained synths
         for (i = 0; i < synths.length; i++)
         {
@@ -264,7 +272,7 @@ function buildKeyboardET()
         //create buttons(use the digit functions and the synth function)
         var btn = document.createElement("BUTTON");
         btn.innerHTML = ` ${minTwoDigits((i % x)+1)} <sup> ${minFourDigits(Math.round(variable_pitch))} <sup/> Hz` ;
-        btn.setAttribute("id", "note");
+        btn.setAttribute("id", `${i}`);
 
         //TODO edit mode
         btn.setAttribute("class", "keyboard");
@@ -309,24 +317,27 @@ function editToggle(numberOfItemsToToggle)
         if (i % document.getElementById("keys").value == 0)
         {
             keys[i].setAttribute("class", "keyboard_period");
-            keys[i].setAttribute("id", "note");
 
         }
         //base case
         else
         {
             keys[i].setAttribute("class", "keyboard");
-            keys[i].setAttribute("id", "note");
         }
     }
 
     //clear prior selected buttons
-    var temp = document.getElementById("selected")
-    if (temp != null)
+    while (document.querySelector(".edit") != null)
     {
+        temp = document.querySelector(".edit")
         temp.setAttribute("class", "keyboard");
-        temp.setAttribute("id", "note");
     }
+    while (document.querySelector(".edit_period") != null)
+    {
+        temp = document.querySelector(".edit_period")
+        temp.setAttribute("class", "keyboard_period");
+    }
+
 
 
     //change the edit button formatting
@@ -358,20 +369,41 @@ function editToggle(numberOfItemsToToggle)
 
 function apply(index)
 {
+        var counter = 0;
         //if {set ratio} is pushed
         if (index == 1)
         {
             var pitch = document.getElementById("frequency").value;
-            var numerator = document.getElementById("ratio1").value;
-            var denominator = document.getElementById("ratio2").value;
-            var period = document.getElementById("keys").value;
-            ratioPitch = (pitch*numerator)/denominator;
-            document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
-            keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
+            var numeratorRatio = document.getElementById("ratio1").value;
+            var denominatorRatio = document.getElementById("ratio2").value;
+            var periodKeys = parseInt(document.getElementById("keys").value, 10);
+            var ratioPitch = (pitch*numeratorRatio)/denominatorRatio;
+            var numerator = document.getElementById("period1").value;
+            var denominator = document.getElementById("period2").value;
+            var period = numerator/denominator;
+            // document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
+            // keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
 
             //updating global frequency for multiple detunes
             globalFrequency = ratioPitch;
+        
+            //loop to frequency lock periods
+            var periodIndex = globalNoteIndex % periodKeys;
+            for (var i =0; i < keys.length; i++)
+            {
+                if (i == periodIndex)
+                {
+                    let multiplyer = Math.pow(period, counter);
+                    let number = ratioPitch * multiplyer;
+                    keys[i].innerHTML = `${numeratorRatio}:${denominatorRatio}<sup> ${minFourDigits(Math.round(number))} <sup/> Hz`;
+                    keys[i].setAttribute("onclick", `synth(${number}, ${periodIndex}, ${temp})`);
+                    periodIndex += periodKeys;
+                    counter++;
+                }
+            }
         }
+
+
 
         //if {detune} is pushed
         else 
@@ -387,7 +419,7 @@ function apply(index)
                 }
                 else
                 {
-                    temp += (text[i]);
+                    temp += text[i];
                 }
             }
 
