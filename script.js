@@ -12,12 +12,15 @@ var synths = [];
 //array of button objects (indexed)
 var keys = [];
 
+//array of frequencies for reference in the color detune function 
+var referencePitches = [];
+
 //global variables for edit functionality
 var globalNoteIndex;
 var globalPeriod;
 var priorEditIndex;
 
-////helper functions
+////HELPER FUNCTIONS
 //formats all numbers to minimum two digits (function by Göran Andersson AKA Guffa on Stack Overflow)
 function minTwoDigits(n)
 {
@@ -29,7 +32,7 @@ function minFourDigits(n)
 {
     return (n < 1000 ? '0' : '') + n;
 }
-////detune is currently bortken. wrong math? 
+
 //detunes by cents 
 function detune(currentFrequency, cents)
 {
@@ -80,6 +83,39 @@ function change(button)
         document.getElementById(button).value=`{${button} on}`;
     }
 }
+
+//function for turning positive detunings green and negative detunings red
+//values are rounded to prevent drift inacuracies
+function detuneColor()
+{
+    let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
+    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000; 
+    if (roundedGlobal > roundedReference)
+    {
+        //set to green
+        document.getElementById(`${globalNoteIndex}`).classList.remove('negative');
+        document.getElementById(`${globalNoteIndex}`).classList.add('positive');
+        // console.log(`frequency is ${roundedGlobal}, reference is ${roundedReference}`);
+    }
+    else if (roundedGlobal < roundedReference)
+    {
+        //set to red
+        document.getElementById(`${globalNoteIndex}`).classList.remove('positive');
+        document.getElementById(`${globalNoteIndex}`).classList.add('negative');
+        
+    }
+    else 
+    {
+        //leave as is
+        document.getElementById(`${globalNoteIndex}`).classList.remove('positive');
+        document.getElementById(`${globalNoteIndex}`).classList.remove('negative');
+ 
+    }
+
+}
+
+
+////MAIN FUNCTIONS
 //dynamically creates synths, and tiggers them
 function synth(frequency, note_index, period)
 {
@@ -87,6 +123,8 @@ function synth(frequency, note_index, period)
     globalNoteIndex = note_index;
     //for detune
     globalFrequency = frequency;
+    //for colorDetune
+    referencePitches[globalNoteIndex] = globalFrequency;
 
     //if edit on
     if (document.getElementById("edit").value == "{edit on}")
@@ -379,19 +417,15 @@ function apply(index)
     //if {set ratio} is pushed
     if (index == 1)
     {
-        var pitch = document.getElementById("frequency").value;
         var numeratorRatio = document.getElementById("ratio1").value;
         var denominatorRatio = document.getElementById("ratio2").value;
-        var periodKeys = parseInt(document.getElementById("keys").value, 10);
         var ratioPitch = (pitch*numeratorRatio)/denominatorRatio;
-        var numerator = document.getElementById("period1").value;
-        var denominator = document.getElementById("period2").value;
-        var period = numerator/denominator;
-        // document.getElementById("selected").innerHTML = `${numerator}:${denominator}<sup> ${minFourDigits(Math.round(ratioPitch))} <sup/> Hz`;
-        // keys[globalNoteIndex].setAttribute("onclick", `synth(${ratioPitch}, ${globalNoteIndex}, ${period})`);
 
-        //updating global frequency for multiple detunes
+        //updating global frequency for multiple detunes and for detuneColor
         globalFrequency = ratioPitch;
+        referencePitches[globalNoteIndex] = ratioPitch;
+
+        console.log(`globalFrequency now equals ratio pitch of ${ratioPitch}`);
     
         //loop to frequency lock periods
         var periodIndex = globalNoteIndex % periodKeys;
@@ -452,9 +486,14 @@ function apply(index)
                 counter++;
             } 
         }
-
         //detuning
         //updating global frequency for multiple detunings
+
         globalFrequency = detuned;
+        console.log(`global frequency is ${globalFrequency}`);
+
+        //check for color
+        detuneColor();
     }
 }
+

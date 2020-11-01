@@ -87,8 +87,6 @@ color: blue;
     outline: none;
 }
 
-
-
 .keyboard_period
 {
     font-size:30px;
@@ -114,7 +112,14 @@ color: blue;
     float: right;
     color: #F5F5F5;
 }
-
+.positive
+{
+    color:green;
+}
+.negative
+{
+    color:red;
+}
 /*formating */
 td
 {
