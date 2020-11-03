@@ -97,11 +97,13 @@ color: blue;
 {
     font-size:30px;
     background-color: white;
+    opacity: 1;
 }
 .period_pushed
 {
     font-size:30px;
     background-color: red;
+    opacity: 1;
 }
 .left
 {

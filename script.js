@@ -89,30 +89,38 @@ function change(button)
 function detuneColor()
 {
     let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
-    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000; 
-    if (roundedGlobal > roundedReference)
+    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000;
+    let temp = globalNoteIndex %  document.getElementById('keys').value; 
+    while (temp <= (parseInt(document.getElementById('keys').value, 10) * parseInt(document.getElementById('periods').value, 10)))
     {
+        if (roundedGlobal > roundedReference)
+        {
         //set to green
-        document.getElementById(`${globalNoteIndex}`).classList.remove('negative');
-        document.getElementById(`${globalNoteIndex}`).classList.add('positive');
+        document.getElementById(`${temp}`).classList.remove('negative');
+        document.getElementById(`${temp}`).classList.add('positive');
         // console.log(`frequency is ${roundedGlobal}, reference is ${roundedReference}`);
+        }
+    
+        else if (roundedGlobal < roundedReference)
+        {
+            //set to red
+            document.getElementById(`${temp}`).classList.remove('positive');
+            document.getElementById(`${temp}`).classList.add('negative');
+            
+        }
+        else 
+        {
+            //leave as is
+            document.getElementById(`${temp}`).classList.remove('positive');
+            document.getElementById(`${temp}`).classList.remove('negative');
+     
+        }
+        temp += parseInt(document.getElementById('keys').value, 10);
     }
-    else if (roundedGlobal < roundedReference)
-    {
-        //set to red
-        document.getElementById(`${globalNoteIndex}`).classList.remove('positive');
-        document.getElementById(`${globalNoteIndex}`).classList.add('negative');
-        
-    }
-    else 
-    {
-        //leave as is
-        document.getElementById(`${globalNoteIndex}`).classList.remove('positive');
-        document.getElementById(`${globalNoteIndex}`).classList.remove('negative');
- 
-    }
-
 }
+
+
+
 
 
 ////MAIN FUNCTIONS
@@ -134,11 +142,11 @@ function synth(frequency, note_index, period)
         {
             if (periodLock % period == 0)
             {
-                keys[periodLock].setAttribute("class", "keyboard_period");
+                keys[periodLock].classList.remove('edit_period');
             }
             else 
             {
-                keys[periodLock].setAttribute("class", "keyboard");
+                keys[periodLock].classList.remove('edit');
             }
             periodLock += period;
         }
@@ -154,11 +162,12 @@ function synth(frequency, note_index, period)
             
             if (periodLock % period == 0)
             {
-                keys[periodLock].setAttribute("class", "edit_period");
+
+                keys[periodLock].classList.add('edit_period');
             }
             else
             {
-                keys[periodLock].setAttribute("class", "edit");
+                keys[periodLock].classList.add('edit');
             }
             periodLock += period;
         }
@@ -179,12 +188,12 @@ function synth(frequency, note_index, period)
                 ////if special case (modulo the size of pitch class set)
                 if(note_index % period == 0)
                 {
-                    keys[note_index].setAttribute("class", "period_pushed");
+                    keys[note_index].classList.add('period_pushed');
                 }
                 //base case
                 else
                 {
-                   keys[note_index].setAttribute("class", "pushed");
+                   keys[note_index].classList.add('pushed');
                 }
 
                 //update index of sustaining pitches
@@ -206,13 +215,13 @@ function synth(frequency, note_index, period)
                 //if special case (modulo the period)
                 if(note_index % period == 0)
                 {
-                    keys[note_index].setAttribute("class", "keyboard_period");
+                    keys[note_index].classList.remove('period_pushed');
                 }
 
                 //base case
                 else
                 {
-                    keys[note_index].setAttribute("class", "keyboard");
+                    keys[note_index].classList.remove('pushed');
                 }
 
                 //turn note off, index null
@@ -261,34 +270,35 @@ function buildKeyboardET()
         var note = document.querySelector(".period_pushed"); 
         document.body.removeChild(note);
     }
-        //turn off all sustained synths
-        for (i = 0; i < synths.length; i++)
-        {
-            if (sustain[i] == true)
-            {
-                sustain[i] = null;
-                synths[i].triggerRelease();
-            }
-        }
-        //revert all "pressed" classes
-        for (i = 0; i  < keys.length; i++)
-        {
-            //if special case (modulo the period)
-            if (i % document.getElementById("keys").value == 0)
-            {
-                keys[i].setAttribute("class", "keyboard_period");
-            }
-            //base case
-            else
-            {
-                keys[i].setAttribute("class", "keyboard");
-            }
-        }
 
-        //empty all global variables
-        sustain = [];
-        synths = [];
-        keys = [];
+    //turn off all sustained synths
+    for (i = 0; i < synths.length; i++)
+    {
+        if (sustain[i] == true)
+        {
+            sustain[i] = null;
+            synths[i].triggerRelease();
+        }
+    }
+    //revert all "pressed" classes
+    for (i = 0; i  < keys.length; i++)
+    {
+        //if special case (modulo the period)
+        if (i % document.getElementById("keys").value == 0)
+        {
+            keys[i].setAttribute("class", "keyboard_period");
+        }
+        //base case
+        else
+        {
+            keys[i].setAttribute("class", "keyboard");
+        }
+    }
+
+    //empty all global variables
+    sustain = [];
+    synths = [];
+    keys = [];
 
     //gather paramaters
     var x = document.getElementById("keys").value;
@@ -352,28 +362,30 @@ function editToggle(numberOfItemsToToggle)
     for (i = 0; i  < keys.length; i++)
     {
         //if special case (modulo the period)
-        if (i % document.getElementById("keys").value == 0)
+        if (i % document.getElementById('keys').value == 0)
         {
-            keys[i].setAttribute("class", "keyboard_period");
+            keys[i].classList.remove('period_pushed');
+            keys[i].classList.remove('edit_period');
 
         }
         //base case
         else
         {
-            keys[i].setAttribute("class", "keyboard");
+            keys[i].classList.remove('pushed');
+            keys[i].classList.remove('edit');
         }
     }
 
     //clear prior selected buttons
-    while (document.querySelector(".edit") != null)
+    while (document.querySelector('.edit') != null)
     {
-        temp = document.querySelector(".edit")
-        temp.setAttribute("class", "keyboard");
+        temp = document.querySelector('.edit')
+        temp.classList.remove('edit');
     }
-    while (document.querySelector(".edit_period") != null)
+    while (document.querySelector('.edit_period') != null)
     {
-        temp = document.querySelector(".edit_period")
-        temp.setAttribute("class", "keyboard_period");
+        temp = document.querySelector('.edit_period')
+        temp.classList.remove('edit_period');
     }
 
 
@@ -436,7 +448,7 @@ function apply(index)
                 let multiplyer = Math.pow(period, counter);
                 let number = ratioPitch * multiplyer;
                 keys[i].innerHTML = `${numeratorRatio}:${denominatorRatio}<sup> ${minFourDigits(Math.round(number))} <sup/> Hz`;
-                keys[i].setAttribute("onclick", `synth(${number}, ${periodIndex}, ${temp})`);
+                keys[i].setAttribute("onclick", `synth(${number}, ${periodIndex}, ${periodKeys})`);
                 periodIndex += periodKeys;
                 counter++;
             }
@@ -460,7 +472,6 @@ function apply(index)
             temp = "";
             if (i == periodIndex)
             {
-                console.log(`check, i is ${i}`);
                 //selects each key in the correct period
                 text = keys[i].innerHTML;
                 for (j = 0; j < text.length; j++)
