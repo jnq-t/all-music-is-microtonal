@@ -249,7 +249,8 @@ function buildKeyboardET()
          //turn off edit. using 4 here becuase there are  elements to toggle
          editToggle(5);
     }
-    //clear any previous buttons (PLEASE REFACTOR ME LOL)
+
+    //clear any previous buttons
     while (document.querySelector('.keyboard') != null)
     {
         var note = document.querySelector('.keyboard');
@@ -258,16 +259,6 @@ function buildKeyboardET()
     while (document.querySelector('.keyboardPeriod') != null)
     {
         var note = document.querySelector('.keyboardPeriod');
-        document.body.removeChild(note);
-    }
-    while (document.querySelector('.pushed') != null)
-    {
-        var note = document.querySelector('.pushed');
-        document.body.removeChild(note);
-    }
-    while (document.querySelector('.periodPushed') != null)
-    {
-        var note = document.querySelector('.periodPushed'); 
         document.body.removeChild(note);
     }
 
