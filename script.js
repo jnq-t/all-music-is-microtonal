@@ -406,6 +406,7 @@ function editToggle(numberOfItemsToToggle)
 
 function apply(index)
 {
+    //remove negative and positive colors
     var pitch = document.getElementById('frequency').value;
     var periodKeys = parseInt(document.getElementById('keys').value, 10);
     var numerator = document.getElementById('period1').value;
@@ -432,6 +433,8 @@ function apply(index)
         {
             if (i == periodIndex)
             {
+                keys[i].classList.remove('positive');
+                keys[i].classList.remove('negative');
                 let multiplyer = Math.pow(period, counter);
                 let number = ratioPitch * multiplyer;
                 keys[i].innerHTML = `${numeratorRatio}:${denominatorRatio}<sup> ${minFourDigits(Math.round(number))} <sup/> Hz`;
