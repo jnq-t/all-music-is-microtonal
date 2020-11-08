@@ -138,20 +138,9 @@ color: blue;
 {
     color:red;
 }
-/*formating */
-td
-{
-    border: 5px solid white;
-}
 body
 {
     background-image: url('marble for html.jpg');
     padding: 10px;
 }
 
-table
-{
-    text-align: center;
-    border: 5px solid white;
-    border-collapse: collapse;
-}
