@@ -2,7 +2,7 @@
 // --10/2020--
 // ~JNQT~
 
-////globan variables
+////GLOBAL VARIABLES
 //index of sustaining pitches
 var sustain = [];
 
