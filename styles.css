@@ -7,20 +7,34 @@
     height: 35px;
     width: 65px;
     top: 3px;
+    font-size: 40px;
+    opacity: .6;
 }
 .mednum
 {
     border:Transparent;
     background-color: Transparent;
-    position: relative;height: 35px;
-    width: 86px;top: 3px;
+    position: relative;
+    height: 35px;
+    width: 86px;
+    top: 3px;
+    font-size: 40px;
+    opacity: .6;
 }
 .bignum
 {
     border:Transparent;
     background-color: Transparent;
-    position: relative;height: 35px;
-    width: 97px;top: 3px;
+    position: relative;
+    height: 35px;
+    width: 97px;
+    top: 3px;
+    font-size: 40px;
+    opacity: .6;
+}
+.opaque
+{
+    opacity: 1;
 }
 .title
 {
@@ -45,7 +59,9 @@ color: blue;
     background-color: Transparent;
     border: 0;
     outline: 0;
-    opacity: 70%;
+    opacity: .7;
+    text-align: left;
+
 }
 
 .center

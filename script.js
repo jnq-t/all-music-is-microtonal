@@ -497,4 +497,3 @@ function apply(index)
         detuneColor();
     }
 }
-
