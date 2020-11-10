@@ -20,109 +20,6 @@ var globalNoteIndex;
 var globalPeriod;
 var priorEditIndex;
 
-////HELPER FUNCTIONS
-//formats all numbers to minimum two digits (function by Göran Andersson AKA Guffa on Stack Overflow)
-function minTwoDigits(n)
-{
-    return (n < 10 ? '0' : '') + n;
-}
-
-//formats all numbers to minimum four digits
-function minFourDigits(n)
-{
-    return (n < 1000 ? '0' : '') + n;
-}
-
-//detunes by cents 
-function detune(currentFrequency, cents)
-{
-   return currentFrequency * Math.pow(2, cents/1200);
-}
-//toggles various features (sustain, edit)
-function change(button)
-{
-    //if element is on => off
-    if (document.getElementById(button).value == `{${button} on}`)
-    {
-
-        //if sustain feature
-        if(document.getElementById(button).value == `{${button} on}`)
-        {
-            var i;
-            //turn off all sustained synths
-            for(i = 0; i < synths.length; i++)
-            {
-                if (sustain[i] == true)
-                {
-                    sustain[i] = null;
-                    synths[i].triggerRelease();
-                }
-            }
-            //revert all "pushed" classes
-            for (i = 0; i  < keys.length; i++)
-            { 
-                //if special case (modulo the period)
-                if(i % document.getElementById('keys').value == 0)
-                {
-                    keys[i].setAttribute('class', 'keyboardPeriod');
-                }
-                //base case
-                else
-                {
-                    keys[i].setAttribute('class', 'keyboard');
-                }
-            }
-        }
-        //base case
-        document.getElementById(button).value=`{${button} off}`;
-
-    //if element is off => on
-    }
-    else
-    {
-        document.getElementById(button).value=`{${button} on}`;
-    }
-}
-
-//function for turning positive detunings green and negative detunings red
-//values are rounded to prevent drift inacuracies
-function detuneColor()
-{
-    let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
-    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000;
-    let temp = globalNoteIndex %  document.getElementById('keys').value; 
-    while (temp <= (parseInt(document.getElementById('keys').value, 10) * parseInt(document.getElementById('periods').value, 10)))
-    {
-        if (roundedGlobal > roundedReference)
-        {
-        //set to green
-        document.getElementById(`${temp}`).classList.remove('negative');
-        document.getElementById(`${temp}`).classList.add('positive');
-        // console.log(`frequency is ${roundedGlobal}, reference is ${roundedReference}`);
-        }
-    
-        else if (roundedGlobal < roundedReference)
-        {
-            //set to red
-            document.getElementById(`${temp}`).classList.remove('positive');
-            document.getElementById(`${temp}`).classList.add('negative');
-            
-        }
-        else 
-        {
-            //leave as is
-            document.getElementById(`${temp}`).classList.remove('positive');
-            document.getElementById(`${temp}`).classList.remove('negative');
-     
-        }
-        temp += parseInt(document.getElementById('keys').value, 10);
-    }
-}
-
-
-
-
-
 ////MAIN FUNCTIONS
 //dynamically creates synths, and tiggers them
 function synth(frequency, noteIndex, period)
@@ -497,3 +394,106 @@ function apply(index)
         detuneColor();
     }
 }
+
+////HELPER FUNCTIONS
+//formats all numbers to minimum two digits (function by Göran Andersson AKA Guffa on Stack Overflow)
+function minTwoDigits(n)
+{
+    return (n < 10 ? '0' : '') + n;
+}
+
+//formats all numbers to minimum four digits
+function minFourDigits(n)
+{
+    return (n < 1000 ? '0' : '') + n;
+}
+
+//detunes by cents 
+function detune(currentFrequency, cents)
+{
+   return currentFrequency * Math.pow(2, cents/1200);
+}
+//toggles various features (sustain, edit)
+function change(button)
+{
+    //if element is on => off
+    if (document.getElementById(button).value == `{${button} on}`)
+    {
+
+        //if sustain feature
+        if(document.getElementById(button).value == `{${button} on}`)
+        {
+            var i;
+            //turn off all sustained synths
+            for(i = 0; i < synths.length; i++)
+            {
+                if (sustain[i] == true)
+                {
+                    sustain[i] = null;
+                    synths[i].triggerRelease();
+                }
+            }
+            //revert all "pushed" classes
+            for (i = 0; i  < keys.length; i++)
+            { 
+                //if special case (modulo the period)
+                if(i % document.getElementById('keys').value == 0)
+                {
+                    keys[i].setAttribute('class', 'keyboardPeriod');
+                }
+                //base case
+                else
+                {
+                    keys[i].setAttribute('class', 'keyboard');
+                }
+            }
+        }
+        //base case
+        document.getElementById(button).value=`{${button} off}`;
+
+    //if element is off => on
+    }
+    else
+    {
+        document.getElementById(button).value=`{${button} on}`;
+    }
+}
+
+//function for turning positive detunings green and negative detunings red
+//values are rounded to prevent drift inacuracies
+function detuneColor()
+{
+    let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
+    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000;
+    let temp = globalNoteIndex %  document.getElementById('keys').value; 
+    while (temp <= (parseInt(document.getElementById('keys').value, 10) * parseInt(document.getElementById('periods').value, 10)))
+    {
+        if (roundedGlobal > roundedReference)
+        {
+        //set to green
+        document.getElementById(`${temp}`).classList.remove('negative');
+        document.getElementById(`${temp}`).classList.add('positive');
+        // console.log(`frequency is ${roundedGlobal}, reference is ${roundedReference}`);
+        }
+    
+        else if (roundedGlobal < roundedReference)
+        {
+            //set to red
+            document.getElementById(`${temp}`).classList.remove('positive');
+            document.getElementById(`${temp}`).classList.add('negative');
+            
+        }
+        else 
+        {
+            //leave as is
+            document.getElementById(`${temp}`).classList.remove('positive');
+            document.getElementById(`${temp}`).classList.remove('negative');
+     
+        }
+        temp += parseInt(document.getElementById('keys').value, 10);
+    }
+}
+
+
+
+
