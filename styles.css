@@ -1,13 +1,65 @@
+body
+{
+    background-image: url('marble for html.jpg');
+    margin: 0px;
+    padding: 10px;
+    font-size: 24px;
+    font-family: "Roboto", Helvetica, sans-serif;
+    line-height: 2em;
+}
+
+h1 
+{
+    color: #909090BB; 
+    text-align: center; 
+    font-size: 2em; 
+    font-family: UnifrakturMaguntia;
+    font-weight: 200;
+    font-style: none;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+h2 
+{
+    color: #000000CC; 
+    opacity: .9; 
+    text-align: left; 
+    font-size: 1.6em; 
+    font-weight: 200;
+    margin: 4px;
+}
+
+button
+{
+    font-size: 1em; 
+    cursor: pointer;
+}
+
+input
+{
+    font-size: 1em; 
+}
+
 /*classes*/
+
+.subtitle
+{
+    
+   
+    text-align: center; 
+    font-size: 0.66em; 
+    margin-bottom: 30px; 
+    font-family: UnifrakturMaguntia;
+}
+
 .smallnum
 {
     border:Transparent;
     background-color: Transparent;
     position: relative;
-    height: 35px;
     width: 65px;
-    top: 3px;
-    font-size: 40px;
+    vertical-align: middle;
     opacity: .6;
 }
 .mednum
@@ -15,10 +67,8 @@
     border:Transparent;
     background-color: Transparent;
     position: relative;
-    height: 35px;
     width: 86px;
-    top: 3px;
-    font-size: 40px;
+    vertical-align: middle;
     opacity: .6;
 }
 .bignum
@@ -26,10 +76,8 @@
     border:Transparent;
     background-color: Transparent;
     position: relative;
-    height: 35px;
     width: 97px;
-    top: 3px;
-    font-size: 40px;
+    vertical-align: middle;
     opacity: .6;
 }
 .opaque
@@ -142,9 +190,5 @@ color: blue;
 {
     opacity: .95;
 }
-body
-{
-    background-image: url('marble for html.jpg');
-    padding: 10px;
-}
+
 
