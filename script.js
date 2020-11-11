@@ -493,7 +493,3 @@ function detuneColor()
         temp += parseInt(document.getElementById('keys').value, 10);
     }
 }
-
-
-
-
