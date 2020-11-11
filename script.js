@@ -30,6 +30,21 @@ function synth(frequency, noteIndex, period)
     globalFrequency = frequency;
     //for colorDetune
     referencePitches[globalNoteIndex] = globalFrequency;
+    
+    //variable we'll use to reference this synth
+    var synth;
+    
+    //if this key already has a synth, use that one
+    if (synths[noteIndex] != null)
+    {
+        synth = synths[noteIndex];
+    } 
+    else 
+    { 
+        //otherwise, make a new Tone.Synth object and add it to the array
+        synth = new Tone.Synth().toDestination();
+        synths[noteIndex] = synth;
+    }
 
     //if edit on
     if (document.getElementById('edit').value == '{edit on}')
@@ -94,15 +109,13 @@ function synth(frequency, noteIndex, period)
                 }
 
                 //update index of sustaining pitches
-                sustain[noteIndex] = true;
-
-                //create synth object
-                const synth = new Tone.Synth().toDestination();
+                sustain[noteIndex] = true;               
 
                 //trigger oscilator
                 synth.triggerAttack(frequency);
 
-                 //initialize synth, push into indexed array,
+                 //initialize synth, and push into indexed array,
+                 
                 synths[noteIndex] = synth;
 
             }
@@ -130,7 +143,6 @@ function synth(frequency, noteIndex, period)
         }
         else
         {
-            const synth = new Tone.Synth().toDestination();
             synth.triggerAttackRelease(frequency, '4n');
         }
     }
@@ -182,6 +194,16 @@ function buildKeyboardET()
             keys[i].setAttribute('class', 'keyboard');
         }
     }
+    
+    // before final empty, use Tone.js "dispose" function to clear old synths from memory
+    for (i = 0; i < synths.length; i++)
+    {
+        if (synths[i] != null)
+        {
+            synths[i].dispose();
+        }
+    }
+    
 
     //empty all global variables
     sustain = [];
