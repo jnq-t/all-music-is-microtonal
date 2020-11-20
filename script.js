@@ -47,7 +47,7 @@ function synth(frequency, noteIndex, period)
     }
 
     //if edit on
-    if (document.getElementById('edit').innerHTML == '{edit on}')
+    if (document.getElementById('edit').value == '{edit on}')
     {
         var periodLock = priorEditIndex;
         while (periodLock < keys.length)
@@ -91,7 +91,7 @@ function synth(frequency, noteIndex, period)
     else
     {
         //if sustain on
-        if (document.getElementById('sustain').innerHTML == '{sustain on}')
+        if (document.getElementById('sustain').value == '{sustain on}')
         {
             //if uninitialized
             if (sustain[noteIndex] == null)
@@ -153,7 +153,7 @@ function buildKeyboardET()
 {
     var i;
 
-    if (document.getElementById('edit').innerHTML == '{edit on}')
+    if (document.getElementById('edit').value == '{edit on}')
     {
          //turn off edit. using 4 here becuase there are  elements to toggle
          editToggle(5);
@@ -297,13 +297,13 @@ function editToggle(numberOfItemsToToggle)
 
 
     //change the edit button formatting
-    if (document.getElementById('edit').innerHTML == '{edit}' || document.getElementById('edit').innerHTML == '{edit off}')
+    if (document.getElementById('edit').value == '{edit}' || document.getElementById('edit').value == '{edit off}')
     {
-        document.getElementById('edit').innerHTML = '{edit on}'
+        document.getElementById('edit').value = '{edit on}'
     }
     else
     {
-        document.getElementById('edit').innerHTML = '{edit off}'
+        document.getElementById('edit').value = '{edit off}'
     }
 
     //toggle display of hidden html elements
@@ -439,11 +439,11 @@ function detune(currentFrequency, cents)
 function change(button)
 {
     //if element is on => off
-    if (document.getElementById(button).innerHTML == `{${button} on}`)
+    if (document.getElementById(button).value == `{${button} on}`)
     {
 
         //if sustain feature
-        if(document.getElementById(button).innerHTML == `{${button} on}`)
+        if(document.getElementById(button).value == `{${button} on}`)
         {
             var i;
             //turn off all sustained synths
@@ -471,13 +471,13 @@ function change(button)
             }
         }
         //base case
-        document.getElementById(button).innerHTML =`{${button} off}`;
+        document.getElementById(button).value=`{${button} off}`;
 
     //if element is off => on
     }
     else
     {
-        document.getElementById(button).innerHTML =`{${button} on}`;
+        document.getElementById(button).value=`{${button} on}`;
     }
 }
 
