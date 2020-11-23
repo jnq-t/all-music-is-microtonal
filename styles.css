@@ -139,11 +139,12 @@ color: blue;
 {
     color:red;
 }
-
-input[type=number]
-{
-    font-size: 40px;
-    font-family: -apple-system-body;
+@supports (font: -apple-system-body){
+    input[type=number]
+    {
+        font:-apple-system-body;
+        font-size: 40px;
+    }
 }
 body
 {
