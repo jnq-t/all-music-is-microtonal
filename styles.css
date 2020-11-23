@@ -139,6 +139,10 @@ color: blue;
 {
     color:red;
 }
+input[type-number]
+{
+    font-size: 40px;
+}
 @supports (font: -apple-system-body){
     input[type=number]
     {
