@@ -142,7 +142,8 @@ color: blue;
 
 input[type=number]
 {
-    font-size: font: -apple-system-body;
+    font-size: 40px;
+    font-family: -apple-system-body;
 }
 body
 {
