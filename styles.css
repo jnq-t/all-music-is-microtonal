@@ -139,7 +139,7 @@ color: blue;
 {
     color:red;
 }
-input[type-number]
+input[type=number]
 {
     font-size: 40px;
 }
