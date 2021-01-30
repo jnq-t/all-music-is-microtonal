@@ -147,6 +147,7 @@ input[type=number]
     input[type=number]
     {
         font:-apple-system-body;
+        font-size: 10vh;
     }
 }
 body
