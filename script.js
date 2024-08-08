@@ -18,19 +18,19 @@ var keys = [];
 var referencePitches = [];
 
 //global variables for edit functionality
-var clickedNote; // Single Clicked Note -- Plays
-var priorEditIndex;
+var playNote ; // Single Clicked Note -- Plays
+var selectedNote;
 
 ////MAIN FUNCTIONS
 //dynamically creates synths, and tiggers them
 function synth(frequency, noteIndex, period)
 {
     //for toggle = what note is selected; highlight 
-    clickedNote = noteIndex;
+    playNote  = noteIndex;
     //for detune (?)
     globalFrequency = frequency;
     //for colorDetune
-    referencePitches[clickedNote] = globalFrequency;
+    referencePitches[playNote] = globalFrequency;
     //variable we'll use to reference this synth
     var synth;
     
@@ -51,39 +51,40 @@ function synth(frequency, noteIndex, period)
     //if edit on
     if (document.getElementById('edit').value == 'edit on')
     {
-        var periodLock = priorEditIndex;
-        while (periodLock < keys.length)
+        
+        var allPitchClasses = selectedNote;
+        while (allPitchClasses < keys.length)
         {
-            if (periodLock % period == 0)
+            if (allPitchClasses % period == 0)
             {
-                keys[periodLock].classList.remove('editPeriod');
+                keys[allPitchClasses].classList.remove('editPeriod');
             }
             else 
             {
-                keys[periodLock].classList.remove('edit');
+                keys[allPitchClasses].classList.remove('edit');
             }
-            periodLock += period;
+            allPitchClasses += period;
         }
 
         //set index for next edit(modulo the period to index by the first period)
-        priorEditIndex = noteIndex % period;
+        selectedNote = noteIndex % period;
         
 
         //loop to lock octaves, starting from lowest period 
-        periodLock = noteIndex % period;
-        while (periodLock < keys.length)
+        allPitchClasses = noteIndex % period;
+        while (allPitchClasses < keys.length)
         {
             
-            if (periodLock % period == 0)
+            if (allPitchClasses % period == 0)
             {
 
-                keys[periodLock].classList.add('editPeriod');
+                keys[allPitchClasses].classList.add('editPeriod');
             }
             else
             {
-                keys[periodLock].classList.add('edit');
+                keys[allPitchClasses].classList.add('edit');
             }
-            periodLock += period;
+            allPitchClasses += period;
         }
         
        //return without triggering synth
@@ -347,12 +348,12 @@ function apply(index)
 
         //updating global frequency for multiple detunes and for detuneColor
         globalFrequency = ratioPitch;
-        referencePitches[clickedNote] = ratioPitch;
+        referencePitches[playNote] = ratioPitch;
 
         console.log(`globalFrequency now equals ratio pitch of ${ratioPitch}`);
     
         //loop to frequency lock periods --- ?????????????????????? 
-        var periodIndex = clickedNote % periodKeys; 
+        var periodIndex = playNot % periodKeys; 
         for (var i = 0; i < keys.length; i++)
         {
             if (i == periodIndex)
@@ -375,7 +376,7 @@ function apply(index)
 
         //loop to locate each selected key 
 
-        periodIndex = clickedNote % periodKeys;
+        periodIndex = playNot % periodKeys;
         console.log(`check, period keys is ${periodKeys}`);
         console.log(`check, period index is ${periodIndex}`);
         var text;
@@ -495,8 +496,8 @@ function change(button)
 function detuneColor()
 {
     let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
-    let roundedReference = Math.round(referencePitches[clickedNote] * 100000) / 100000;
-    let temp = clickedNote %  document.getElementById('keys').value; 
+    let roundedReference = Math.round(referencePitches[playNo] * 100000) / 100000;
+    let temp = playNo %  document.getElementById('keys').value; 
     while (temp <= (parseInt(document.getElementById('keys').value, 10) * parseInt(document.getElementById('periods').value, 10)))
     {
         if (roundedGlobal > roundedReference)
