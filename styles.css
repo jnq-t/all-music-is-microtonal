@@ -1,160 +1,50 @@
-/*classes*/
-.smallnum
-{
-    border:Transparent;
-    background-color: Transparent;
-    position: relative;
-    height: 35px;
-    width: 65px;
-    top: 3px;
-    font-size: 40px;
-    opacity: .6;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.mednum
-{
-    border:Transparent;
-    background-color: Transparent;
-    position: relative;
-    height: 35px;
-    width: 86px;
-    top: 3px;
-    font-size: 40px;
-    opacity: .6;
-}
-.bignum
-{
-    border:Transparent;
-    background-color: Transparent;
-    position: relative;
-    height: 35px;
-    width: 97px;
-    top: 3px;
-    font-size: 40px;
-    opacity: .6;
-}
-.opaque
-{
-    opacity: 1;
-}
-.title
-{
-text-align: left;
-color: blue;
-}
-.large
-{
-    font-size: large;
-    font-weight: bold;
-}
-.blue
-{
-    color: blue;
-}
-.padded
-{
-    padding: 10px;
-}
-.button
-{
-    background-color: Transparent;
-    border: 0;
-    outline: 0;
-    opacity: .7;
-    text-align: left;
-    
-
-}
-
-.center
-{
-    margin-left: auto;
-    margin-right:auto;
-    text-align: center;
-}
-
-
-/*clases for keyboard */
-.keyboard
-{
-    font-size:30px;
-    background-color: white;
-    opacity: 0.7;
-}
-.tuner
-{
-    width: 4%;
-    font-size:30px;
-    background-color: white;
-    opacity: 0.6;
-}
-.edit
-{
-    font-size:30px;
-    background-color: white;
-    opacity: 0.7;
-    border-width: 15px;
-    outline: none;
-}
-.editPeriod
-{
-    font-size:30px;
-    background-color: red;
-    opacity: 0.7;
-    border-width: 15px;
-    outline: none;
-}
-
-.keyboardPeriod
-{
-    font-size:30px;
-    background-color: red;
-    opacity: 0.7;
-}
-.pushed
-{
-    font-size:30px;
-    background-color: white;
-    opacity: 1;
-}
-.periodPushed
-{
-    font-size:30px;
-    background-color: red;
-    opacity: 1;
-}
-.left
-{
-    float: left;
-}
-.right
-{
-    float: right;
-    color: #F5F5F5;
-}
-.positive
-{
-    color:green;
-}
-.negative
-{
-    color:red;
-}
-input[type=number]
-{
-    font-size: 40px;
-}
-@supports (font: -apple-system-body){
-    input[type=number]
-    {
-        font:-apple-system-body;
-        font-size: 10vh;
-    }
-}
-body
-{
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 2em 0em;
     background-image: url('marble for html.jpg');
-    padding: 10px;
 }
 
+h1 {
+    color: #59566a; 
+    text-shadow: .5px .5px black;
+    text-align: center; 
+    font-size: 3.2em; 
+    margin-bottom: .5em; 
+    font-family: UnifrakturMaguntia;
+}
 
+button, .button{
+    margin: 0 1em 0 0;
+}
+input{
+    /* border: none; */
+    padding: 0 .2em;
+}
+.main-container, .scale-container {
+    margin: 0em 2em;
+}
+
+.option-container {
+    display: flex;
+    margin: 1em 0em;
+}
+.option-description {
+    padding: 0 1em 0 0;
+}
+
+/* Scale */
+.scale-container {
+    width: 50%;
+}
+
+.keyboard {
+  margin-bottom: 1em;
+}
 

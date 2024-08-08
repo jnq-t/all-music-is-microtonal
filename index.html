@@ -3,53 +3,61 @@
 <html lang = 'en'>
         <head>
             <meta name = 'viewport' content = 'width=device-width'>
-            <link href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' rel = 'stylesheet'>
-            <link href = 'styles.css' rel = 'stylesheet'>
+            <link rel="stylesheet" type="text/css" href="styles.css" />
             <link href = 'https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap' rel = 'stylesheet'>
-            <script src = 'Tone.js'></script>
+            <script src ='Tone.js'></script>
             <script src = 'script.js'></script>
             <title>microtonal.net</title>
-            <style>
-                h1{opacity: .9;}
-            </style>
+          
     </head>
     <body>
+       
         <h1>
-            <div style = 'color: #909090; opacity: .7; text-align: center; font-size: 50px; font-family: UnifrakturMaguntia;'>all music is microtonal </div>
-            <div style = 'color: #909090; opacity: .7; text-align: center; font-size: 30px; margin-bottom: 30px; font-family: UnifrakturMaguntia;'>a scale generator</div>
+            all music is microtonal <br/>
+            a scale generator
         </h1>
-        <h1>
-            <div id = 'toggle 0' style= 'display: none' class = 'right'>edit</div>
-            <div>no. of scale degrees(<input type = 'number' id = 'keys' value = 12  min = '1' max = '99' class = 'smallnum'>)</div>
-        </h1>
-        <h1>
-            <div class = 'right' id = 'toggle 1' style= 'display: none'>
-                detune by(<input style= 'color: #F5F5F5' type = 'number' id = 'detune' value = 00  min = '-99' max = '99' class = 'mednum opaque'>)cents
+        <div class="main-container">
+            <div class="option-container">
+                <div id = 'toggle 0' style= 'display: none' class = 'right'>edit</div>
             </div>
-            size of period(<input type = 'number' id = 'period1' max = '99' min = 1 value = '2' class = 'smallnum'>:<input type = 'number' id = 'period2' max = '99' min = '1' value = '1' class = 'smallnum'>)
-        </h1>
-        <h1>
-            <!-- TODO detune button -->
-           <button id = 'toggle 2' style = 'background-color: Transparent; border: 0; outline: 0; display: none;' class = 'right' onclick = 'apply(2)'>{detune}</button>
-           starting frequency(<input type = 'number' id = 'frequency' max = '999' value = '240' class = 'bignum'>)Hz
-        </h1>
-        <h1>
-            <div class = 'right' id = 'toggle 3' style = 'display: none'>
-                set ratio to fundamental(<input style = 'color: #F5F5F5' type = 'number' id = 'ratio1' max = '999' min = 1 value = '1' class = 'smallnum opaque'>
-                :<input type = 'number' style = 'color: #F5F5F5' id = 'ratio2' max = '999' min = '1' value = '1' class = 'smallnum opaque'>)
+            <div class="option-container">
+                
+                    <p class="option-description">no. of scale degrees</p>
+                    <input type = 'number' id = 'keys' value = 12  min = '1' max = '99' class = 'smallnum'>
             </div>
-           no. of periods(<input type = 'number' id = 'periods' min = '1' max = '99' value = '2' class = 'smallnum'>)
-        </h1>
-        <h1>
-            <button id = 'toggle 4' style = 'background-color: Transparent; border: 0; outline: 0; display: none;' class = 'right' onclick = 'apply(1)'>{set ratio}</button>
-            <input class = 'button' onclick = "change('sustain')" type = 'button' value = '{sustain}' id = 'sustain'></input>
-        </h1>
-        <h1>
-            <input class = 'button' onclick = 'editToggle(5)' type = 'button' value = '{edit}' id = 'edit'></input>
-        </h1>
-        <h1>
-            <button class = 'button' onclick = 'buildKeyboardET()'>{create new scale}</button>
-        </h1>
+            <div class="option-container">
+                <div class = 'right' id = 'toggle 1' style= 'display: none'>
+                    detune by(<input  type = 'number' id = 'detune' value = 00  min = '-99' max = '99' class = 'mednum opaque'>)cents
+                </div>
+                <p class="option-description">size of period</p>
+                <input type = 'number' id = 'period1' max = '99' min = 1 value = '2' class = 'smallnum'>:<input type = 'number' id = 'period2' max = '99' min = '1' value = '1' class = 'smallnum'>
+            </div>
+            <div class="option-container">
+                <!-- TODO detune button -->
+            <button id = 'toggle 2' class = 'right' onclick = 'apply(2)'>detune</button>
+            <p class="option-description">starting frequency in hertz</p><input type = 'number' id = 'frequency' max = '999' value = '240' class = 'bignum'>
+        
+                <div class = 'right' id = 'toggle 3' style = 'display: none'>
+                    set ratio to fundamental(<input type = 'number' id = 'ratio1' max = '999' min = 1 value = '1' class = 'smallnum opaque'>
+                    :<input type = 'number' id = 'ratio2' max = '999' min = '1' value = '1' class = 'smallnum opaque'>)
+                </div>
+            </div>
+            <div class="option-container">
+            <p class="option-description">no. of periods</p><input type = 'number' id = 'periods' min = '1' max = '99' value = '2' class = 'smallnum'>
+            </div>
+            <div  class="option-container">
+                <button id = 'toggle 4' class = 'right' onclick = 'apply(1)'>set ratio</button>
+                <input class = 'button' onclick = "change('sustain')" type = 'button' value = 'sustain' id = 'sustain'></input>
+        
+                <input class = 'button' onclick = 'editToggle(5)' type = 'button' value = 'edit' id = 'edit'></input>
+        
+                <button class = 'button' onclick = 'buildKeyboardET()'>create new scale</button>
+            </div>
+         </div>
+         <div class="scale-container">
+
+         </div>
+
     </body>
 
 </html>

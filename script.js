@@ -1,6 +1,8 @@
 //JS FUNCTIONS FOR MICROTONAL KEYBOARD PROJECT
 // --10/2020--
 // ~JNQT~
+//--2024--
+// pluto bell & JNQT
 
 ////GLOBAL VARIABLES
 //index of sustaining pitches
@@ -16,25 +18,25 @@ var keys = [];
 var referencePitches = [];
 
 //global variables for edit functionality
-var globalNoteIndex;
-var globalPeriod;
+var clickedNote; // Single Clicked Note -- Plays
 var priorEditIndex;
 
 ////MAIN FUNCTIONS
 //dynamically creates synths, and tiggers them
 function synth(frequency, noteIndex, period)
 {
-    //for toggle
-    globalNoteIndex = noteIndex;
-    //for detune
+    //for toggle = what note is selected; highlight 
+    clickedNote = noteIndex;
+    //for detune (?)
     globalFrequency = frequency;
     //for colorDetune
-    referencePitches[globalNoteIndex] = globalFrequency;
-    
+    referencePitches[clickedNote] = globalFrequency;
     //variable we'll use to reference this synth
     var synth;
     
-    //if this key already has a synth, use that one
+    //if this key already has a synth, use that one ... 
+    // NOTE: only once a note has been clicked has the synth been created for the note. Once created, it is stored in array and re-used/referenced;
+    //          Hashed??? instead of indexed??? CHECK 
     if (synths[noteIndex] != null)
     {
         synth = synths[noteIndex];
@@ -45,9 +47,9 @@ function synth(frequency, noteIndex, period)
         synth = new Tone.Synth().toDestination();
         synths[noteIndex] = synth;
     }
-
+    
     //if edit on
-    if (document.getElementById('edit').value == '{edit on}')
+    if (document.getElementById('edit').value == 'edit on')
     {
         var periodLock = priorEditIndex;
         while (periodLock < keys.length)
@@ -91,18 +93,18 @@ function synth(frequency, noteIndex, period)
     else
     {
         //if sustain on
-        if (document.getElementById('sustain').value == '{sustain on}')
+        if (document.getElementById('sustain').value == 'sustain on')
         {
-            //if uninitialized
+            //if uninitialized ---- Note isn't sustained yet; 
             if (sustain[noteIndex] == null)
             {
-                //update css class
-                ////if special case (modulo the size of pitch class set)
-                if(noteIndex % period == 0)
+                //update css class ---- Show visual of sustain (( update!! make more noticeable ))
+                //if special case (modulo the size of pitch class set)
+                if(noteIndex % period == 0) // OCTAVE = period 
                 {
                     keys[noteIndex].classList.add('periodPushed');
                 }
-                //base case
+                //base case // all NON-octave notes
                 else
                 {
                    keys[noteIndex].classList.add('pushed');
@@ -115,7 +117,6 @@ function synth(frequency, noteIndex, period)
                 synth.triggerAttack(frequency);
 
                  //initialize synth, and push into indexed array,
-                 
                 synths[noteIndex] = synth;
 
             }
@@ -153,9 +154,9 @@ function buildKeyboardET()
 {
     var i;
 
-    if (document.getElementById('edit').value == '{edit on}')
+    if (document.getElementById('edit').value == 'edit on')
     {
-         //turn off edit. using 4 here becuase there are  elements to toggle
+         //turn off edit. using 4 here because there are  elements to toggle
          editToggle(5);
     }
 
@@ -163,12 +164,12 @@ function buildKeyboardET()
     while (document.querySelector('.keyboard') != null)
     {
         var note = document.querySelector('.keyboard');
-        document.body.removeChild(note);
+        document.querySelector('.scale-container').removeChild(note);
     }
     while (document.querySelector('.keyboardPeriod') != null)
     {
         var note = document.querySelector('.keyboardPeriod');
-        document.body.removeChild(note);
+        document.querySelector('.scale-container').removeChild(note);
     }
 
     //turn off all sustained synths
@@ -218,20 +219,22 @@ function buildKeyboardET()
     var denominator = document.getElementById('period2').value;
     var period = numerator/denominator;
     var range = document.getElementById('periods').value;
-
     //loop once for each pitch class set(music theory)
     for (i=0; i <= (range*x); i++)
     {
 
+        
         //create buttons(use the digit functions and the synth function)
         var btn = document.createElement('BUTTON');
-        btn.innerHTML = ` ${minTwoDigits((i % x)+1)} <sup> ${minFourDigits(Math.round(variablePitch))} <sup/> Hz` ;
+        btn.innerHTML = ` ${minTwoDigits((i % x)+1)} <sup style="color:blue;"> ${minFourDigits(Math.round(variablePitch))} <sup/> Hz` ;
         btn.setAttribute('id', `${i}`);
 
+        // TODO colors for each scale degree
+        
         //TODO edit mode
         btn.setAttribute('class', 'keyboard');
         btn.setAttribute('onclick', `synth(${variablePitch}, ${i}, ${x})`);
-
+       
         //if special case (modul0 the period)
         if (i % x == 0)
         {
@@ -239,7 +242,7 @@ function buildKeyboardET()
         }
 
         //update the HTML
-        document.body.appendChild(btn);
+        document.querySelector(".scale-container").appendChild(btn);
 
         //push into indexed array of button objects
         keys.push(btn);
@@ -249,6 +252,8 @@ function buildKeyboardET()
 
     }
 }
+
+
 
 function editToggle(numberOfItemsToToggle)
 {
@@ -295,15 +300,15 @@ function editToggle(numberOfItemsToToggle)
     }
 
 
-
+    // TODO : change edit button "on/off" functionality + design; attached items: detune & ratio //
     //change the edit button formatting
-    if (document.getElementById('edit').value == '{edit}' || document.getElementById('edit').value == '{edit off}')
+    if (document.getElementById('edit').value == 'edit' || document.getElementById('edit').value == 'edit off')
     {
-        document.getElementById('edit').value = '{edit on}'
+        document.getElementById('edit').value = 'edit on'
     }
     else
     {
-        document.getElementById('edit').value = '{edit off}'
+        document.getElementById('edit').value = 'edit off'
     }
 
     //toggle display of hidden html elements
@@ -342,12 +347,12 @@ function apply(index)
 
         //updating global frequency for multiple detunes and for detuneColor
         globalFrequency = ratioPitch;
-        referencePitches[globalNoteIndex] = ratioPitch;
+        referencePitches[clickedNote] = ratioPitch;
 
         console.log(`globalFrequency now equals ratio pitch of ${ratioPitch}`);
     
-        //loop to frequency lock periods
-        var periodIndex = globalNoteIndex % periodKeys;
+        //loop to frequency lock periods --- ?????????????????????? 
+        var periodIndex = clickedNote % periodKeys; 
         for (var i = 0; i < keys.length; i++)
         {
             if (i == periodIndex)
@@ -370,7 +375,7 @@ function apply(index)
 
         //loop to locate each selected key 
 
-        periodIndex = globalNoteIndex % periodKeys;
+        periodIndex = clickedNote % periodKeys;
         console.log(`check, period keys is ${periodKeys}`);
         console.log(`check, period index is ${periodIndex}`);
         var text;
@@ -417,6 +422,10 @@ function apply(index)
     }
 }
 
+//*********************************************************/
+//*********************************************************/
+//*********************************************************/
+//*********************************************************/
 ////HELPER FUNCTIONS
 //formats all numbers to minimum two digits (function by Göran Andersson AKA Guffa on Stack Overflow)
 function minTwoDigits(n)
@@ -439,11 +448,11 @@ function detune(currentFrequency, cents)
 function change(button)
 {
     //if element is on => off
-    if (document.getElementById(button).value == `{${button} on}`)
+    if (document.getElementById(button).value == `${button} on`)
     {
 
         //if sustain feature
-        if(document.getElementById(button).value == `{${button} on}`)
+        if(document.getElementById(button).value == `${button} on`)
         {
             var i;
             //turn off all sustained synths
@@ -471,13 +480,13 @@ function change(button)
             }
         }
         //base case
-        document.getElementById(button).value=`{${button} off}`;
+        document.getElementById(button).value=`${button} off`;
 
     //if element is off => on
     }
     else
     {
-        document.getElementById(button).value=`{${button} on}`;
+        document.getElementById(button).value=`${button} on`;
     }
 }
 
@@ -486,8 +495,8 @@ function change(button)
 function detuneColor()
 {
     let roundedGlobal = Math.round(globalFrequency * 100000) / 100000;
-    let roundedReference = Math.round(referencePitches[globalNoteIndex] * 100000) / 100000;
-    let temp = globalNoteIndex %  document.getElementById('keys').value; 
+    let roundedReference = Math.round(referencePitches[clickedNote] * 100000) / 100000;
+    let temp = clickedNote %  document.getElementById('keys').value; 
     while (temp <= (parseInt(document.getElementById('keys').value, 10) * parseInt(document.getElementById('periods').value, 10)))
     {
         if (roundedGlobal > roundedReference)
