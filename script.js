@@ -51,8 +51,8 @@ function synth(frequency, noteIndex, period)
     //if edit on
     if (document.getElementById('edit').value == 'edit on')
     {
-        
-        var allPitchClasses = selectedNote;
+
+        var allPitchClasses = selectedNote; // Selected note: empty
         while (allPitchClasses < keys.length)
         {
             if (allPitchClasses % period == 0)
@@ -66,7 +66,7 @@ function synth(frequency, noteIndex, period)
             allPitchClasses += period;
         }
 
-        //set index for next edit(modulo the period to index by the first period)
+        //set index for next edit(modulo the period to index by the first period) 
         selectedNote = noteIndex % period;
         
 
