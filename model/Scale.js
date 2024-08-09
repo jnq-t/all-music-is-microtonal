@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
+
 
 const scaleSchema = new Schema({
 	name: {
 		type: String,
-		default: "",
+		unique: true
 	},
 	author: {
 		type: String,
@@ -36,5 +38,4 @@ const scaleSchema = new Schema({
 	},
 });
 
-const Scale = model('Scale', scaleSchema);
-export default Scale;
+module.exports = Scale = mongoose.model('scale', scaleSchema);

@@ -45,7 +45,7 @@ function generateNewScale (userScaleDefinition) {
 }
 
 
-//Place this function on "scaleDegrees"
+
 function createScaleDegrees(startingFreq) {
     const pitchArray = []
     //generate tones to the upper limit of human hearing: 20,000 Hz
