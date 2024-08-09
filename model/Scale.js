@@ -11,5 +11,5 @@ const scaleSchema = new Schema({
 	periodRatio: Object
 });
 
-const Scale = model('Scale', scaleScheme);
+const Scale = model('Scale', scaleSchema);
 export default Scale;
