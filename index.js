@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
-import Scale from './model/Scale'
+// const express = require('express');
+// const Scale = require('./models/Scale')
+import Scale from "./model/Scale.js"
 
 mongoose.connect("mongodb+srv://jnqt:js03JmHarCj95VAq@all-music-is-microtonal.ullxm.mongodb.net/?retryWrites=true&w=majority&appName=all-music-is-microtonal")
 
@@ -9,6 +11,8 @@ const scale = new Scale({
     author: "pluppy and juppy"
   });
   
-  // Insert the article in our MongoDB database
+  // Insert the scale in our MongoDB database
   await scale.save();
-  console.log(scale);
+
+  const firstScale = await Scale.findOne({});
+  console.log(firstScale);
