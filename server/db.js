@@ -11,44 +11,25 @@ const client = new MongoClient(endpoint, {
    }
 });
 
-async function run() {
+async function connectDB() {
    try {
        // Connect the client to the server (optional starting in v4.7)
        await client.connect();
        // Send a ping to confirm a successful connection
        await client.db("admin").command({ ping: 1 });
        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-       // make scale
+       
        const dbName = "all-music-is-microtonal";
        const collectionName = "scales";
 
-    console.log(endpoint)
-       // Create references to the database and collection in order to run
+       // Create references to the database and collection in order to connectDB
        // operations on them.
        const database = client.db(dbName);
        const collection = database.collection(collectionName);
-       // console.log(database)
-       // console.log(collection)
-
-       const findOneQuery = { name: "test2" };
-
-       try {
-          console.log("endpoint is",endpoint)
-         const findOneResult = await collection.findOne(findOneQuery);
-         if (findOneResult === null) {
-           console.log("Couldn't find any recipes that contain 'potato' as an ingredient.\n");
-         } else {
-           console.log(`Found a recipe with 'potato' as an ingredient:\n${JSON.stringify(findOneResult)}\n`);
-         }
-       } catch (err) {
-         console.error(`Something went wrong trying to find one document: ${err}\n`);
-       }
-
-
-     
    } finally {
        // Ensures that the client will close when you finish/error
        await client.close();
    }
 }
-run().catch(console.dir);
+
+module.exports = connectDB;
