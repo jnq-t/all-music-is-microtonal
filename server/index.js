@@ -1,11 +1,9 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-// Not Working ... figure out how to add uri via dotenv file for MongoClient
-const {endpoint} = require("./config") 
-
+const { endpoint } = require("./config")
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 //FIX: inputting "endpoint", which is the same string currenty in MongoClient() causes an error when executing 'npm run dev' in terminal. Fix this so we can use our .env and config setup.
-const client = new MongoClient("mongodb+srv://jnqt:js03JmHarCj95VAq@all-music-is-microtonal.ullxm.mongodb.net/?retryWrites=true&w=majority&appName=all-music-is-microtonal", {
+const client = new MongoClient(endpoint, {
    serverApi: {
        version: ServerApiVersion.v1,
        strict: true,
@@ -31,7 +29,6 @@ async function run() {
        const collection = database.collection(collectionName);
        // console.log(database)
        // console.log(collection)
-
 
        const findOneQuery = { name: "test2" };
 
