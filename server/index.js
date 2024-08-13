@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 // Not Working ... figure out how to add uri via dotenv file for MongoClient
-const {endpoint} = require("./server/config") 
+const {endpoint} = require("./config") 
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -36,6 +36,7 @@ async function run() {
        const findOneQuery = { name: "test2" };
 
        try {
+          console.log("endpoint is",endpoint)
          const findOneResult = await collection.findOne(findOneQuery);
          if (findOneResult === null) {
            console.log("Couldn't find any recipes that contain 'potato' as an ingredient.\n");
