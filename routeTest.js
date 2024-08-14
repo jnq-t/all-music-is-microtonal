@@ -4,6 +4,11 @@ const router = express.Router();
 //Load Scale Schema
 const ScaleSchema = require('./app/models/Scale') 
 
+
+// ERROR when running post method: 
+//   {
+//       "message": "Operation `scales.insertOne()` buffering timed out after 10000ms"
+//    }
 //Post Method
 router.post('/scale', async (req, res) => {
     const scaleData = new ScaleSchema ({
