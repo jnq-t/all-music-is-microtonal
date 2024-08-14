@@ -1,10 +1,9 @@
-// routes/api/books.js
+// routes/api/scale.js
 const express = require('express');
 const router = express.Router();
 
 // Load Scale Model
-const Scale = require('./models/Scale')
-
+const Scale = require('../../app/models/Scale')
 
 // Get a list of 50 scales
 router.get("/", async (req, res) => {
@@ -51,3 +50,5 @@ router.delete("/:id", async (req, res) => {
     let result = await collection.deleteOne(query);
     res.send(result).status(200);
   });
+
+  module.exports = router;
