@@ -1,6 +1,9 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const { endpoint } = require("./config")
 
+//test: add scale model and see if this fixes connection issues
+const ScaleScheme = require('../app/models/Scale')
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 //FIX: inputting "endpoint", which is the same string currenty in MongoClient() causes an error when executing 'npm run dev' in terminal. Fix this so we can use our .env and config setup.
 const client = new MongoClient(endpoint, {
@@ -18,12 +21,11 @@ async function connectDB() {
        // Send a ping to confirm a successful connection
        await client.db("admin").command({ ping: 1 });
        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-       
+
        const dbName = "all-music-is-microtonal";
        const collectionName = "scales";
-
+     
        // Create references to the database and collection in order to connectDB
-       // operations on them.
        const database = client.db(dbName);
        const collection = database.collection(collectionName);
    } finally {

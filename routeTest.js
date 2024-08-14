@@ -1,11 +1,12 @@
 //Article Reference: https://www.freecodecamp.org/news/build-a-restful-api-using-node-express-and-mongodb/
 const express = require('express');
 const router = express.Router();
-const ScaleScheme = require('./app/models/Scale') 
+//Load Scale Schema
+const ScaleSchema = require('./app/models/Scale') 
 
 //Post Method
 router.post('/scale', async (req, res) => {
-    const scaleData = new Model ({
+    const scaleData = new ScaleSchema ({
         name: req.body.name,
         author: req.body.author,
         isPreset: req.body.isPreset,
@@ -16,7 +17,8 @@ router.post('/scale', async (req, res) => {
     })
 
     try {
-        const saveNewScale = await scaleData.save();
+        console.log(scaleData)
+        await scaleData.save();
         res.status(200).json(saveNewScale)
     } catch (error) {
         res.status(400).json({message: error.message})
