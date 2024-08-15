@@ -5,7 +5,6 @@ const { endpoint } = require("./config")
 const ScaleScheme = require('../app/models/Scale')
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-//FIX: inputting "endpoint", which is the same string currenty in MongoClient() causes an error when executing 'npm run dev' in terminal. Fix this so we can use our .env and config setup.
 const client = new MongoClient(endpoint, {
    serverApi: {
        version: ServerApiVersion.v1,

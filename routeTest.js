@@ -9,6 +9,7 @@ const ScaleSchema = require('./app/models/Scale')
 //   {
 //       "message": "Operation `scales.insertOne()` buffering timed out after 10000ms"
 //    }
+// my stackoverflow post (:, heh: https://stackoverflow.com/questions/78873134/mongodb-express-post-error-message-buffering-timed-out-after-10000ms
 //Post Method
 router.post('/scale', async (req, res) => {
     const scaleData = new ScaleSchema ({
