@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongoose = require('mongoose')
 const { endpoint } = require("./config")
 
 //test: add scale model and see if this fixes connection issues
@@ -14,23 +15,22 @@ const client = new MongoClient(endpoint, {
 });
 
 async function connectDB() {
-   try {
-       // Connect the client to the server (optional starting in v4.7)
-       await client.connect();
-       // Send a ping to confirm a successful connection
-       await client.db("admin").command({ ping: 1 });
-       console.log("Pinged your deployment. You successfully connected to MongoDB!");
+await mongoose.connect(endpoint)
+  .then(() => {
+    console.log('MongoDB connected successfully via Mongoose')
 
-       const dbName = "all-music-is-microtonal";
-       const collectionName = "scales";
-     
-       // Create references to the database and collection in order to connectDB
-       const database = client.db(dbName);
-       const collection = database.collection(collectionName);
-   } finally {
-       // Ensures that the client will close when you finish/error
-       await client.close();
-   }
+    const dbName = "all-music-is-microtonal";
+    const collectionName = "scales";
+  
+    // Create references to the database and collection in order to connectDB
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+    console.log(collection)
+})
+  .catch(err => {
+    console.error('Error connecting to MongoDB:', err);
+    process.exit(1);
+  });
 }
 
 module.exports = connectDB;

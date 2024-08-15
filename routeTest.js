@@ -4,13 +4,6 @@ const router = express.Router();
 //Load Scale Schema
 const ScaleSchema = require('./app/models/Scale') 
 
-
-// ERROR when running post method: 
-//   {
-//       "message": "Operation `scales.insertOne()` buffering timed out after 10000ms"
-//    }
-// my stackoverflow post (:, heh: https://stackoverflow.com/questions/78873134/mongodb-express-post-error-message-buffering-timed-out-after-10000ms
-//Post Method
 router.post('/scale', async (req, res) => {
     const scaleData = new ScaleSchema ({
         name: req.body.name,
@@ -25,15 +18,21 @@ router.post('/scale', async (req, res) => {
     try {
         console.log(scaleData)
         await scaleData.save();
-        res.status(200).json(saveNewScale)
+        res.status(200).json('Scale Saved')
     } catch (error) {
         res.status(400).json({message: error.message})
     }
 })
 
 //Get all Method
-router.get('/scales', (req, res) => {
-    res.send('Get all scales')
+router.get('/scales', async (req, res) => {
+    try{
+        const data = await ScaleSchema.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
 })
 
 //Get by ID Method
