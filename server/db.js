@@ -25,7 +25,6 @@ await mongoose.connect(endpoint)
     // Create references to the database and collection in order to connectDB
     const database = client.db(dbName);
     const collection = database.collection(collectionName);
-    console.log(collection)
 })
   .catch(err => {
     console.error('Error connecting to MongoDB:', err);

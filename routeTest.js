@@ -46,7 +46,7 @@ router.patch('/:id', (req, res) => {
 })
 
 //Delete by ID Method
-router.delete('/:id', (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     res.send('Delete scale by ID')
 })
 
