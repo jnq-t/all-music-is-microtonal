@@ -41,13 +41,20 @@ router.get('/:id', (req, res) => {
 })
 
 //Update by ID Method
-router.patch('/:id', (req, res) => {
+router.patch('/update/:id', (req, res) => {
     res.send('Update scale by ID')
 })
 
 //Delete by ID Method
 router.delete('/delete/:id', async (req, res) => {
-    res.send('Delete scale by ID')
+    try {
+        const id = req.params.id;
+        const data = await ScaleSchema.findByIdAndDelete(id)
+        res.send(`Document with ${data.name} has been deleted..`)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 })
 
 module.exports = router;
