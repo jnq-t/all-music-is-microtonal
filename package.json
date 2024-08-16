@@ -4,8 +4,8 @@
   "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "nodemon cd ./app/index.html",
+    "dev": "nodemon ./server/server.js",
+    "start:frontend": "nodemon to setup",
     "start:backend": "nodemon ./server/server.js"
   },
   "keywords": [],
@@ -16,8 +16,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.5.2",
-    "sass": "^1.77.8"
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

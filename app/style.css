@@ -1,0 +1,48 @@
+/* ********** */
+/* Basic CSS Reset */
+/* ********** */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+  }
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  /* ********** */
+  /* Imported Fonts */
+  /* ********** */
+  @font-face {
+    font-family: 'UnifrakturMaguntia Book';
+    font-style: normal;
+    font-weight: normal;
+    src: url('/app/assets/UnifrakturMaguntia-Book.woff'), url('UnifrakturMaguntia-Book.woff') format('woff');
+    }
+  /* ********** */
+  /* Styling */
+  /* ********** */
+  body {
+    background-image: url('/marble\ for\ html.jpg');
+  }
+  header{
+    width: 100%;
+    text-align: center;
+    font-family:'UnifrakturMaguntia Book';
+    font-weight:normal;
+    font-size: 1.6em;
+    color: #ad7aaa;
+    text-shadow: 1px 1.6px black
+  }

@@ -4,9 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>microtonal.net</title>
-        <script src="temp-workspace.js"></script>
+        <link rel="stylesheet" href="./style.css">
+     
       </head>
     <body>
-        <h1>Test</h1>
+        <header>
+            <h1 aria-label="all music is microtonal" class="title">all music is microtonal</h1>
+            <h3 aria-label="a scale generator" class="subtitle">a scale generator</h3>
+        </header>
+        <nav>
+        </nav>
+        <main>
+            <div id="create-new-scale-container">
+                <div class="scale-name-container">
+                    <label class="scale-name-label" for="scale-name">Scale Name</label>
+                    <input type="text" name="scale-name" class="scale-name-input">
+                </div>
+                <div class="starting-frequency-container">
+                    <label class="starting-frequency-label" for="starting-frequency">Starting Frequency</label>
+                    <input type="number" class="starting-frequency-input" name="starting-frequency" step=".0001" value="240" min="20" max="20000" />
+                </div>
+                 <!-- TODO - question: should we add sustain option after generation?? -->
+                 <button onclick="generateNewScale()" type="button" value="Generate Scale" id="create-scale-btn">Generate Scale</button>
+            </div>
+        </main>
+        <footer>
+        </footer>
     </body>
+    <script src="temp-workspace.js"></script>
 </html>

@@ -1,3 +1,16 @@
+/** CODE COMMENT BEST PRACTICES
+ *
+ * @method name of function
+ * @params parameters/arguments accepted, example: {Type} name Description
+ *                        optional params example: {Type} [name] Description 
+ * @return what is returned from function, example: {Type} Description of data returned
+ * 
+ * @example
+ * 
+ * **/
+
+const createScaleBtn = document.getElementById('create-scale-btn')
+
 
 //STUBBED DATA START
 const inputScale =  {
@@ -41,9 +54,26 @@ const stubbedScaleDefault =  {
 
 //this function needs to be called and applied to a constant variable 
 function generateNewScale (userScaleDefinition) {
-    return Object.assign( {}, scaleDefault, userScaleDefinition)
+    console.log(`i was clicked`)
+    // return Object.assign( {}, scaleDefault, userScaleDefinition)
 }
 
+// TODO: create isUser to validate if signed in or not
+/** CODE COMMENT BEST PRACTICES
+ *
+ * @method
+ * @param
+ * @return
+ * 
+ * **/
+switch (isUser) {
+    case true:
+
+    break;
+    case false:
+
+    break;
+}
 
 
 function createScaleDegrees(startingFreq) {
