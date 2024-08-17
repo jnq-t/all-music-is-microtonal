@@ -16,16 +16,19 @@
         </nav>
         <main>
             <div id="create-new-scale-container">
+                <div class="scale-author-container">
+                    <label class="scale-author-label" for="scale-author">Author</label>
+                    <input type="text" name="scale-author" class="scale-author-input" placeholder="optional" aria-label="Author of scale">
+                </div>
                 <div class="scale-name-container">
                     <label class="scale-name-label" for="scale-name">Scale Name</label>
-                    <input type="text" name="scale-name" class="scale-name-input">
+                    <input type="text" name="scale-name" class="scale-name-input" aria-label="name of scale">
                 </div>
                 <div class="starting-frequency-container">
                     <label class="starting-frequency-label" for="starting-frequency">Starting Frequency</label>
-                    <input type="number" class="starting-frequency-input" name="starting-frequency" step=".0001" value="240" min="20" max="20000" />
+                    <input type="number" class="starting-frequency-input" name="starting-frequency" step=".0001" value="240" min="20" max="20000" aria-label="scale starting frequency" />
                 </div>
-                 <!-- TODO - question: should we add sustain option after generation?? -->
-                 <button onclick="generateNewScale()" type="button" value="Generate Scale" id="create-scale-btn">Generate Scale</button>
+                 <button onclick="generateNewScale()" type="button" value="Generate Scale" id="create-scale-btn" aria-label="generate scale">Generate Scale</button>
             </div>
         </main>
         <footer>

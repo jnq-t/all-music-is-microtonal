@@ -1,15 +1,26 @@
-/** CODE COMMENT BEST PRACTICES
+/** CODE COMMENTS -  BEST PRACTICES
  *
  * @method name of function
  * @params parameters/arguments accepted, example: {Type} name Description
  *                        optional params example: {Type} [name] Description 
  * @return what is returned from function, example: {Type} Description of data returned
  * 
- * @example
+ * @example [optional] add example if it will prove useful in clarifying the method
  * 
  * **/
 
-const createScaleBtn = document.getElementById('create-scale-btn')
+// TODO: create isUser to validate if signed in or not
+/** 
+ *
+ * @method
+ * @param
+ * @return
+ * 
+ * **/
+
+
+
+const createScaleBtn = document.getElementById('create-scale-btn');
 
 
 //STUBBED DATA START
@@ -25,16 +36,14 @@ const inputScale =  {
         denominator: 1
     } 	
 };
+
 //TODO: function list 
 // function findOrInitializeScale () { findOrInitializeScale } (GET scale)
 //  	return Scale 
 //
 
-// does not contain scale degrees
-// STUBBED DATA END 
-
-//set defaults at database level
-const stubbedScaleDefault =  {
+// ScaleSchema Defaults - use for localStorage
+const scaleDefaults =  {
     scaleName: "",
     author: "",
     sustainMode: false,
@@ -45,9 +54,9 @@ const stubbedScaleDefault =  {
         denominator: 1
     },
     startingFreq: 420,
-    
 };
 
+//TODO: read about and learn polymorphism to use for scale
 //userScaleDefinition will be an object, pulled in form front-end inputs. 
     // their inputs include: scaleName, author, startingFreq
         // advanced mode will include: periodRatio
@@ -56,23 +65,6 @@ const stubbedScaleDefault =  {
 function generateNewScale (userScaleDefinition) {
     console.log(`i was clicked`)
     // return Object.assign( {}, scaleDefault, userScaleDefinition)
-}
-
-// TODO: create isUser to validate if signed in or not
-/** CODE COMMENT BEST PRACTICES
- *
- * @method
- * @param
- * @return
- * 
- * **/
-switch (isUser) {
-    case true:
-
-    break;
-    case false:
-
-    break;
 }
 
 
