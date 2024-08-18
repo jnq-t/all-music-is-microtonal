@@ -29,9 +29,10 @@ const createScaleBtn = document.getElementById('create-scale-btn');
 
 
 //TODO: should scale be a constructor??
-//TODO: figure out what type of polymorphism should be used for our case?
+//TODO: figure out design structure that's best for our case
 /** 
- * TODO: add short definition
+ * @description constructs new basic scale 
+ * 
  * @method  ScaleConstructor
  * @param  {String} scaleName name of scale
  * @param  {Float} startingFreq first note in the scale 
@@ -51,14 +52,16 @@ const createScaleBtn = document.getElementById('create-scale-btn');
     *          }
  * **/
 
-function ScaleConstructor (scaleName, startingFreq, scaleAuthor) {
-    this.scaleName = scaleName;
-    this.scaleAuthor = scaleAuthor ? scaleAuthor : "";
-	this.startingFreq = startingFreq;
-    this.scaleDegrees = createScaleDegrees(startingFreq);
-    this.sustainMode = sustainTone();
-    this.isPreset = false;
-    this.periodRatio = {numerator: 2, denominator: 1}
+function createScale(scaleName, startingFreq, scaleAuthor) {
+    return {
+        scaleName: "",
+        scaleAuthor: scaleAuthor ? scaleAuthor : "",
+        startingFreq: 0,
+        scaleDegrees: createScaleDegrees(startingFreq),
+        sustainMode: false,
+        isPreset: false,
+        periodRatio: {numerator: 2, denominator: 1}
+    }
 }
 
 //userScaleDefinition will be an object, pulled in form front-end inputs. 
@@ -76,7 +79,8 @@ function generateNewScale (userScaleDefinition) {
 // This would mean changing the data type of scale.scaleDegrees from an array to a function
 //
 /** 
- * TODO: add short definition
+ * @description Automatically creates and returns all scale degrees when a scale is generated
+ * 
  * @method createScaleDegrees
  * @param {float} startingFreq is the jumping off point to generate all other tones
  * @return {Object} Description of data returned
