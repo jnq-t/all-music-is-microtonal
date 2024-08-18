@@ -48,7 +48,7 @@ const scaleDefaults =  {
     author: "",
     sustainMode: false,
     isPreset: false,
-    scaleDegrees: [],
+    scaleDegrees: createScaleDegrees(startingFreq), // changed to function that returns an array of objects
     periodRatio: { // Period Ratio Creates Scale Degrees
         numerator: 2, 
         denominator: 1
@@ -68,35 +68,45 @@ function generateNewScale (userScaleDefinition) {
 }
 
 
+// Currently, this function will create an array of objects to attach to scaleDegrees
+// This would mean changing the data type of scale.scaleDegrees from an array to a function
+//
 function createScaleDegrees(startingFreq) {
     const pitchArray = []
     //generate tones to the upper limit of human hearing: 20,000 Hz
     
-        //Math Too Create Tones
+        //Math To Create Tones
             //fnd and loop through the # of tones & their frequencies , based on scale ratio & period
-                //start. freq - 20,000 hz 
+                //start. freq up to 20,000 hz 
             // each tone creates a new tone object
 
-            // { 
-                // scaleDegree: i,
-                // frequency: float, 
-                // sustain: boolean, — default false
-                // activateTone: f(),
-                // modifier: {
-                // ratio: { 
-                //  numerator: int, 
-                //  denominator: int 
-                //  },
-                // detune: int — default 0
-                // }
-            // }
-    
-            //push each tone object into scaleDegrees empty array
-            // pitchArray.push()
-
+    //PSEUDO CODE
+    for (i = variableHere; i < variableHere; i++) {
+       
+        const scaleDegree = { 
+            scaleDegree: i, 
+            frequency: startingFreq, // float
+            sustain: false, // TODO: should this be another method?
+            activateTone: activateTone(), // TODO: create method
+            modifiers: {
+                ratio: { 
+                        numerator: int, // int
+                        denominator: int // int
+                    },
+                detune: 0 // int, default 0
+            }
+        }
+        
+        pitchArray.push(scaleDegree)
+    }
+    return pitchArray
 }
 
-//TODO: create function and attach method to scaleDegree
+//TODO: create function and attach method to each scaleDegree
 function activateTone() {
+
+}
+//TODO: should sustainNote be a method?
+function sustainNote() {
 
 }
