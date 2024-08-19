@@ -12,14 +12,23 @@ const scaleSchema = new Schema({
 		type: String,
 		default: ""
 	},
+	
+	period: {
+		type: float,
+		default: 2,
+		required: true
+	},
+	
+	length: {
+		type: Number,
+		default: 12,
+		required: true
+	},
+	
 	isPreset: {
 		type: Boolean,
 		default: false,
 		required: true
-	},
-	scaleDegrees: {
-		type: Array,
-		default: []
 	},
 	sustainMode: {
 		type: Boolean,
