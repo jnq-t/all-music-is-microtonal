@@ -33,13 +33,13 @@ const createScaleBtn = document.getElementById('create-scale-btn');
 /** 
  * @description constructs new basic scale 
  * 
- * @method  ScaleConstructor
+ * @method  createScale
  * @param  {String} scaleName name of scale
  * @param  {Float} startingFreq first note in the scale 
  * @param  {String} [scaleAuthor] who created the scale
  * @return {Object} basic scale generator with associated scale degrees 
  * 
- * @example var scale1 = new ScaleConstructor('scale1', 240)
+ * @example var scale1 = new createScale('scale1', 240)
     *          returns
     *          {
     *              scaleName: 'scale1',

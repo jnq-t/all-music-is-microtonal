@@ -35,11 +35,13 @@ router.get('/scales', async (req, res) => {
     }
 })
 
+// TODO
 //Get by ID Method
 router.get('/:id', (req, res) => {
     res.send('Get scale by ID')
 })
 
+// TODO
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
     res.send('Update scale by ID')
