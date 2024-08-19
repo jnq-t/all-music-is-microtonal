@@ -1,92 +1,69 @@
-/** 
- * 
- * @method  createScale
- * @param  {String} scaleName name of scale
- * @param  {Float} startingFreq first note in the scale 
- * @param  {String} [scaleAuthor] who created the scale
- * @return {Object} basic scale generator with associated scale degrees 
- *
- * **/
-
-function createScale(scaleName, startingFreq, scaleAuthor) {
-    return {
-        scaleName: scaleName,
-        scaleAuthor: scaleAuthor ? scaleAuthor : "",
-        startingFreq: 0,
-        scaleDegrees: createScaleDegrees(startingFreq),
-        sustainMode: false,
-        isPreset: false,
-        periodRatio: {numerator: 2, denominator: 1}
-    }
-}
-
-/*******************************
-/** SCALE DEGREE FUNCTIONS
-/*******************************
-/**
- * @description Automatically generates and returns all scale degrees upon scale initialization 
- * 
- * @method createScaleDegrees
- * @param {Float} freq = frequency of each scale degree; begins with starting frequency input by user
- * @param {Function} scaleDegreeObject creates the object for each scale degree
- * @param {Function} stepSizeMultiplier math for finding the freq. of each scale degree
- * @return {Array} returns an array of all Scale Degree Objects
- * 
- * **/
-function createScaleDegrees(freq, scaleDegreeObject, stepSizeMultiplier) {
-    const freqCutoff = 20_000; // highest freq. of human hearing: 20,000 HZ
-    let pitchArray = [];
-
-    while (freq <= freqCutoff) {
-        pitchArray.push(scaleDegreeObject(freq));
-        freq *= stepSizeMultiplier;
+class Scale {
+    constructor(
+        isPreset = false,
+        name,
+        startingFreq = 240,
+        author,
+        length = 12,
+        period = 2,
+        modifiers = {}
+    ) {
+        this.isPreset = isPreset
+        this.name = name
+        this.startingFreq = startingFreq
+        this.author = author
+        this.length = length // num. of scale degrees
+        this.period = period // size of octave interval - how much space is covered in the scale before it repeats.
+        this.modifiers = modifiers
     };
-    
-    return pitchArray;
+        /**
+         * @method scaleDegrees
+         * @return {Array} returns an array of scale degree objects
+         * **/
+        scaleDegrees() {
+            let scaleDegrees = [new scaleDegree()];
+            while (scaleDegrees.length <= this.length) {
+                const previousScaleDegree = scaleDegrees.slice(-1)
+                const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
+                scaleDegrees.push(new scaleDegree(nextFrequency, this.modifiers));
+            };
+            return scaleDegrees;
+        };
+
+        // private methods
+        /**
+        * @method stepSizeMultiplier
+        * 
+        * @param {Float} period size of octave interval
+        * @param {Int} length num of scale degrees
+        * 
+        * @return {Float} frequency of each scale degree
+         */
+        #stepSizeMultiplier() {
+            return Math.pow(this.period, 1/this.length)
+        };
+};
+
+CUTOFF_FREQUENCY = 20_000; // end of human hearing
+
+class scaleDegree {
+    constructor(frequency = 240, modifiers = {}) {
+        this.frequency = frequency
+        this.modifiers = modifiers
+    };
 }
 
-/** 
- * 
- * @method scaleDegreeObject
- * @param {Float} freq = frequency of each the scale degree
- * @return {Object} an object for each scale degree in the generated scale
- * 
- * **/
-function scaleDegreeObject(freq) {
-    // TODO: some type of index or id to indicate what pitch in the scale this is
-    // august 19
-        // scaleDegreePosition = where a given scale degree is in relative scale
-        // to find out what the scaleDegreePosition of a given scaleDegree object is we take it's position in the index mod the noOfScale degrees
-        // scale
-        //wondering about this
-        // scale degrees = {1: [sd, sd2, sd3], 2: [sd1,sd2,sd3]}
-    return  { 
-        frequency: freq,
-        sustain: false,
-        activateTone: false, // TODO: create method using tone.js; ability to turn sustain on and off
-        modifiers: {
-            ratio: { 
-                    numerator: 1, 
-                    denominator: 1 
-                },
-            detune: 0
-        }
-    }
-}
-
-/** 
- * 
- * @method stepSizeMultiplier
- * @param {Float} periodFloat the octave interval - how much space is covered in the scale before it repeats.
- * @param {Int} numScaleDegrees user input for num. of scale degrees in each octave
- * @return {Float} returns the frequency of each scale degree
- * 
- * **/
-function stepSizeMultiplier(periodFloat, numScaleDegrees) {
-    return Math.pow(periodFloat, 1/numScaleDegrees)
-}
+function buildKeyboard(scale) {
+    const scaleDegrees = scale.scaleDegrees();
+    // TODO I'M MAKING THIS RN BUT WANTED TO SEND YOU EVERYTHING ELSE
+};
 
 
+/**
+*******************************
+* TODO FUNCTION LIST
+*******************************
+* **/
 //TODO: create isUser to validate if signed in or not
 function isUser() {
 }
@@ -99,3 +76,14 @@ function activateTone() {
 function pitchIsSustained() {
     // 
 }
+
+/**
+*******************************
+* TESTING
+*******************************
+* **/
+
+const test = new Scale
+test.name = `plups test scale`
+
+console.log(test.scaleDegrees())

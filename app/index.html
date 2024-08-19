@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>microtonal.net</title>
         <link rel="stylesheet" href="./style.css">
-     
       </head>
     <body>
         <header>
@@ -18,21 +17,25 @@
             <div id="create-new-scale-container">
                 <div class="scale-author-container">
                     <label class="scale-author-label" for="scale-author">Author</label>
-                    <input type="text" name="scale-author" class="scale-author-input" placeholder="optional" aria-label="Author of scale">
+                    <input type="text" name="scale-author" id="scale-author-input" placeholder="optional" aria-label="Author of scale">
                 </div>
                 <div class="scale-name-container">
                     <label class="scale-name-label" for="scale-name">Scale Name</label>
-                    <input type="text" name="scale-name" class="scale-name-input" aria-label="name of scale">
+                    <input type="text" name="scale-name" id="scale-name-input" aria-label="name of scale">
                 </div>
                 <div class="starting-frequency-container">
                     <label class="starting-frequency-label" for="starting-frequency">Starting Frequency</label>
-                    <input type="number" class="starting-frequency-input" name="starting-frequency" step=".0001" value="240" min="20" max="20000" aria-label="scale starting frequency" />
+                    <input type="number" id="starting-frequency-input" name="starting-frequency" step=".0001" value="240" min="20" max="20000" aria-label="scale starting frequency" />
                 </div>
-                 <button onclick="generateNewScale()" type="button" value="Generate Scale" id="create-scale-btn" aria-label="generate scale">Generate Scale</button>
+                <div class="num-of-scale-degrees-container">
+                    <label class="num-of-scale-degrees-label" for="num-of-scale-degrees">Number of Scale Degrees</label>
+                    <input type="number" id="num-of-scale-degrees-input" name="num-of-scale-degrees" step=".0001" value="12" min="2" max="200" aria-label="scale starting frequency" />
+                </div>
+                 <button onclick="scaleSubmit()" type="button" value="Generate Scale" id="create-scale-btn" aria-label="generate scale">Generate Scale</button>
             </div>
         </main>
         <footer>
         </footer>
     </body>
-    <script src="temp-workspace.js"></script>
+    <script src="scales.js"></script>
 </html>
