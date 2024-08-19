@@ -39,7 +39,7 @@ const createScaleBtn = document.getElementById('create-scale-btn');
  * @param  {String} [scaleAuthor] who created the scale
  * @return {Object} basic scale generator with associated scale degrees 
  * 
- * @example var scale1 = new createScale('scale1', 240)
+ * @example var scale1 = createScale('scale1', 240)
     *          returns
     *          {
     *              scaleName: 'scale1',
