@@ -8,13 +8,13 @@ class Scale {
         period = 2,
         modifiers = {}
     ) {
-        this.isPreset = isPreset
-        this.name = name
-        this.startingFreq = startingFreq
-        this.author = author
-        this.length = length // num. of scale degrees
-        this.period = period // size of octave interval - how much space is covered in the scale before it repeats.
-        this.modifiers = modifiers
+        this.isPreset = isPreset;
+        this.name = name;
+        this.startingFreq = startingFreq;
+        this.author = author;
+        this.length = length; // num. of scale degrees
+        this.period = period; // size of octave interval - how much space is covered in the scale before it repeats.
+        this.modifiers = modifiers;
     };
         /**
          * @method scaleDegrees
@@ -44,20 +44,39 @@ class Scale {
         };
 };
 
-CUTOFF_FREQUENCY = 20_000; // end of human hearing
-
 class scaleDegree {
     constructor(frequency = 240, modifiers = {}) {
-        this.frequency = frequency
-        this.modifiers = modifiers
+        this.frequency = frequency;
+        this.modifiers = modifiers;
     };
 }
 
-function buildKeyboard(scale) {
+function buildKeyboardFrequencies(scale) {
+    const CUTOFF_FREQUENCY = 20_000;
     const scaleDegrees = scale.scaleDegrees();
-    // TODO I'M MAKING THIS RN BUT WANTED TO SEND YOU EVERYTHING ELSE
-};
+    let keyboard = [];
 
+    for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
+        const baseFrequency = scaleDegrees[scaleIndex].frequency;
+        // set fresh cursor for each scaleDegree
+        let keyboardIndex = 0;
+
+        while (true) {
+            const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
+            const periodCoefficient = keyboardIndex + 1 // explain variable name 
+            let frequency = periodCoefficient * scale.period * baseFrequency
+
+            if (frequency >= CUTOFF_FREQUENCY) return; // is this necessary or redundant?
+
+            keyboard[position] = frequency //
+              // console.log(periodCoefficient, keyboardIndex, frequency)
+            keyboardIndex++
+        };
+    };
+    console.log('test')
+    console.log(keyboard)
+    return keyboard;
+}
 
 /**
 *******************************
