@@ -44,6 +44,7 @@ class Scale {
         };
 };
 
+//currently this information is defined on Scale's constructor, then injects a new iteration on line 24 
 class scaleDegree {
     constructor(frequency = 240, modifiers = {}) {
         this.frequency = frequency;
@@ -62,16 +63,16 @@ class Keyboard  {
     #buildKeyboardFrequencies() {
         let keyboard = [];
        
-        for (let scaleIndex = 0; scaleIndex <= this.length; scaleIndex++) {
-            const scaleDegrees = this.scaleDegrees();
+        for (let scaleIndex = 0; scaleIndex <= this.scale.length; scaleIndex++) {
+            const scaleDegrees = this.scale.scaleDegrees();
             const baseFrequency = scaleDegrees[scaleIndex].frequency;
             // set fresh cursor for each scaleDegree
             let keyboardIndex = 0;
 
             while (true) {
-                const position = (keyboardIndex * this.length) + scaleIndex;
+                const position = (keyboardIndex * this.scale.length) + scaleIndex;
                 const periodCoefficient = keyboardIndex + 1 ;
-                let frequency = periodCoefficient * this.period * baseFrequency;
+                let frequency = periodCoefficient * this.scale.period * baseFrequency;
 
                 if (frequency >= this.cutoffFrequency) break;
 
@@ -148,8 +149,8 @@ function activateTone() {
 *******************************
 * **/
 
-const keyboardTest = new Keyboard
-keyboardTest.name = 'plups new scale'
-const createKeyboard = keyboardTest.keys()
-console.log(keyboardTest)
-// console.log(createKeyboard)
+const newScale = new Scale();
+newScale.name = 'plups scale'
+const keyboardWithScaleInjected = new Keyboard(newScale);
+console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
+keyboardWithScaleInjected.keys()
