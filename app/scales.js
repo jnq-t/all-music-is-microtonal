@@ -1,5 +1,3 @@
-
-
 class Scale {
     constructor(
         isPreset = false,
@@ -53,9 +51,9 @@ class scaleDegree {
     };
 }
 
-class Keyboard extends Scale {
-    constructor() {
-        super(Scale)
+class Keyboard  {
+    constructor(scale) {
+        this.scale = scale;
         this.cutoffFrequency = 20_000;
     };
 
@@ -87,7 +85,7 @@ class Keyboard extends Scale {
     keys() {
         let keyboard = this.#buildKeyboardFrequencies();
         console.log(keyboard)
-        keyboard.map(); // what is this supposed to do? currently is an undefined function
+        // keyboard.map();  // currently an undefined function / non-functioning
     };
 }
 
@@ -146,7 +144,7 @@ function activateTone() {
 
 /**
 *******************************
-* TESTING -- jesse don't look.. it's ugly
+* TESTING 
 *******************************
 * **/
 
