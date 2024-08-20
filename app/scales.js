@@ -53,26 +53,30 @@ class scaleDegree {
     };
 }
 
-function buildKeyboardFrequencies(scale) {
+function originalBuildKeyboardFrequencies(scale) {
     const CUTOFF_FREQUENCY = 20_000;
     const scaleDegrees = scale.scaleDegrees();
     let keyboard = [];
-
+console.log(keyboard)
     for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
         const baseFrequency = scaleDegrees[scaleIndex].frequency;
         // set fresh cursor for each scaleDegree
         let keyboardIndex = 0;
-        const periodCoefficient = keyboardIndex + 1 // explain variable name 
-        const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
-        let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
         
-        if (frequency <= CUTOFF_FREQUENCY) {
+        while (true) {
+            const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
+            const periodCoefficient = keyboardIndex + 1 // explain variable name 
+            let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
+
+            if (frequency >= CUTOFF_FREQUENCY) return; 
+
             keyboard[position] = frequency //
             keyboardIndex++
-        }
+        };
     };
     return keyboard;
 }
+
 
 /**
 *******************************
@@ -104,7 +108,8 @@ const myScale = test.scaleDegrees()
 
 
 const test2 = buildKeyboardFrequencies(test)
-console.log(test2)
+const test3 = originalBuildKeyboardFrequencies(test)
+console.log(test3)
 const synth = new Tone.Synth().toDestination();
 
 function testScaleGeneration() {
