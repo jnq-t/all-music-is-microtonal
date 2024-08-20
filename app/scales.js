@@ -53,11 +53,11 @@ class scaleDegree {
     };
 }
 
+// ORIGINAL
 function originalBuildKeyboardFrequencies(scale) {
     const CUTOFF_FREQUENCY = 20_000;
     const scaleDegrees = scale.scaleDegrees();
     let keyboard = [];
-console.log(keyboard)
     for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
         const baseFrequency = scaleDegrees[scaleIndex].frequency;
         // set fresh cursor for each scaleDegree
@@ -72,11 +72,34 @@ console.log(keyboard)
 
             keyboard[position] = frequency //
             keyboardIndex++
+            
         };
     };
+    console.log(keyboard)
     return keyboard;
 }
 
+// REVISED
+function buildKeyboardFrequencies(scale) {
+    const CUTOFF_FREQUENCY = 20_000;
+    const scaleDegrees = scale.scaleDegrees();
+    let keyboard = [];
+
+    for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
+        const baseFrequency = scaleDegrees[scaleIndex].frequency;
+        // set fresh cursor for each scaleDegree
+        let keyboardIndex = 0;
+        const periodCoefficient = keyboardIndex + 1 // explain variable name 
+        const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
+        let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
+        
+        if (frequency <= CUTOFF_FREQUENCY) {
+            keyboard[position] = frequency //
+            keyboardIndex++
+        }
+    };
+    return keyboard;
+}
 
 /**
 *******************************
@@ -98,7 +121,7 @@ function pitchIsSustained() {
 
 /**
 *******************************
-* TESTING -- jesse don't look.. 
+* TESTING -- jesse don't look.. it's ugly
 *******************************
 * **/
 
@@ -108,8 +131,7 @@ const myScale = test.scaleDegrees()
 
 
 const test2 = buildKeyboardFrequencies(test)
-const test3 = originalBuildKeyboardFrequencies(test)
-console.log(test3)
+console.log(test2)
 const synth = new Tone.Synth().toDestination();
 
 function testScaleGeneration() {
