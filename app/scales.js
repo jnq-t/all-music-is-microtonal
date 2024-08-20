@@ -53,9 +53,9 @@ class scaleDegree {
     };
 }
 
-class Keyboard {
-    constructor(scale) {
-        this.scale = scale;
+class Keyboard extends Scale {
+    constructor() {
+        super(Scale)
         this.cutoffFrequency = 20_000;
     };
 
@@ -63,16 +63,17 @@ class Keyboard {
     //todo: write out comment on function
     #buildKeyboardFrequencies() {
         let keyboard = [];
-        for (let scaleIndex = 0; scaleIndex <= this.scale.length; scaleIndex++) {
-            const scaleDegrees = this.scale.scaleDegrees();
+       
+        for (let scaleIndex = 0; scaleIndex <= this.length; scaleIndex++) {
+            const scaleDegrees = this.scaleDegrees();
             const baseFrequency = scaleDegrees[scaleIndex].frequency;
             // set fresh cursor for each scaleDegree
             let keyboardIndex = 0;
 
             while (true) {
-                const position = (keyboardIndex * this.scale.length) + scaleIndex;
+                const position = (keyboardIndex * this.length) + scaleIndex;
                 const periodCoefficient = keyboardIndex + 1 ;
-                let frequency = periodCoefficient * this.scale.period * baseFrequency;
+                let frequency = periodCoefficient * this.period * baseFrequency;
 
                 if (frequency >= this.cutoffFrequency) break;
 
@@ -85,7 +86,8 @@ class Keyboard {
     //todo: write out comment on function
     keys() {
         let keyboard = this.#buildKeyboardFrequencies();
-        keyboard.map();
+        console.log(keyboard)
+        keyboard.map(); // what is this supposed to do? currently is an undefined function
     };
 }
 
@@ -148,6 +150,8 @@ function activateTone() {
 *******************************
 * **/
 
-const test = new Scale
-test.name = `plups test scale`
-const myScale = test.scaleDegrees()
+const keyboardTest = new Keyboard
+keyboardTest.name = 'plups new scale'
+const createKeyboard = keyboardTest.keys()
+console.log(keyboardTest)
+// console.log(createKeyboard)
