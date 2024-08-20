@@ -1,3 +1,5 @@
+
+
 class Scale {
     constructor(
         isPreset = false,
@@ -60,21 +62,15 @@ function buildKeyboardFrequencies(scale) {
         const baseFrequency = scaleDegrees[scaleIndex].frequency;
         // set fresh cursor for each scaleDegree
         let keyboardIndex = 0;
-
-        while (true) {
-            const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
-            const periodCoefficient = keyboardIndex + 1 // explain variable name 
-            let frequency = periodCoefficient * scale.period * baseFrequency
-
-            if (frequency >= CUTOFF_FREQUENCY) return; // is this necessary or redundant?
-
+        const periodCoefficient = keyboardIndex + 1 // explain variable name 
+        const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
+        let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
+        
+        if (frequency <= CUTOFF_FREQUENCY) {
             keyboard[position] = frequency //
-              // console.log(periodCoefficient, keyboardIndex, frequency)
             keyboardIndex++
-        };
+        }
     };
-    console.log('test')
-    console.log(keyboard)
     return keyboard;
 }
 
@@ -98,11 +94,59 @@ function pitchIsSustained() {
 
 /**
 *******************************
-* TESTING
+* TESTING -- jesse don't look.. 
 *******************************
 * **/
 
 const test = new Scale
 test.name = `plups test scale`
+const myScale = test.scaleDegrees()
 
-console.log(test.scaleDegrees())
+
+const test2 = buildKeyboardFrequencies(test)
+console.log(test2)
+const synth = new Tone.Synth().toDestination();
+
+function testScaleGeneration() {
+    let arrOfDivs = []
+    let counter = 1;
+    myScale.map(i => {
+        const div = document.createElement('button');
+        arrOfDivs.push(div) 
+        div.innerText = `${i.frequency}`;
+        div.className = "scaleDegree";
+        div.id = `scale-degree-${counter}`
+        counter++
+
+        document.getElementById('main').appendChild(div)
+        div.addEventListener("click", async () => {
+            await Tone.start();
+            const now = Tone.now()
+            synth.triggerAttack(i.frequency, now);
+            synth.triggerRelease(now + 1);
+            console.log("audio is ready");
+        });
+    })
+
+    test2.map(i => {
+        const div = document.createElement('button');
+        arrOfDivs.push(div) 
+        div.innerText = `${i}`;
+        div.className = "scaleDegree";
+        div.id = `scale-degree-${counter}`
+        counter++
+
+        document.getElementById('main').appendChild(div)
+        div.addEventListener("click", async () => {
+            await Tone.start();
+            const now = Tone.now()
+            synth.triggerAttack(i, now);
+            synth.triggerRelease(now + 1);
+            console.log("audio is ready");
+        });
+    })
+
+   
+}
+
+testScaleGeneration()
