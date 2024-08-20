@@ -53,53 +53,80 @@ class scaleDegree {
     };
 }
 
-// ORIGINAL
-function originalBuildKeyboardFrequencies(scale) {
-    const CUTOFF_FREQUENCY = 20_000;
-    const scaleDegrees = scale.scaleDegrees();
-    let keyboard = [];
-    for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
-        const baseFrequency = scaleDegrees[scaleIndex].frequency;
-        // set fresh cursor for each scaleDegree
-        let keyboardIndex = 0;
-        
-        while (true) {
-            const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
-            const periodCoefficient = keyboardIndex + 1 // explain variable name 
-            let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
+class Keyboard {
+    constructor(scale) {
+        this.scale = scale;
+        this.cutoffFrequency = 20_000;
+    };
 
-            if (frequency >= CUTOFF_FREQUENCY) return; 
+    // private functions
+    //todo: write out comment on function
+    #buildKeyboardFrequencies() {
+        let keyboard = [];
+        for (let scaleIndex = 0; scaleIndex <= this.scale.length; scaleIndex++) {
+            const scaleDegrees = this.scale.scaleDegrees();
+            const baseFrequency = scaleDegrees[scaleIndex].frequency;
+            // set fresh cursor for each scaleDegree
+            let keyboardIndex = 0;
 
-            keyboard[position] = frequency //
-            keyboardIndex++
-            
+            while (true) {
+                const position = (keyboardIndex * this.scale.length) + scaleIndex;
+                const periodCoefficient = keyboardIndex + 1 ;
+                let frequency = periodCoefficient * this.scale.period * baseFrequency;
+
+                if (frequency >= this.cutoffFrequency) break;
+
+                keyboard[position] = frequency;
+                keyboardIndex++;
+            };
         };
+        return keyboard;
+    }
+    //todo: write out comment on function
+    keys() {
+        let keyboard = this.#buildKeyboardFrequencies();
+        keyboard.map();
     };
-    console.log(keyboard)
-    return keyboard;
 }
 
-// REVISED
-function buildKeyboardFrequencies(scale) {
-    const CUTOFF_FREQUENCY = 20_000;
-    const scaleDegrees = scale.scaleDegrees();
-    let keyboard = [];
-
-    for(let scaleIndex=0; scaleIndex <= scale.length; scaleIndex++) {
-        const baseFrequency = scaleDegrees[scaleIndex].frequency;
-        // set fresh cursor for each scaleDegree
-        let keyboardIndex = 0;
-        const periodCoefficient = keyboardIndex + 1 // explain variable name 
-        const position = (keyboardIndex * scale.length) + scaleIndex; // what does position mean 
-        let frequency = periodCoefficient * scale.period * baseFrequency // explain what this is doing jesse
-        
-        if (frequency <= CUTOFF_FREQUENCY) {
-            keyboard[position] = frequency //
-            keyboardIndex++
-        }
+//todo: short description on class
+class Key {
+    constructor(frequency) {
+        this.frequency = frequency; // this is mostly for the ui
+        this.sustain = false;
     };
-    return keyboard;
-}
+
+    play() {
+        this.#toggleSustain();
+        this.#callSynth(this.frequency);
+    };
+
+    #toggleSustain() {
+        this.sustain = !this.sustain;
+    };
+
+    // def memoize this
+    #callSynth(frequency) {
+        `synth frequency is ${frequency} sustain is ${this.sustain}`
+    };
+};
+
+//todo: short description on class; 
+class Modifier {
+    constructor(scaleDegree = 0, numerator = 2, denominator = 1, detuneByCents = 0) {
+        this.scaleDegree = scaleDegree;
+        this.ratio = numerator / denominator;
+        this.detuneByCents = detuneByCents;
+    };
+};
+
+function buildFrequencyScaffold(scale) {
+
+};
+
+function buildKeys(buildKeyboardFrequencies) {
+
+};
 
 /**
 *******************************
@@ -108,16 +135,12 @@ function buildKeyboardFrequencies(scale) {
 * **/
 //TODO: create isUser to validate if signed in or not
 function isUser() {
-}
+};
 
 //TODO: create function and attach method to each scaleDegree
 function activateTone() {
     // if dom object is is clicked, activate tone 
-}
-//TODO: should individual tone sustain be a method?
-function pitchIsSustained() {
-    // 
-}
+};
 
 /**
 *******************************
@@ -128,52 +151,3 @@ function pitchIsSustained() {
 const test = new Scale
 test.name = `plups test scale`
 const myScale = test.scaleDegrees()
-
-
-const test2 = buildKeyboardFrequencies(test)
-console.log(test2)
-const synth = new Tone.Synth().toDestination();
-
-function testScaleGeneration() {
-    let arrOfDivs = []
-    let counter = 1;
-    myScale.map(i => {
-        const div = document.createElement('button');
-        arrOfDivs.push(div) 
-        div.innerText = `${i.frequency}`;
-        div.className = "scaleDegree";
-        div.id = `scale-degree-${counter}`
-        counter++
-
-        document.getElementById('main').appendChild(div)
-        div.addEventListener("click", async () => {
-            await Tone.start();
-            const now = Tone.now()
-            synth.triggerAttack(i.frequency, now);
-            synth.triggerRelease(now + 1);
-            console.log("audio is ready");
-        });
-    })
-
-    test2.map(i => {
-        const div = document.createElement('button');
-        arrOfDivs.push(div) 
-        div.innerText = `${i}`;
-        div.className = "scaleDegree";
-        div.id = `scale-degree-${counter}`
-        counter++
-
-        document.getElementById('main').appendChild(div)
-        div.addEventListener("click", async () => {
-            await Tone.start();
-            const now = Tone.now()
-            synth.triggerAttack(i, now);
-            synth.triggerRelease(now + 1);
-            console.log("audio is ready");
-        });
-    })
-
-   
-}
-
-testScaleGeneration()
