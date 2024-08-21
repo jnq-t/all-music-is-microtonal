@@ -44,7 +44,6 @@ class Scale {
         };
 };
 
-//currently this information is defined on Scale's constructor, then injects a new iteration on line 24 
 class scaleDegree {
     constructor(frequency = 240, modifiers = {}) {
         this.frequency = frequency;
@@ -86,7 +85,7 @@ class Keyboard  {
     keys() {
         let keyboard = this.#buildKeyboardFrequencies();
         console.log(keyboard)
-        // keyboard.map();  // currently an undefined function / non-functioning
+        // keyboard.map(); 
     };
 }
 
@@ -108,7 +107,7 @@ class Key {
 
     // def memoize this
     #callSynth(frequency) {
-        `synth frequency is ${frequency} sustain is ${this.sustain}`
+       console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
     };
 };
 
