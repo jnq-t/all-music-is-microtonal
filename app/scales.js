@@ -51,43 +51,45 @@ class scaleDegree {
     };
 }
 
-class Keyboard  {
+class Keyboard {
     constructor(scale) {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
-    };
+    }
 
     // private functions
-    //todo: write out comment on function
     #buildKeyboardFrequencies() {
-        let keyboard = [];
-       
-        for (let scaleIndex = 0; scaleIndex <= this.scale.length; scaleIndex++) {
-            const scaleDegrees = this.scale.scaleDegrees();
-            const baseFrequency = scaleDegrees[scaleIndex].frequency;
-            // set fresh cursor for each scaleDegree
-            let keyboardIndex = 0;
+        const scaleDegrees = this.scale.scaleDegrees(); // initializes 1st period of scaleDegrees objects
+        let scaffold = scaleDegrees.map(scaleDegree => scaleDegree.frequency); // creates base "layer" via scaleDegrees freq.'s 
 
-            while (true) {
-                const position = (keyboardIndex * this.scale.length) + scaleIndex;
-                const periodCoefficient = keyboardIndex + 1 ;
-                let frequency = periodCoefficient * this.scale.period * baseFrequency;
+        for (let scaleIndex = 0; scaleIndex < this.scale.length; scaleIndex++) { 
+            let keyboardIndex = 1;  // sets fresh cursor for each scaleDegree
+
+            while (true) { // inner loop iterates once for each "octave"
+                
+                const position = (keyboardIndex * this.scale.length) + scaleIndex; // uses keyboard & scale index to locate the correct position in 2d array
+               
+                // calculates frequency by referencing the last frequency we added to the scaffold
+                const prevPosition = position - this.scale.length; 
+                const prevFrequency = scaffold[prevPosition];
+
+                let frequency = this.scale.period * prevFrequency; // finds new frequency by multiplying the previous frequency by the period (octave interval)
 
                 if (frequency >= this.cutoffFrequency) break;
-
-                keyboard[position] = frequency;
+                
+                scaffold[position] = frequency; // pushes frequency into array
                 keyboardIndex++;
-            };
+            }
         };
-        return keyboard;
-    }
-    //todo: write out comment on function
-    keys() {
-        let keyboard = this.#buildKeyboardFrequencies();
-        console.log(keyboard)
-        // keyboard.map(); 
+        return scaffold;
     };
-}
+
+    keys() {
+        const keysFreqArr = this.#buildKeyboardFrequencies();
+        console.log(keysFreqArr);
+        // keysFreqArr.map(); //TODO
+    };
+};
 
 //todo: short description on class
 class Key {
@@ -150,6 +152,9 @@ function activateTone() {
 
 const newScale = new Scale();
 newScale.name = 'plups scale'
-const keyboardWithScaleInjected = new Keyboard(newScale);
-console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
-keyboardWithScaleInjected.keys()
+// const keyboardWithScaleInjected = new Keyboard(newScale);
+// console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
+// keyboardWithScaleInjected.keys()
+const keyboardTest = new Keyboard(newScale)
+const scaffold = keyboardTest.keys()
+console.log(scaffold)
