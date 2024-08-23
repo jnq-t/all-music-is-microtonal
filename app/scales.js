@@ -24,7 +24,9 @@ class Scale {
             while (scaleDegrees.length <= this.length) {
                 const previousScaleDegree = scaleDegrees.slice(-1)
                 const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
-                scaleDegrees.push(new scaleDegree(nextFrequency, this.modifiers));
+                 // TODO: apply modifiers
+
+                scaleDegrees.push(new scaleDegree(nextFrequency));
             };
             return scaleDegrees;
         };
@@ -120,7 +122,7 @@ class Key {
 };
 
 //todo: short description on class; 
-class Modifier {
+class scaleDegreeModifier {
     constructor(scaleDegreePosition = 0, ratioNumerator = 2, ratioDenominator = 1, detuneByCents = 0) {
         this.scaleDegreePosition = scaleDegree
         this.ratioNumerator = numerator
