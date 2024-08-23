@@ -6,15 +6,14 @@ class Scale {
         author,
         length = 12,
         period = 2,
-        modifiers = {}
     ) {
+        this.id = "stubbedScaleId"
         this.isPreset = isPreset;
         this.name = name;
         this.startingFreq = startingFreq;
         this.author = author;
         this.length = length; // num. of scale degrees
         this.period = period; // size of octave interval - how much space is covered in the scale before it repeats.
-        this.modifiers = modifiers;
     };
         /**
          * @method scaleDegrees
@@ -31,6 +30,13 @@ class Scale {
         };
 
         // private methods
+
+        #modifiers() {
+            // TODO call to mongo db for all scales with this scale's scale_id
+            // this is a stubbed method for testing
+            getModifiersForScale(this.id)
+        }
+
         /**
         * @method stepSizeMultiplier
         * 
@@ -115,20 +121,51 @@ class Key {
 
 //todo: short description on class; 
 class Modifier {
-    constructor(scaleDegree = 0, numerator = 2, denominator = 1, detuneByCents = 0) {
-        this.scaleDegree = scaleDegree;
-        this.ratio = numerator / denominator;
-        this.detuneByCents = detuneByCents;
+    constructor(scaleDegreePosition = 0, ratioNumerator = 2, ratioDenominator = 1, detuneByCents = 0) {
+        this.scaleDegreePosition = scaleDegree
+        this.ratioNumerator = numerator
+        this.ratioDenominator = denominator
+        this.detuneByCents = detuneByCents
+        this.scaleId
     };
 };
 
-function buildFrequencyScaffold(scale) {
+function getModifiersForScale(scaleId) {
+    const modifier0 = {
+        "_id": 'foo',
+        "scaleId": scaleId,
+        "ratioDenominator": 4,
+        "ratioNumerator": 5,
+        "detuneByCents": 0,
+        "scaleDegreePosition": 5
+    };
+    const modifier1 = {
+        "_id": 'foo',
+        "scaleId": scaleId,
+        "ratioDenominator": 4,
+        "ratioNumerator": 7,
+        "detuneByCents": 0,
+        "scaleDegreePosition": 10
+    };
+    const modifier2 = {
+        "_id": 'foo',
+        "scale_id": scaleId,
+        "ratioDenominator": 0,
+        "ratioNumerator": 0,
+        "detuneByCents": 20,
+        "scaleDegreePosition": 5
+    };
 
-};
-
-function buildKeys(buildKeyboardFrequencies) {
-
-};
+    const mockedResponse = {
+        "ok": 1,
+        "documents": [
+            modifier0,
+            modifier1,
+            modifier2
+        ]
+    };
+    return mockedResponse;
+}
 
 /**
 *******************************
@@ -157,3 +194,4 @@ newScale.name = 'plups scale'
 // keyboardWithScaleInjected.keys()
 const keyboardTest = new Keyboard(newScale)
 keyboardTest.keys()
+
