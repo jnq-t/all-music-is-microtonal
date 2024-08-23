@@ -21,11 +21,11 @@ class Scale {
      * **/
     scaleDegrees() {
         const indexedModifiers = this.#indexedModifiersArray()
-        let scaleDegrees = [new ScaleDegree(this.startingFreq, indexedModifiers[0])];
+        let scaleDegrees = [new ScaleDegree(this.startingFreq, indexedModifiers[0], this.startingFreq)];
         while (scaleDegrees.length <= this.length) {
-            const previousScaleDegree = scaleDegrees.slice(-1)
-            const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
-            scaleDegrees.push(new ScaleDegree(nextFrequency, indexedModifiers[scaleDegrees.length]));
+            const previousScaleDegree = scaleDegrees.slice(-1)[0]
+            const nextFrequency = previousScaleDegree.frequency * this.#stepSizeMultiplier()
+            scaleDegrees.push(new ScaleDegree(nextFrequency, indexedModifiers[scaleDegrees.length], this.startingFreq));
         };
         return scaleDegrees;
     };
@@ -58,11 +58,43 @@ class Scale {
 };
 
 class ScaleDegree {
-    constructor(inputFrequency = 240, modifier = {}) {
-        this.inputFrequency = inputFrequency;
-        this.modifier = modifier;
+    constructor(inputFrequency = 0, modifier = {}, startingFreq = 240) {
+        this.inputFrequency = inputFrequency
+        this.modifier = modifier
+        this.startingFreq = startingFreq
+        // i know js ppl don't like doing this in the constructor but my ruby brain loves it haha
+        this.frequency = this.#frequency()
+    }
+
+    #frequency() {
+        if (typeof this.modifier === "undefined") {
+            return this.inputFrequency
+        }
+
+        const ratio = this.#ratio();
+        const detuneByCents = this.modifier.detuneByCents;
+        let frequency = this.inputFrequency
+
+        if (typeof ratio != "undefined") {
+            frequency = this.startingFreq * ratio
+        }
+
+        if (typeof detuneByCents != "undefined"){
+        // TODO this is old math, double check it
+            frequency *= Math.pow(2, detuneByCents/1200);
+        }
+        return frequency;
     };
-}
+
+    #ratio(){
+        const numerator = this.modifier.ratioNumerator
+        const denominator = this.modifier.ratioDenominator
+
+        if (typeof numerator != "undefined" && typeof denominator != "undefined") {
+            return numerator / denominator;
+        }
+    };
+};
 
 class Keyboard {
     constructor(scale) {
@@ -177,7 +209,4 @@ newScale.name = 'plups scale'
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
 // keyboardWithScaleInjected.keys()
 // const keyboardTest = new Keyboard(newScale)
-// console.log(newScale.modifiers())
-// console.log(getModifiersForScale(newScale.id))
-// console.log(newScale.indexedModifiersArray())
 console.log(newScale.scaleDegrees())
