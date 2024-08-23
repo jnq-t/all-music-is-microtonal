@@ -23,7 +23,8 @@ class Scale {
             let scaleDegrees = [new scaleDegree()];
             while (scaleDegrees.length <= this.length) {
                 const previousScaleDegree = scaleDegrees.slice(-1)
-                const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
+                const currentFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
+
                  // TODO: apply modifiers
 
                 scaleDegrees.push(new scaleDegree(nextFrequency));
@@ -33,11 +34,11 @@ class Scale {
 
         // private methods
 
-        #modifiers() {
-            // TODO call to mongo db for all scales with this scale's scale_id
+        modifiers() {
+            // use the populate() method to get all of the associated modifiers
             // this is a stubbed method for testing
-            getModifiersForScale(this.id)
-        }
+            return getModifiersForScale(this.id);
+        };
 
         /**
         * @method stepSizeMultiplier
@@ -125,38 +126,37 @@ class Key {
 class scaleDegreeModifier {
     constructor(scaleDegreePosition = 0, ratioNumerator = 2, ratioDenominator = 1, detuneByCents = 0) {
         this.scaleDegreePosition = scaleDegree
-        this.ratioNumerator = numerator
-        this.ratioDenominator = denominator
+        this.ratioNumerator = ratioNumerator
+        this.ratioDenominator = ratioDenominator
         this.detuneByCents = detuneByCents
-        this.scaleId
-    };
+    }
 };
 
 function getModifiersForScale(scaleId) {
-    const modifier0 = {
+    const modifier0 = new scaleDegreeModifier({
         "_id": 'foo',
         "scaleId": scaleId,
         "ratioDenominator": 4,
         "ratioNumerator": 5,
         "detuneByCents": 0,
         "scaleDegreePosition": 5
-    };
-    const modifier1 = {
+    });
+    const modifier1 = new scaleDegreeModifier({
         "_id": 'foo',
         "scaleId": scaleId,
         "ratioDenominator": 4,
         "ratioNumerator": 7,
         "detuneByCents": 0,
         "scaleDegreePosition": 10
-    };
-    const modifier2 = {
+    });
+    const modifier2 = new  scaleDegreeModifier({
         "_id": 'foo',
         "scale_id": scaleId,
         "ratioDenominator": 0,
         "ratioNumerator": 0,
         "detuneByCents": 20,
         "scaleDegreePosition": 5
-    };
+    });
 
     const mockedResponse = {
         "ok": 1,
@@ -195,5 +195,6 @@ newScale.name = 'plups scale'
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
 // keyboardWithScaleInjected.keys()
 const keyboardTest = new Keyboard(newScale)
-keyboardTest.keys()
-
+console.log(newScale.modifiers())
+// console.log(getModifiersForScale(newScale.id))
+// console.log(newScale.id)
