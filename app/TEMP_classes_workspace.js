@@ -20,9 +20,8 @@ class Scale {
      * @return {Array} returns an array of scale degree objects
      * **/
     scaleDegrees() {
-        // TODO populate call for modifiers
-        const indexedModifiers = this.indexedModifiersArray()
-        let scaleDegrees = [new ScaleDegree(this.startingFreq, (indexedModifiers[0] || {}))];
+        const indexedModifiers = this.#indexedModifiersArray()
+        let scaleDegrees = [new ScaleDegree(this.startingFreq, indexedModifiers[0])];
         while (scaleDegrees.length <= this.length) {
             const previousScaleDegree = scaleDegrees.slice(-1)
             const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
@@ -33,10 +32,10 @@ class Scale {
 
     // private methods
 
-    indexedModifiersArray() {
-        // TODO call to mongo db for all scales with this scale's scale_id
-        // this is a stubbed method for testing
+    #indexedModifiersArray() {
+        // instead of this getModifiers call we'll do a `populate()` for all the associated modifiers
         let modifiers = getModifiersForScale(this.id).documents;
+
         let acc = []
         for(let i = 0; i < modifiers.length; i++){
             const current = modifiers[i]
@@ -59,9 +58,9 @@ class Scale {
 };
 
 class ScaleDegree {
-    constructor(frequency = 240, modifiers = {}) {
-        this.frequency = frequency;
-        this.modifiers = modifiers;
+    constructor(inputFrequency = 240, modifier = {}) {
+        this.inputFrequency = inputFrequency;
+        this.modifier = modifier;
     };
 }
 
