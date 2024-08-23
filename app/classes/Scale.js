@@ -24,6 +24,7 @@ class Scale {
      * **/
     scaleDegrees() {
         let scaleDegrees = [new ScaleDegree()];
+        // populate call for modifiers
         while (scaleDegrees.length <= this.length) {
             const previousScaleDegree = scaleDegrees.slice(-1)
             const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
