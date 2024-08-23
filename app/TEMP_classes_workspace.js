@@ -20,11 +20,12 @@ class Scale {
          * @return {Array} returns an array of scale degree objects
          * **/
         scaleDegrees() {
-            let scaleDegrees = [new scaleDegree()];
+            let scaleDegrees = [new ScaleDegree()];
+            // db populate()
             while (scaleDegrees.length <= this.length) {
                 const previousScaleDegree = scaleDegrees.slice(-1)
                 const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
-                scaleDegrees.push(new scaleDegree(nextFrequency, this.modifiers));
+                scaleDegrees.push(new ScaleDegree(nextFrequency, this.modifiers));
             };
             return scaleDegrees;
         };
@@ -50,7 +51,7 @@ class Scale {
         };
 };
 
-class scaleDegree {
+class ScaleDegree {
     constructor(frequency = 240, modifiers = {}) {
         this.frequency = frequency;
         this.modifiers = modifiers;
