@@ -121,11 +121,12 @@ class Key {
 
 //todo: short description on class; 
 class Modifier {
-    constructor(scaleDegreePosition = 0, numerator = 2, denominator = 1, detuneByCents = 0) {
-        this.scaleDegree = scaleDegree;
-        this.numerator = numerator
-        this.denominator = denominator
-        this.detuneByCents = detuneByCents;
+    constructor(scaleDegreePosition = 0, ratioNumerator = 2, ratioDenominator = 1, detuneByCents = 0) {
+        this.scaleDegreePosition = scaleDegree
+        this.ratioNumerator = numerator
+        this.ratioDenominator = denominator
+        this.detuneByCents = detuneByCents
+        this.scaleId
     };
 };
 
@@ -133,7 +134,7 @@ function getModifiersForScale(scaleId) {
     const modifier0 = {
         "_id": 'foo',
         "scaleId": scaleId,
-        "ratioDenomicator": 4,
+        "ratioDenominator": 4,
         "ratioNumerator": 5,
         "detuneByCents": 0,
         "scaleDegreePosition": 5
@@ -141,7 +142,7 @@ function getModifiersForScale(scaleId) {
     const modifier1 = {
         "_id": 'foo',
         "scaleId": scaleId,
-        "ratioDenomicator": 4,
+        "ratioDenominator": 4,
         "ratioNumerator": 7,
         "detuneByCents": 0,
         "scaleDegreePosition": 10
@@ -149,7 +150,7 @@ function getModifiersForScale(scaleId) {
     const modifier2 = {
         "_id": 'foo',
         "scale_id": scaleId,
-        "ratioDenomicator": 0,
+        "ratioDenominator": 0,
         "ratioNumerator": 0,
         "detuneByCents": 20,
         "scaleDegreePosition": 5
