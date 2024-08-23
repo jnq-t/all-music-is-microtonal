@@ -44,7 +44,7 @@ const scaleSchema = new Schema({
 		default: { numerator: 2, denominator: 1 },
 		required: true
 	},
-	// modifiers : [{ type: Schema.Types.ObjectId, ref: 'ScaleDegreeModifier' }],
+	modifiers : [{ type: Schema.Types.ObjectId, ref: 'ScaleDegreeModifier' }],
 });
 
 module.exports = Scale = mongoose.model('Scale', scaleSchema);
