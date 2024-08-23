@@ -31,12 +31,14 @@
                     <label class="num-of-scale-degrees-label" for="num-of-scale-degrees">Number of Scale Degrees</label>
                     <input type="number" id="num-of-scale-degrees-input" name="num-of-scale-degrees" step=".0001" value="12" min="2" max="200" aria-label="scale starting frequency" />
                 </div>
-                 <button onclick="scaleSubmit()" type="button" value="Generate Scale" id="create-scale-btn" aria-label="generate scale">Generate Scale</button>
+                 <button type="button" value="Generate Scale" id="create-scale-btn" aria-label="generate scale">Generate Scale</button>
             </div>
         </main>
         <footer>
         </footer>
     </body>
     <script src="http://unpkg.com/tone"></script>
+    <script type="module" src="../server/server.js"></script>
     <script type="module" src="scales.js"></script>
+    <script type="module" src="requestTest.js"></script>
 </html>
