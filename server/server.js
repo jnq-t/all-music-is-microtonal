@@ -4,6 +4,7 @@ const connectDB = require('./db');
 const express = require('express');
 const routes = require('../routeTest')
 const app = express();
+const cors = require('cors')
 
 const { port } = require('./config');
 
@@ -13,6 +14,7 @@ connectDB().catch(console.dir);
 
 // allows for post 'req.body.propertyName' to work
 app.use(express.json())
+app.use(cors())
 // use exported routes
 app.use('/api', routes)
 

@@ -5,30 +5,31 @@ const startingFreq = document.getElementById('starting-frequency-input')
 const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
 
 
+// test route
+const loadScales = async () => {
+    let results = await fetch(`http://localhost:8080/api/scales`).then(resp => resp.json());
+    console.log(results)
+    setPosts(results);
+  }
 
-  const addScale = async function(e) {
-    try {
-        e.preventDefault();
-        const newScaleData = {
-            author: author.value,
-            name: scaleName.value,
-            startingFreq: startingFreq.value,
-            numOfScaleDeg: numOfScaleDeg.value
-        };
+  loadScales()
 
-        await fetch("/api/scale"), {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(newScaleData),
-        };
+  const createScale = async function () {
+    await fetch(`http://localhost:8080/api/scale`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({
+        
+        author: author.value,
+        name: scaleName.value,
+        startingFreq: startingFreq.value,
+        numOfScaleDeg: numOfScaleDeg.value
+    
+        })
+      }).then(resp => resp.json());
 
-        console.log('completed')
+  }
 
-    } catch (error) {
-             console.log(error) 
-        };
-  };
-
-  generateScaleBtn.addEventListener('click', addScale )
+  generateScaleBtn.addEventListener('click', createScale )
