@@ -193,7 +193,5 @@ newScale.name = 'plups scale'
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
 // keyboardWithScaleInjected.keys()
 const keyboardTest = new Keyboard(newScale)
-const scaffold = keyboardTest.keys()
-// console.log(scaffold)
-mod = getModifiersForScale(newScale.id)
-console.log(mod)
+keyboardTest.keys()
+

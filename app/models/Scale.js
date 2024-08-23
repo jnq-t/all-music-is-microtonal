@@ -1,4 +1,3 @@
-// import mongoose from 'mongoose';
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -6,15 +5,15 @@ const { Schema } = mongoose;
 const scaleSchema = new Schema({
 	name: {
 		type: String,
-		unique: true
+		unique: true,
+		required: true
 	},
 	author: {
 		type: String,
 		default: ""
 	},
-	
 	period: {
-		type: float,
+		type: Number,
 		default: 2,
 		required: true
 	},
@@ -45,6 +44,7 @@ const scaleSchema = new Schema({
 		default: { numerator: 2, denominator: 1 },
 		required: true
 	},
+	modifiers : [{ type: Schema.Types.ObjectId, ref: 'ScaleDegreeModifier' }],
 });
 
-module.exports = Scale = mongoose.model('scale', scaleSchema);
+module.exports = Scale = mongoose.model('Scale', scaleSchema);

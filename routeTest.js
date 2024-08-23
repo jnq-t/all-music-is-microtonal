@@ -2,10 +2,29 @@
 const express = require('express');
 const router = express.Router();
 //Load Scale Schema
-const ScaleSchema = require('./app/models/Scale') 
+const Scale = require('./app/models/Scale') 
+const ScaleDegreeModifier = require('./app/models/ScaleDegreeModifier') 
 
+
+//Scale Degree Modifier Routes
+router.post("/scaleDegreeModifier", async (req, res) => {
+    let result = await ScaleDegreeModifier.create(req.body);
+    res.send(result);
+  });
+
+router.get('/scaleDegreeModifiers', async (req, res) => {
+    try{
+        const data = await ScaleDegreeModifier.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// Scale Routes
 router.post('/scale', async (req, res) => {
-    const scaleData = new ScaleSchema ({
+    const scaleData = new Scale ({
         name: req.body.name,
         author: req.body.author,
         isPreset: req.body.isPreset,
@@ -27,7 +46,7 @@ router.post('/scale', async (req, res) => {
 //Get all Method
 router.get('/scales', async (req, res) => {
     try{
-        const data = await ScaleSchema.find();
+        const data = await Scale.find();
         res.json(data)
     }
     catch(error){
@@ -51,7 +70,7 @@ router.patch('/update/:id', (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await ScaleSchema.findByIdAndDelete(id)
+        const data = await Scale.findByIdAndDelete(id)
         res.send(`Document with ${data.name} has been deleted..`)
     }
     catch (error) {
