@@ -22,9 +22,9 @@ class Scale {
     scaleDegrees() {
         const indexedModifiers = this.#indexedModifiersArray()
         let scaleDegrees = [new ScaleDegree(this.startingFreq, indexedModifiers[0], this.startingFreq)];
-        while (scaleDegrees.length <= this.length) {
+        while (scaleDegrees.length < this.length) {
             const previousScaleDegree = scaleDegrees.slice(-1)[0]
-            const nextFrequency = previousScaleDegree.frequency * this.#stepSizeMultiplier()
+            const nextFrequency = previousScaleDegree.inputFrequency * this.#stepSizeMultiplier()
             scaleDegrees.push(new ScaleDegree(nextFrequency, indexedModifiers[scaleDegrees.length], this.startingFreq));
         };
         return scaleDegrees;
@@ -102,10 +102,20 @@ class Keyboard {
         this.cutoffFrequency = 20_000;
     }
 
+    // #buildKeyboardFrequencies() {
+    //     const scaleDegrees = this.scale.scaleDegrees();
+    //     let scaffold = [];
+    //     let i = 0;
+    //     while (true){
+    //         let freq = scaleDegrees[i % this.scale.length]
+    //     }
+    // }
+
+
     // private functions
     #buildKeyboardFrequencies() {
         const scaleDegrees = this.scale.scaleDegrees(); // initializes 1st period of scaleDegrees objects
-        let scaffold = scaleDegrees.map(scaleDegree => scaleDegree.frequency); // creates base "layer" via scaleDegrees freq.'s 
+        let scaffold = scaleDegrees.map(scaleDegree => scaleDegree.frequency); // creates base "layer" via scaleDegrees freq.'s
 
         for (let scaleIndex = 0; scaleIndex < this.scale.length; scaleIndex++) { 
             let keyboardIndex = 1;  // sets fresh cursor for each scaleDegree
