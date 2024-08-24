@@ -92,30 +92,21 @@ class Keyboard {
 
     // private methods
     #buildKeyboardFrequencies() {
-        const scaleDegrees = this.scale.scaleDegrees(); // initializes 1st period of scaleDegrees objects
-        let scaffold = scaleDegrees.map(scaleDegree => scaleDegree.frequency); // creates base "layer" via scaleDegrees freq.'s 
+        const scaleDegrees = this.scale.scaleDegrees();
+        let scaffold = [];
+        let i = 0;
+        while (true){
+            const currentPeriod = Math.floor(i/this.scale.length)
+            const periodMultiplier = Math.pow(this.scale.period,currentPeriod);
+            const baseFrequency = scaleDegrees[(i % this.scale.length)].frequency
+            const frequency = baseFrequency * periodMultiplier
 
-        for (let scaleIndex = 0; scaleIndex < this.scale.length; scaleIndex++) { 
-            let keyboardIndex = 1;  // sets fresh cursor for each scaleDegree
+            if (frequency >= this.cutoffFrequency) return scaffold;
 
-            while (true) { // inner loop iterates once for each "octave"
-                
-                const position = (keyboardIndex * this.scale.length) + scaleIndex; // uses keyboard & scale index to locate the correct position in 2d array
-               
-                // calculates frequency by referencing the last frequency we added to the scaffold
-                const prevPosition = position - this.scale.length; 
-                const prevFrequency = scaffold[prevPosition];
-
-                let frequency = this.scale.period * prevFrequency; // finds new frequency by multiplying the previous frequency by the period (octave interval)
-
-                if (frequency >= this.cutoffFrequency) break;
-                
-                scaffold[position] = frequency; // pushes frequency into array
-                keyboardIndex++;
-            }
-        };
-        return scaffold;
-    };
+            scaffold[i] = frequency
+            i++;
+        }
+    }
 };
 
 //todo: short description on class
