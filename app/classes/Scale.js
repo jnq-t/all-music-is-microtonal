@@ -1,22 +1,22 @@
-import {ScaleDegree} from "./ScaleDegree";
-import {ScaleDegreeModifier} from "./ScaleDegreeModifier";
+import ScaleDegree from "./ScaleDegree.js";
+// import {ScaleDegreeModifier} from "./ScaleDegreeModifier.js";
 
 class Scale {
     constructor(
-        isPreset = false,
+        author,
         name,
         startingFreq = 240,
-        author,
         length = 12,
         period = 2,
+        isPreset = false,
     ) {
         this.id = "stubbedScaleId"
-        this.isPreset = isPreset;
+        this.author = author;
         this.name = name;
         this.startingFreq = startingFreq;
-        this.author = author;
         this.length = length; // num. of scale degrees
         this.period = period; // size of octave interval - how much space is covered in the scale before it repeats.
+        this.isPreset = isPreset;
     };
     /**
      * @method scaleDegrees
@@ -54,4 +54,4 @@ class Scale {
     };
 };
 
-export class Scale { /* … */ }
+export default Scale

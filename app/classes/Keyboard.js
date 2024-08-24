@@ -1,4 +1,4 @@
-import {Key} from "./Key";
+import Key from "./Key.js";
 
 class Keyboard {
     constructor(scale) {
@@ -35,9 +35,10 @@ class Keyboard {
 
     keys() {
         const keysFreqArr = this.#buildKeyboardFrequencies();
-        console.log(keysFreqArr);
+        // console.log(keysFreqArr);
+        return keysFreqArr
         // keysFreqArr.map(); //TODO
     };
 };
 
-export class Keyboard { /* … */ }
+export default Keyboard

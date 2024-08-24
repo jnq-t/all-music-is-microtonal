@@ -7,4 +7,4 @@ class ScaleDegreeModifier {
     }
 };
 
-export class ScaleDegreeModifier { /* … */ }
+export default ScaleDegreeModifier

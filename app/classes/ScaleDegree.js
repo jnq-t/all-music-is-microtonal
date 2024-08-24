@@ -5,4 +5,4 @@ class ScaleDegree {
     };
 }
 
-export class ScaleDegree { /* … */ }
+export default ScaleDegree

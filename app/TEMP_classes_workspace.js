@@ -1,19 +1,19 @@
 class Scale {
     constructor(
-        isPreset = false,
+        author,
         name,
         startingFreq = 240,
-        author,
         length = 12,
         period = 2,
+        isPreset = false,
     ) {
         this.id = "stubbedScaleId"
-        this.isPreset = isPreset;
         this.name = name;
-        this.startingFreq = startingFreq;
         this.author = author;
+        this.startingFreq = startingFreq;
         this.length = length; // num. of scale degrees
         this.period = period; // size of octave interval - how much space is covered in the scale before it repeats.
+        this.isPreset = isPreset;
     };
         /**
          * @method scaleDegrees
@@ -23,11 +23,11 @@ class Scale {
             let scaleDegrees = [new scaleDegree()];
             while (scaleDegrees.length <= this.length) {
                 const previousScaleDegree = scaleDegrees.slice(-1)
-                const currentFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
+                const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
 
                  // TODO: apply modifiers
 
-                scaleDegrees.push(new scaleDegree(nextFrequency));
+                 scaleDegrees.push(new scaleDegree(nextFrequency, this.modifiers));
             };
             return scaleDegrees;
         };
@@ -189,12 +189,35 @@ function activateTone() {
 *******************************
 * **/
 
-const newScale = new Scale();
-newScale.name = 'plups scale'
-// const keyboardWithScaleInjected = new Keyboard(newScale);
-// console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
-// keyboardWithScaleInjected.keys()
-const keyboardTest = new Keyboard(newScale)
-console.log(newScale.modifiers())
-// console.log(getModifiersForScale(newScale.id))
-// console.log(newScale.id)
+// const generateScaleBtn = document.getElementById('create-scale-btn');
+// const author = document.getElementById('scale-author-input')
+// const scaleName = document.getElementById('scale-name-input')
+// const startingFreq = document.getElementById('starting-frequency-input')
+// const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
+
+//   const createScale = async function () {
+//     const scaleData = {
+//         name: scaleName.value,
+//         author: author.value,
+//         startingFreq: startingFreq.value,
+//         numOfScaleDeg: numOfScaleDeg.value
+//     }
+
+//     // await fetch(`http://localhost:8080/api/scale`, {
+//     //     method: "POST",
+//     //     headers: {
+//     //       "content-type": "application/json"
+//     //     },
+//     //     body: JSON.stringify(scaleData)
+//     //   }).then(resp => resp.json());
+
+//     console.log('click works')
+//     const newScale = new Scale(author.value, scaleName.value);
+//     const newKeyboard = new Keyboard(newScale)
+//     console.log(newKeyboard)
+//     console.log('newScale.modifiers call: ', newScale.modifiers())
+//     console.log('getModifiersForScale call: ',getModifiersForScale(newScale.id))
+//     console.log('newScale.id call: ', newScale.id)
+//   }
+
+//   generateScaleBtn.addEventListener('click', createScale )
