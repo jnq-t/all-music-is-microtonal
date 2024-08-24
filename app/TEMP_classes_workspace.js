@@ -85,8 +85,14 @@ class Keyboard {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
     }
+    keys() {
+        let scaffold = this.#buildKeyboardFrequencies()
+        return scaffold.map(frequency => new Key(frequency));
+    };
 
-    buildKeyboardFrequencies() {
+    // private methods
+
+    #buildKeyboardFrequencies() {
         const scaleDegrees = this.scale.scaleDegrees();
         let scaffold = [];
         let i = 0;
@@ -106,15 +112,6 @@ class Keyboard {
         }
         return scaffold;
     }
-
-
-    // private functions
-
-    keys() {
-        // const keysFreqArr = this.#buildKeyboardFrequencies();
-        // console.log(keysFreqArr);
-        // keysFreqArr.map(); //TODO
-    };
 };
 
 //todo: short description on class
@@ -188,7 +185,7 @@ const newScale = new Scale();
 newScale.name = 'plups scale'
 const keyboardWithScaleInjected = new Keyboard(newScale);
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
-// keyboardWithScaleInjected.keys()
+console.log(keyboardWithScaleInjected.keys())
 // const keyboardTest = new Keyboard(newScale)
 // console.log(newScale.scaleDegrees())
-console.log(keyboardWithScaleInjected.buildKeyboardFrequencies())
+// console.log(keyboardWithScaleInjected.buildKeyboardFrequencies())
