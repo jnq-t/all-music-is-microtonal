@@ -97,20 +97,16 @@ class Keyboard {
         let scaffold = [];
         let i = 0;
         while (true){
-            // calculation
             const currentPeriod = Math.floor(i/this.scale.length)
-            const periodMultiplier = currentPeriod * this.scale.period || 1; // making sure we don't zero out the first row
+            const periodMultiplier = Math.pow(this.scale.period,currentPeriod);
             const baseFrequency = scaleDegrees[(i % this.scale.length)].frequency
             const frequency = baseFrequency * periodMultiplier
 
-            // return clause
-            if (frequency >= this.cutoffFrequency) break;
+            if (frequency >= this.cutoffFrequency) return scaffold;
 
-            // assignment
             scaffold[i] = frequency
             i++;
         }
-        return scaffold;
     }
 };
 
@@ -185,7 +181,7 @@ const newScale = new Scale();
 newScale.name = 'plups scale'
 const keyboardWithScaleInjected = new Keyboard(newScale);
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
-console.log(keyboardWithScaleInjected.keys())
+// console.log(keyboardWithScaleInjected.keys())
 // const keyboardTest = new Keyboard(newScale)
 // console.log(newScale.scaleDegrees())
-// console.log(keyboardWithScaleInjected.buildKeyboardFrequencies())
+console.log(keyboardWithScaleInjected.keys())
