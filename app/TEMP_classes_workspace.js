@@ -91,7 +91,6 @@ class Keyboard {
     };
 
     // private methods
-
     #buildKeyboardFrequencies() {
         const scaleDegrees = this.scale.scaleDegrees();
         let scaffold = [];
@@ -148,11 +147,11 @@ function getModifiersForScale(scaleId) {
     const modifier2 = new ScaleDegreeModifier(9,7,4,0);
     const mockedResponse = {
         "ok": 1,
-        "documents": []
-        //     modifier0,
-        //     modifier1,
-        //     modifier2
-        // ]
+        "documents": [
+            modifier0,
+            modifier1,
+            modifier2
+        ]
     };
     return mockedResponse;
 }
@@ -177,11 +176,103 @@ function activateTone() {
 *******************************
 * **/
 
+function createScaleDegreeModifiers(arr) {
+    let newArr = [];
+    arr.map(item => {
+       let newModifier = new ScaleDegreeModifier();
+       newModifier.scaleDegreePosition = arr.indexOf(item);
+       newArr.push(newModifier);
+    });
+    return newArr;
+};
+
 const newScale = new Scale();
 newScale.name = 'plups scale'
-const keyboardWithScaleInjected = new Keyboard(newScale);
+const keyboardWithScaleInjected = new Keyboard(newScale).keys();
+const scaleDegreeModifiers = createScaleDegreeModifiers(keyboardWithScaleInjected)
+// console.log(scaleDegreeModifiers)
+
+
 // console.log('Keyboard w/ Scale Injected: ', keyboardWithScaleInjected)
 // console.log(keyboardWithScaleInjected.keys())
 // const keyboardTest = new Keyboard(newScale)
 // console.log(newScale.scaleDegrees())
-console.log(keyboardWithScaleInjected.keys())
+// console.log(keyboardWithScaleInjected.buildKeyboardFrequencies())
+
+
+const generateScaleBtn = document.getElementById('generate-scale-btn');
+const author = document.getElementById('scale-author-input')
+const scaleName = document.getElementById('scale-name-input')
+const startingFreq = document.getElementById('starting-frequency-input')
+const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
+
+
+  //todo: upon generating a scale, add "delete scale" button ... and option for generating a second scale on screen
+
+
+  const appendKeyboard = async function () {
+    const scaleData = {
+      scaleName: scaleName.value,
+      author: author.value,
+      startingFreq: startingFreq.value,
+      numOfScaleDeg: numOfScaleDeg.value
+  }
+    // await fetch(`http://localhost:8080/api/scale`, {
+    //     method: "POST",
+    //     headers: {
+    //       "content-type": "application/json"
+    //     },
+    //     body: JSON.stringify(scaleData)
+    //   }).then(resp => resp.json());
+
+    // todo: send same data to fetch & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
+    // todo: show only 2 octaves at first.
+    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, numOfScaleDeg.value);
+    const newKeyboard = new Keyboard(newScale)
+    
+    const keyboardContainer = createKeyboardContainer()
+    const mainContainer = document.getElementById('main')
+   
+
+    newKeyboard.keys().map((key, index) => {
+        createKeyElement(key, index, keyboardContainer)
+    })
+
+    mainContainer.appendChild(keyboardContainer)
+
+  }
+
+  generateScaleBtn.addEventListener('click', appendKeyboard )
+
+  function createKeyboardContainer() {
+    //grab num of keyboards on page to create index for ID name
+    const keyboards = document.getElementsByClassName("keyboard-container").length
+    const div = Object.assign(document.createElement('div'), 
+        { className: 'keyboard-container' }, 
+        { id: `keyboard${keyboards+1}`}
+    );
+    return div
+  }
+
+  function createKeyElement (key, index, container ) {
+    // only show first 2 octaves on creation 
+    // todo: generate length of octave based on users input
+    const mock_octave = 24
+    
+    const btn = Object.assign(document.createElement('button'), 
+        { className: `keyboard-key ${ index < mock_octave ? 'keyboard-key-show' : 'keyboard-key-hidden'}` }, 
+        { id: `keyboard-key${index}` }, 
+        { name: `${key.frequency}` }, 
+        { innerHTML: `${roundFreq(key.frequency, 3)}` },
+        { ariaLabel: 'Button to play frequency' }
+        // { setAttribute: `key-position-${position}` } // todo: add scale position; should it be an attribute or additional class? google use case
+    );
+     //todo: add hide/show attribute to show only 1-3 octaves on load, additional or minus octaves when an "+" or "-" is clicked
+    container.appendChild(btn);
+  }
+
+    // using this for the innerHTML of the btn... we can set the actual frequency (full float) in an attribute and allow an advances setting to show if desired...
+  function roundFreq(num, places) {
+    var multiplier = Math.pow(10, places);
+    return Math.round(num * multiplier) / multiplier;
+}
