@@ -68,13 +68,13 @@ class ScaleDegree {
     #frequency() {
         let frequency = this.inputFrequency;
         const ratio = this.#ratio();
-        frequency *= ratio;
-        frequency *= Math.pow(2, this.modifier.detuneByCents/1200);
+        frequency *= ratio; // if no ratio is provided this will be 1
+        frequency *= Math.pow(2, this.modifier.detuneByCents/1200); // if no detune is provided this will be 1
         return frequency;
     };
 
     #ratio(){
-        if (this.modifier.ratioDenominator == 0) return 1;
+        if (this.modifier.ratioDenominator === 0) return 1;
         const ratio = this.modifier.ratioNumerator / this.modifier.ratioDenominator
         return (ratio || 1);
     };
