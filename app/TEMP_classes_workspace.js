@@ -204,7 +204,7 @@ const generateScaleBtn = document.getElementById('generate-scale-btn');
 const author = document.getElementById('scale-author-input')
 const scaleName = document.getElementById('scale-name-input')
 const startingFreq = document.getElementById('starting-frequency-input')
-const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
+const lengthOfScale = document.getElementById('length-of-scale-input')
 
 
   //todo: upon generating a scale, add "delete scale" button ... and option for generating a second scale on screen
@@ -215,7 +215,7 @@ const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
       scaleName: scaleName.value,
       author: author.value,
       startingFreq: startingFreq.value,
-      numOfScaleDeg: numOfScaleDeg.value
+      lengthOfScale: lengthOfScale.value
   }
     // await fetch(`http://localhost:8080/api/scale`, {
     //     method: "POST",
@@ -227,18 +227,18 @@ const numOfScaleDeg = document.getElementById('num-of-scale-degrees-input')
 
     // todo: send same data to fetch & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     // todo: show only 2 octaves at first.
-    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, numOfScaleDeg.value);
+    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value);
     const newKeyboard = new Keyboard(newScale)
     
     const keyboardContainer = createKeyboardContainer()
-    const mainContainer = document.getElementById('main')
+    const parentContainer = document.getElementById('keyboard-parent-container')
    
 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer)
     })
 
-    mainContainer.appendChild(keyboardContainer)
+    parentContainer.appendChild(keyboardContainer)
 
   }
 
