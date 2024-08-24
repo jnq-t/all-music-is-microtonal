@@ -38,7 +38,6 @@ img, picture, video, canvas, svg {
     background-image: url('/marble\ for\ html.jpg');
   }
   header{
-    width: 100%;
     text-align: center;
     font-family:'UnifrakturMaguntia Book';
     font-weight:normal;
@@ -47,10 +46,7 @@ img, picture, video, canvas, svg {
     text-shadow: 2px 1.6px black
   }
   main {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    
   }
   button {
     cursor: pointer;
@@ -64,13 +60,19 @@ img, picture, video, canvas, svg {
     margin: 1.5em ;
   }
   #scale-data-inputs-container{
-    display: flex;
+      width: 30%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
   }
   .scale-generator-item {
     padding: .2em;
   }
   .scale-generator-input{
     min-width: 10em;
+    max-width: 10em;
   }
 
   #generate-scale-btn{
@@ -78,10 +80,19 @@ img, picture, video, canvas, svg {
     background-color: #ffffff
   }
 
-  /* todo: keyboard not centered, learn why and fix */
-  .keyboard-container {
-    max-width: 50em;
+  /* todo: keyboards not centered, learn why and fix */
+  #keyboard-parent-container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
     align-self: center;
+    justify-self: center;
+  }
+  .keyboard-container {
+   margin: auto;
+   width: 50%;
   }
   .keyboard-key {
   }
