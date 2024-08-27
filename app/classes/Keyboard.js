@@ -5,39 +5,28 @@ class Keyboard {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
     }
-
-    // private functions
-    #buildKeyboardFrequencies() {
-        const scaleDegrees = this.scale.scaleDegrees(); // initializes 1st period of scaleDegrees objects
-        let scaffold = scaleDegrees.map(scaleDegree => scaleDegree.frequency); // creates base "layer" via scaleDegrees freq.'s
-
-        for (let scaleIndex = 0; scaleIndex < this.scale.length; scaleIndex++) {
-            let keyboardIndex = 1;  // sets fresh cursor for each scaleDegree
-
-            while (true) { // inner loop iterates once for each "octave"
-
-                const position = (keyboardIndex * this.scale.length) + scaleIndex; // uses keyboard & scale index to locate the correct position in 2d array
-
-                // calculates frequency by referencing the last frequency we added to the scaffold
-                const prevPosition = position - this.scale.length;
-                const prevFrequency = scaffold[prevPosition];
-
-                let frequency = this.scale.period * prevFrequency; // finds new frequency by multiplying the previous frequency by the period (octave interval)
-
-                if (frequency >= this.cutoffFrequency) break;
-
-                scaffold[position] = frequency; // pushes frequency into array
-                keyboardIndex++;
-            }
-        };
-        return scaffold;
-    };
-
     keys() {
-        const keysFreqArr = this.#buildKeyboardFrequencies();
-        console.log(keysFreqArr);
-        // keysFreqArr.map(); //TODO
+        let scaffold = this.#buildKeyboardFrequencies()
+        return scaffold.map(frequency => new Key(frequency));
     };
+
+    // private methods
+    #buildKeyboardFrequencies() {
+        const scaleDegrees = this.scale.scaleDegrees();
+        let scaffold = [];
+        let i = 0;
+        while (true){
+            const currentPeriod = Math.floor(i/this.scale.length)
+            const periodMultiplier = Math.pow(this.scale.period,currentPeriod);
+            const baseFrequency = scaleDegrees[(i % this.scale.length)].frequency
+            const frequency = baseFrequency * periodMultiplier
+
+            if (frequency >= this.cutoffFrequency) return scaffold;
+
+            scaffold[i] = frequency
+            i++;
+        }
+    }
 };
 
 export class Keyboard { /* … */ }

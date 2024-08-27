@@ -23,22 +23,29 @@ class Scale {
      * @return {Array} returns an array of scale degree objects
      * **/
     scaleDegrees() {
-        let scaleDegrees = [new ScaleDegree()];
-        // populate call for modifiers
-        while (scaleDegrees.length <= this.length) {
-            const previousScaleDegree = scaleDegrees.slice(-1)
-            const nextFrequency = previousScaleDegree[0].frequency * this.#stepSizeMultiplier()
-            scaleDegrees.push(new ScaleDegree(nextFrequency, this.modifiers));
+        const indexedModifiers = this.#indexedModifiersArray()
+        let scaleDegrees = [new ScaleDegree(this.startingFreq, (indexedModifiers[0] || new ScaleDegreeModifier()), this.startingFreq)];
+        while (scaleDegrees.length < this.length) {
+            const previousScaleDegree = scaleDegrees.slice(-1)[0]
+            const nextFrequency = (previousScaleDegree.inputFrequency) * this.#stepSizeMultiplier()
+            const modifier = indexedModifiers[scaleDegrees.length] || new ScaleDegreeModifier()
+            scaleDegrees.push(new ScaleDegree(nextFrequency, modifier, this.startingFreq));
         };
         return scaleDegrees;
     };
 
     // private methods
 
-    #modifiers() {
-        // TODO call to mongo db for all scales with this scale's scale_id
-        // this is a stubbed method for testing
-        getModifiersForScale(this.id)
+    #indexedModifiersArray() {
+        // instead of this getModifiers call we'll do a `populate()` for all the associated modifiers
+        let modifiers = getModifiersForScale(this.id).documents;
+
+        let acc = []
+        for(let i = 0; i < modifiers.length; i++){
+            const current = modifiers[i]
+            acc[(current.scaleDegreePosition)] = current;
+        }
+        return acc;
     }
 
     /**
