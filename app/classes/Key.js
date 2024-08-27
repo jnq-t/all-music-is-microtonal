@@ -15,6 +15,6 @@ export default class Key {
 
     // def memoize this
     #callSynth(frequency) {
-        console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
+       console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
     };
 };

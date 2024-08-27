@@ -24,12 +24,10 @@ async function appendKeyboard () {
    
     // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
-    const newKeyboard = new Keyboard(newScale) 
-    console.log(newKeyboard.keys())
+    const newKeyboard = new Keyboard(newScale)
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboards-parent-container') // parent 'div' container for all keyboards on DOM
   
-
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer)
     })
@@ -44,8 +42,7 @@ async function appendKeyboard () {
    * @method createKeyboardContainer creates <div/> container for each key
    */
   function createKeyboardContainer() {
-    //grab num of keyboards on page to create index for ID name
-    const keyboards = document.getElementsByClassName("keyboard-container").length;
+    const keyboards = document.getElementsByClassName("keyboard-container").length;  //grab num of keyboards on page to create index for ID name
     const div = Object.assign(document.createElement('div'), 
         { className: 'keyboard-container' }, 
         { id: `keyboard${keyboards+1}`}

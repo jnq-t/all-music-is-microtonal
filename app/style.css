@@ -92,7 +92,9 @@ img, picture, video, canvas, svg {
   }
   .keyboard-container {
    margin: auto;
+   margin-bottom: 2em;
    width: 50%;
+   border: 1px solid black
   }
   .keyboard-key {
   }
