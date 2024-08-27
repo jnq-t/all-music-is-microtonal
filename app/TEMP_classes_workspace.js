@@ -66,8 +66,11 @@ class ScaleDegree {
         this.frequency = this.#frequency()
     }
     #frequency() {
-        if (this.modifier.ratioNumerator > 0 && this.modifier.ratioDenominator > 0) return this.#ratio(this.startingFreq);
-        return this.inputFrequency *= Math.pow(2, this.modifier.detuneByCents/1200); // if no detune is provided this will be 1
+        let frequency = this.inputFrequency
+        if (this.modifier.ratioNumerator > 0 && this.modifier.ratioDenominator > 0) {
+            frequency *= this.#ratio(this.startingFreq)
+        }
+        return frequency *= Math.pow(2, this.modifier.detuneByCents/1200); // if no detune is provided this will be 1
     };
 
     #ratio(startingFreq){
