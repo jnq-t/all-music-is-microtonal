@@ -1,4 +1,4 @@
-class ScaleDegree {
+export default class ScaleDegree {
     constructor(inputFrequency = 0, modifier = {}, startingFreq = 240) {
         this.inputFrequency = inputFrequency
         this.modifier = modifier
@@ -17,5 +17,3 @@ class ScaleDegree {
         return (startingFreq * this.modifier.ratioNumerator) / this.modifier.ratioDenominator;
     };
 };
-
-export class ScaleDegree { /* … */ }

@@ -1,7 +1,7 @@
-import {ScaleDegree} from "./ScaleDegree";
-import {ScaleDegreeModifier} from "./ScaleDegreeModifier";
+import ScaleDegree from "./ScaleDegree.js";
+import ScaleDegreeModifier from "./ScaleDegreeModifier.js";
 
-class Scale {
+export default class Scale {
     constructor(
         isPreset = false,
         name,
@@ -61,4 +61,18 @@ class Scale {
     };
 };
 
-export class Scale { /* … */ }
+// testing
+function getModifiersForScale(scaleId) {
+    const modifier0 = new ScaleDegreeModifier(5,5,4,0);
+    const modifier1 = new ScaleDegreeModifier(0,0,0,20);
+    const modifier2 = new ScaleDegreeModifier(9,7,4,0);
+    const mockedResponse = {
+        "ok": 1,
+        "documents": [
+            // modifier0,
+            // modifier1,
+            // modifier2
+        ]
+    };
+    return mockedResponse;
+}

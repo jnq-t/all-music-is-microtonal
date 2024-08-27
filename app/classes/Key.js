@@ -1,4 +1,4 @@
-class Key {
+export default class Key {
     constructor(frequency) {
         this.frequency = frequency; // this is mostly for the ui
         this.sustain = false;
@@ -18,5 +18,3 @@ class Key {
         console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
     };
 };
-
-export class Key { /* … */ }

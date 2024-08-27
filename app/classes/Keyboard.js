@@ -1,6 +1,6 @@
-import {Key} from "./Key";
+import Key from "./Key.js";
 
-class Keyboard {
+export default class Keyboard {
     constructor(scale) {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
@@ -28,5 +28,3 @@ class Keyboard {
         }
     }
 };
-
-export class Keyboard { /* … */ }
