@@ -148,13 +148,15 @@ function getModifiersForScale(scaleId) {
     const mockedResponse = {
         "ok": 1,
         "documents": [
-            modifier0,
-            modifier1,
-            modifier2
+            // modifier0,
+            // modifier1,
+            // modifier2
         ]
     };
     return mockedResponse;
 }
+
+
 
 /**
 *******************************
@@ -201,7 +203,6 @@ const scaleDegreeModifiers = createScaleDegreeModifiers(keyboardWithScaleInjecte
 
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
-const author = document.getElementById('scale-author-input')
 const scaleName = document.getElementById('scale-name-input')
 const startingFreq = document.getElementById('starting-frequency-input')
 const lengthOfScale = document.getElementById('length-of-scale-input')
@@ -213,7 +214,6 @@ const lengthOfScale = document.getElementById('length-of-scale-input')
   const appendKeyboard = async function () {
     const scaleData = {
       scaleName: scaleName.value,
-      author: author.value,
       startingFreq: startingFreq.value,
       lengthOfScale: lengthOfScale.value
   }
@@ -227,12 +227,12 @@ const lengthOfScale = document.getElementById('length-of-scale-input')
 
     // todo: send same data to fetch & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     // todo: show only 2 octaves at first.
-    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value);
+    const newScale = new Scale(scaleName.value, startingFreq.value, lengthOfScale.value);
     const newKeyboard = new Keyboard(newScale)
     
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboard-parent-container')
-   
+    console.log(newScale)
 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer)
@@ -254,25 +254,75 @@ const lengthOfScale = document.getElementById('length-of-scale-input')
     return div
   }
 
-  function createKeyElement (key, index, container ) {
+function createKeyElement (key, index, container ) {
     // only show first 2 octaves on creation 
     // todo: generate length of octave based on users input
-    const mock_octave = 24
-    
+    const mock_octave = 24 + 1
+
     const btn = Object.assign(document.createElement('button'), 
         { className: `keyboard-key ${ index < mock_octave ? 'keyboard-key-show' : 'keyboard-key-hidden'}` }, 
         { id: `keyboard-key${index}` }, 
         { name: `${key.frequency}` }, 
-        { innerHTML: `${roundFreq(key.frequency, 3)}` },
-        { ariaLabel: 'Button to play frequency' }
+        { innerHTML: `${roundFreq(key.frequency, 3)}` }, // todo: add scale degree - similiar to how jesse currently has
+        { ariaLabel: 'Button to play frequency' },
+        { onClick: function() {console.log('test')}}
         // { setAttribute: `key-position-${position}` } // todo: add scale position; should it be an attribute or additional class? google use case
     );
-     //todo: add hide/show attribute to show only 1-3 octaves on load, additional or minus octaves when an "+" or "-" is clicked
+    //todo: add additional or minus octaves when an "+" or "-" is clicked
     container.appendChild(btn);
-  }
+}
 
-    // using this for the innerHTML of the btn... we can set the actual frequency (full float) in an attribute and allow an advances setting to show if desired...
-  function roundFreq(num, places) {
+// using this for the innerHTML of the btn... actual frequency (full float) is logged in 'name' attribute and used for synth;
+function roundFreq(num, places) {
     var multiplier = Math.pow(10, places);
     return Math.round(num * multiplier) / multiplier;
 }
+
+// adds synth - testing 
+document.addEventListener('click', async ({target}) => {
+    if(target.classList.contains('keyboard-key')) {
+        await Tone.start();
+        
+        const frequency = target.getAttribute('name')
+        const synth = new Tone.Synth().toDestination();
+        const now = Tone.now();
+
+        // trigger the attack immediately
+        synth.triggerAttack(frequency, now);
+        // wait one second before triggering the release
+        synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+    }
+})
+
+
+function scaleModifierMenu () {
+    // * options that DON'T restart the whole scale? * //
+    // new scale name
+    // sustain 
+    // +/- octave display
+    // save scale to db (users only)
+    // delete scale -> removes keyboard-parent-container; if scale is in DB, it deletes from DB as well
+
+
+    // change octave length?
+    // change starting freq?
+    // advanced ratio option?
+}
+
+function scaleDegreeModifierMenu() {
+    // 1st octave has detune + ratio --- (hide/display logic)
+    // all notes have sustain on/off --- (hide/display logic)
+        // sustain "on" can highlight key so that when you 'hide' the sustain toggle, you can still see which are toggled on; open edit to change
+        // detune & ratio should also highlight all octaves 
+}
+
+function detuneModifierUI () {
+    
+}
+function ratioModifierUI () {
+
+}
+function scaleDegreeSustainUI () {
+
+}
+
