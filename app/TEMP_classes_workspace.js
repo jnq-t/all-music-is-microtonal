@@ -248,7 +248,7 @@ const lengthOfScale = document.getElementById('length-of-scale-input')
     const div = Object.assign(document.createElement('div'), 
         { className: 'keyboard-container' }, 
         { id: `keyboard${keyboards+1}`},
-        {innerHTML: "Temp Work Space Scale - Working <br/>"}
+        {innerHTML: "TEMP_classes_workspace.js - working <br/>"}
     );
     return div
   }

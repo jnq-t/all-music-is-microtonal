@@ -1,7 +1,7 @@
 import Scale from "../classes/Scale.js";
 import Keyboard from "../classes/Keyboard.js"
 import ScaleDegree from "../classes/ScaleDegree.js"
-// import ScaleDegreeModifier from "../classes/ScaleDegreeModifier.js" 
+import ScaleDegreeModifier from "../classes/ScaleDegreeModifier.js" 
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
 const author = document.getElementById('scale-author-input')
@@ -9,12 +9,11 @@ const scaleName = document.getElementById('scale-name-input')
 const startingFreq = document.getElementById('starting-frequency-input')
 const lengthOfScale = document.getElementById('length-of-scale-input')
 
-// on click event listener to generate and append keyboard
-generateScaleBtn.addEventListener('click', appendKeyboard ) 
+generateScaleBtn.addEventListener('click', appendKeyboard ) // creates & appends keyboard on click
 
 
 async function appendKeyboard () {
-    //grabs data from DOM, on click
+   // grabs data from DOM
     const scaleData = {
       scaleName: scaleName.value,
       author: author.value,
@@ -28,6 +27,7 @@ async function appendKeyboard () {
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboards-parent-container') // parent 'div' container for all keyboards on DOM
   
+    //creates keys & maps through to create dom element for each 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer)
     })
@@ -45,7 +45,8 @@ async function appendKeyboard () {
     const keyboards = document.getElementsByClassName("keyboard-container").length;  //grab num of keyboards on page to create index for ID name
     const div = Object.assign(document.createElement('div'), 
         { className: 'keyboard-container' }, 
-        { id: `keyboard${keyboards+1}`}
+        { id: `keyboard${keyboards+1}`},
+        {innerHTML: 'generateScale.js - not working<br/>'}
     );
     return div;
   };

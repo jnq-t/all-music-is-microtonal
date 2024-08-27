@@ -5,6 +5,7 @@ export default class Keyboard {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
     }
+    
     keys() {
         let scaffold = this.#buildKeyboardFrequencies()
         return scaffold.map(frequency => new Key(frequency));
