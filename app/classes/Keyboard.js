@@ -1,10 +1,12 @@
-import {Key} from "./Key";
+import Key from "./Key.js";
+import ScaleDegree from "./ScaleDegree.js";
 
-class Keyboard {
+export default class Keyboard {
     constructor(scale) {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
     }
+    
     keys() {
         let scaffold = this.#buildKeyboardFrequencies()
         return scaffold.map(frequency => new Key(frequency));
@@ -20,13 +22,10 @@ class Keyboard {
             const periodMultiplier = Math.pow(this.scale.period,currentPeriod);
             const baseFrequency = scaleDegrees[(i % this.scale.length)].frequency
             const frequency = baseFrequency * periodMultiplier
-
             if (frequency >= this.cutoffFrequency) return scaffold;
-
             scaffold[i] = frequency
+            console.log(scaleDegrees[(i % this.scale.length)])
             i++;
         }
     }
 };
-
-export class Keyboard { /* … */ }
