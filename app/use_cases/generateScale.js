@@ -26,7 +26,7 @@ async function appendKeyboard () {
     const newKeyboard = new Keyboard(newScale)
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboards-parent-container') // parent 'div' container for all keyboards on DOM
-  
+   
     //creates keys & maps through to create dom element for each 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer)

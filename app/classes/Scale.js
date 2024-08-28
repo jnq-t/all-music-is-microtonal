@@ -61,7 +61,7 @@ export default class Scale {
     };
 };
 
-// testing
+// testing - mock_data
 function getModifiersForScale(scaleId) {
     const modifier0 = new ScaleDegreeModifier(5,5,4,0);
     const modifier1 = new ScaleDegreeModifier(0,0,0,20);

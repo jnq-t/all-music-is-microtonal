@@ -227,6 +227,7 @@ const lengthOfScale = document.getElementById('length-of-scale-input')
     // todo: show only 2 octaves at first.
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value);
     const newKeyboard = new Keyboard(newScale)
+    console.log('temp workspace: ', newKeyboard)
     
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboards-parent-container')
