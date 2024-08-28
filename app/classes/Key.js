@@ -13,7 +13,7 @@ export default class Key {
         this.sustain = !this.sustain;
     };
 
-    // def memoize this
+    // memoize this method: set result to variable in memory so you don't have to keep computing
     #callSynth(frequency) {
        console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
     };

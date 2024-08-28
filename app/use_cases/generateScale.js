@@ -1,16 +1,13 @@
 import Scale from "../classes/Scale.js";
 import Keyboard from "../classes/Keyboard.js"
-import ScaleDegree from "../classes/ScaleDegree.js"
-import ScaleDegreeModifier from "../classes/ScaleDegreeModifier.js" 
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
-const author = document.getElementById('scale-author-input')
-const scaleName = document.getElementById('scale-name-input')
-const startingFreq = document.getElementById('starting-frequency-input')
-const lengthOfScale = document.getElementById('length-of-scale-input')
+const author = document.getElementById('scale-author-input');
+const scaleName = document.getElementById('scale-name-input');
+const startingFreq = document.getElementById('starting-frequency-input');
+const lengthOfScale = document.getElementById('length-of-scale-input');
 
-generateScaleBtn.addEventListener('click', appendKeyboard ) // creates & appends keyboard on click
-
+generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
 
 async function appendKeyboard () {
    // grabs data from DOM
@@ -19,7 +16,7 @@ async function appendKeyboard () {
       author: author.value,
       startingFreq: startingFreq.value,
       lengthOfScale: lengthOfScale.value
-    }
+    };
    
     // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
@@ -29,15 +26,13 @@ async function appendKeyboard () {
    
     //creates keys & maps through to create dom element for each 
     newKeyboard.keys().map((key, index) => {
-        createKeyElement(key, index, keyboardContainer)
-    })
+        createKeyElement(key, index, keyboardContainer);
+    });
 
-    parentContainer.appendChild(keyboardContainer)
+    parentContainer.appendChild(keyboardContainer);
 
   }
 
-
-  
   /**
    * @method createKeyboardContainer creates <div/> container for each key
    */
@@ -46,7 +41,6 @@ async function appendKeyboard () {
     const div = Object.assign(document.createElement('div'), 
         { className: 'keyboard-container' }, 
         { id: `keyboard${keyboards+1}`},
-        {innerHTML: 'generateScale.js - not working<br/>'}
     );
     return div;
   };
