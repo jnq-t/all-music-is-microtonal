@@ -18,12 +18,14 @@ generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & append
       lengthOfScale: lengthOfScale.value
     };
    
+    
     // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
-    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
+    const newScale = new Scale(scaleData.scaleName, scaleData.author, scaleData.startingFreq, scaleData.lengthOfScale); //todo: send scale data.. find issue and resovle
     const newKeyboard = new Keyboard(newScale)
     const keyboardContainer = createKeyboardContainer()
     const parentContainer = document.getElementById('keyboards-parent-container') // parent 'div' container for all keyboards on DOM
-   
+   console.log(new Scale())
+   console.log(newScale)
     //creates keys & maps through to create dom element for each 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer);
