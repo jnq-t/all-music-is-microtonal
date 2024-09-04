@@ -24,7 +24,6 @@ export default class Keyboard {
             const frequency = baseFrequency * periodMultiplier
             if (frequency >= this.cutoffFrequency) return scaffold;
             scaffold[i] = frequency
-            console.log(scaleDegrees[(i % this.scale.length)])
             i++;
         }
     }

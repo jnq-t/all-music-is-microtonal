@@ -9,7 +9,7 @@ const lengthOfScale = document.getElementById('length-of-scale-input');
 
 generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
 
-async function appendKeyboard () {
+ function appendKeyboard () {
    // grabs data from DOM
     const scaleData = {
       scaleName: scaleName.value,
@@ -30,8 +30,8 @@ async function appendKeyboard () {
     });
 
     parentContainer.appendChild(keyboardContainer);
-
   }
+
 
   /**
    * @method createKeyboardContainer creates <div/> container for each key
@@ -59,7 +59,7 @@ async function appendKeyboard () {
         { id: `keyboard-key${index}` }, 
         { name: `${key.frequency}` }, 
         { innerHTML: `${roundFreq(key.frequency, 3)}` }, // todo: change to scale position (e.g. scale degree "8") + rounded freq.
-        { ariaLabel: 'Button to play frequency' }
+        { ariaLabel: 'Button to play frequency' },
         // { setAttribute: `key-position-${position}` } // todo: add scale position; should it be an attribute or additional class? google use case
     );
     container.appendChild(btn);
@@ -74,6 +74,35 @@ async function appendKeyboard () {
     var multiplier = Math.pow(10, places);
     return Math.round(float * multiplier) / multiplier;
 }
+
+// testing to figure out new and better way to call synth 
+async function callSynth(key) {
+  await Tone.start();
+  
+  const synth = new Tone.Synth().toDestination();
+  const now = Tone.now();
+
+  // trigger the attack immediately
+  synth.triggerAttack(key.frequency, now);
+  // wait one second before triggering the release
+  synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+}
+
+// working synth test
+document.addEventListener('click', async ({target}) => {
+  if(target.classList.contains('keyboard-key')) {
+      await Tone.start();
+      
+      const frequency = target.getAttribute('name')
+      const synth = new Tone.Synth().toDestination();
+      const now = Tone.now();
+
+      // trigger the attack immediately
+      synth.triggerAttack(frequency, now);
+      // wait one second before triggering the release
+      synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+  }
+})
 
 //this method creates a new scale in our database, not currently used 
 //todo: move this function out to "save" button onclick event -- look at figma design for reference

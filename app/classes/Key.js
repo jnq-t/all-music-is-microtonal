@@ -5,7 +5,6 @@ export default class Key {
     };
 
     play() {
-        this.#toggleSustain();
         this.#callSynth(this.frequency);
     };
 
@@ -14,7 +13,9 @@ export default class Key {
     };
 
     // memoize this method: set result to variable in memory so you don't have to keep computing
-    #callSynth(frequency) {
+     #callSynth(frequency) {
        console.log( `synth frequency is ${frequency} sustain is ${this.sustain}`)
     };
 };
+
+
