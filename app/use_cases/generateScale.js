@@ -22,14 +22,14 @@ async function appendKeyboard () {
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
     const newKeyboard = new Keyboard(newScale)
     const keyboardContainer = createKeyboardContainer()
-    const parentContainer = document.getElementById('keyboards-parent-container') // parent 'div' container for all keyboards on DOM
+    const wrapper = document.getElementById('keyboards-wrapper') // parent 'div' container for all keyboards on DOM
    
     //creates keys & maps through to create dom element for each 
     newKeyboard.keys().map((key, index) => {
         createKeyElement(key, index, keyboardContainer);
     });
 
-    parentContainer.appendChild(keyboardContainer);
+    wrapper.appendChild(keyboardContainer);
 
   }
 
