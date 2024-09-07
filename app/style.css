@@ -7,6 +7,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body {
     line-height: 1.5;
@@ -21,6 +22,11 @@ img, picture, video, canvas, svg {
   }
   p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
   /* ********** */
   /* Imported Fonts */
@@ -39,14 +45,13 @@ img, picture, video, canvas, svg {
   }
   header{
     text-align: center;
-    font-family:'UnifrakturMaguntia Book';
     font-weight:normal;
     font-size: 1.6em;
     color: #ad7aaa;
     text-shadow: 2px 1.6px black
   }
-  main {
-    
+  .title, .subtitle {
+    font-family:'UnifrakturMaguntia Book';
   }
   button {
     cursor: pointer;
@@ -87,41 +92,66 @@ img, picture, video, canvas, svg {
   .keyboard-container {
     margin: 0 auto;
     display: grid;
-    gap: 1rem;
-    
-
-    justify-items: center;
+    gap: .5rem;
     pointer-events: auto;
     width: 80%;
     
    border: 1px solid black;
   }
-  .keyboard-key {
+  .keyboard-top-nav-items {
+    grid-column: 1 / span -1;
+    display: flex;
+  }
+  .keyboard-side-menu-container{
+    grid-column: 7/8 ;
+    /* justify-self: center; */
+  }
+  .keys-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
+    grid-column: 1/7;
+    justify-items: center;
+  }
+  .key-container-show {
+    margin-bottom: 2rem;
+  }
+  .keyboard-key-show {
     margin: .5em 0;
     max-width: .8em;
   }
-  .keyboard-key-hidden {
+  .keyboard-key-hidden,
+  .modifier-sustain-hidden {
     display: none;
+  }
+  .scale-degree-modifier{
+    width: 4rem;
+  }
+  .modifier-ratio-show{
+    display: flex;
+  }
+  .numerator-ratio-scale-degree, 
+  .denominator-ratio-scale-degree {
+    width: 2.5rem;
   }
 
   /* Media Styles */
   @media (min-width: 63em) {
-    .keyboard-container {
-      grid-template-columns: repeat(auto-fit, minmax(9vw, 1fr));
+    .keys-container {
+      grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
     }
   }
   @media (max-width: 63em) {
-    .keyboard-container {
+    .keys-container {
       grid-template-columns: repeat(auto-fit, minmax(15vw, .5fr));
     }
   }
-  @media (max-width: 37em) {
-    .keyboard-container {
+  @media (max-width: 42em) {
+    .keys-container {
       grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
     }
   }
   @media (max-width: 28em) {
-    .keyboard-container {
+    .keys-container {
       grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
     }
   }
