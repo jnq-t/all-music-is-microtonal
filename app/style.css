@@ -60,6 +60,9 @@ img, picture, video, canvas, svg {
     border: 1px solid black;
     border-radius: 1em;
   }
+  #main {
+    margin-bottom: 5rem;
+  }
   #scale-generator-container {
     margin: 1.5em ;
   }
@@ -89,69 +92,131 @@ img, picture, video, canvas, svg {
 
   }
 
-  .keyboard-container {
-    margin: 0 auto;
-    display: grid;
-    gap: .5rem;
-    pointer-events: auto;
-    width: 80%;
-    
-   border: 1px solid black;
-  }
-  .keyboard-top-nav-items {
-    grid-column: 1 / span -1;
-    display: flex;
-  }
-  .keyboard-side-menu-container{
-    grid-column: 7/8 ;
-    /* justify-self: center; */
-  }
-  .keys-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
-    grid-column: 1/7;
-    justify-items: center;
-  }
-  .key-container-show {
-    margin-bottom: 2rem;
-  }
-  .keyboard-key-show {
-    margin: .5em 0;
-    max-width: .8em;
-  }
-  .keyboard-key-hidden,
-  .modifier-sustain-hidden {
-    display: none;
-  }
-  .scale-degree-modifier{
-    width: 4rem;
-  }
-  .modifier-ratio-show{
-    display: flex;
-  }
-  .numerator-ratio-scale-degree, 
-  .denominator-ratio-scale-degree {
-    width: 2.5rem;
-  }
+/* ********** */
+/* Keyboard Nav's */
+/* ********** */
 
-  /* Media Styles */
-  @media (min-width: 63em) {
-    .keys-container {
-      grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
-    }
+/* hamburger toggle for top nav */
+.hamburger-icon {
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  top: 10%;
+  left: 3%;
+  z-index: 1000;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+.hamburger-icon:hover {
+  transform: scale(1.2);
+}
+.icon-line {
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  width: 1.5rem;
+  height: 3px;
+  background-color: black;
+  transition: all 400ms cubic-bezier(.84,.06,.52,1.8);
+}
+.icon-line1 {
+  transform: translateY(-8px);
+  animation-delay: 100ms;
+}
+.icon-line3 {
+  transform: translateY(8px);
+  animation-delay: 250ms;
+}
+.icon-line1.a {
+  transform: rotate(40deg);
+}
+.icon-line3.b {
+  transform: rotate(-40deg);
+}
+.icon-line2.c {
+  opacity: 0;
+}
+
+/* top nav on open */
+/* TODO: fix top nav */
+.keyboard-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  margin: 0 auto;
+  gap: .5rem;
+  pointer-events: auto;
+  width: 80%;
+  
+  border: 1px solid black;
+}
+.keyboard-top-nav {
+  position: relative;
+  min-height: 2.5rem;
+  border-bottom: 1px solid black;
+}
+.keyboard-top-nav-items {
+  display: flex;
+  grid-column: 1/-1;
+}
+
+.keyboard-side-menu-container{
+  grid-column: 7/8 ;
+}
+.keys-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
+  grid-column: 1/7;
+  justify-items: center;
+}
+.key-container-show {
+  margin-bottom: 2rem;
+}
+.keyboard-key-show {
+  margin: .5em 0;
+  max-width: .8em;
+}
+.keyboard-key-hidden,
+.modifier-sustain-hidden {
+  display: none;
+}
+.scale-degree-modifier{
+  width: 4rem;
+}
+.modifier-ratio-show{
+  display: flex;
+}
+.numerator-ratio-scale-degree, 
+.denominator-ratio-scale-degree {
+  width: 2.5rem;
+}
+
+/* ********** */
+/* Media Styles */
+/* ********** */
+@media (min-width: 63em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   }
-  @media (max-width: 63em) {
-    .keys-container {
-      grid-template-columns: repeat(auto-fit, minmax(15vw, .5fr));
-    }
+}
+@media (max-width: 63em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(15vw, .5fr));
   }
-  @media (max-width: 42em) {
-    .keys-container {
-      grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
-    }
+}
+@media (max-width: 42em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
   }
-  @media (max-width: 28em) {
-    .keys-container {
-      grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
-    }
+}
+@media (max-width: 28em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
   }
+}
+
+
+
+
+
+
