@@ -1,5 +1,8 @@
 import createEle from "../utilities/createDomElement.js"
 
+/**
+ * @method createKeyboardSideMenu creates side menu navigation for keyboard
+ */
 export default function createKeyboardSideMenu () {
     //hold side nav + extra elements
     const menuDiv = createEle('div', 'keyboard-side-menu-container')

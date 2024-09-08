@@ -1,8 +1,12 @@
 import createEle from "../utilities/createDomElement.js"
 
-//todo: replace mock_octave with user DOM input
-//todo: refactor code
-// ALL keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
+// Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
+// todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav
+/**
+ * @method createSustainModifier creates sustain modifier for each key
+ * @param {Index} index of key
+ * @param {mock_octave} number = length of octave
+ */
 function createSustainModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-sustain-show' : 'modifier-sustain-hidden'}`)
     const sustainLabel = Object.assign(document.createElement('label'), 
@@ -25,7 +29,11 @@ function createSustainModifier(index, mock_octave) {
     return modifierContainer
   }
 
-  // only placed on first octave
+/**
+ * @method createDetuneModifier creates detune modifier for first octave
+ * @param {Index} index of key
+ * @param {mock_octave} number = length of octave
+ */
 function createDetuneModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container  ${ index < mock_octave ? 'modifier-detune-show' : 'modifier-detune-hidden'}`)
     const detuneLabel = Object.assign(document.createElement('label'), 
@@ -48,7 +56,11 @@ function createDetuneModifier(index, mock_octave) {
     return modifierContainer
   }
 
-  // only placed on first octave
+/**
+ * @method createRatioModifier creates ratio modifier for first octave
+ * @param {Index} index of key
+ * @param {mock_octave} number = length of octave
+ */
 function createRatioModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-ratio-show' : 'modifier-ratio-hidden'}`, 'Ratio')
   
