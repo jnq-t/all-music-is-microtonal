@@ -100,7 +100,6 @@ img, picture, video, canvas, svg {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   margin: 0 auto;
-  gap: .5rem;
   pointer-events: auto;
   width: 80%;
   
@@ -149,6 +148,7 @@ img, picture, video, canvas, svg {
 
 .keyboard-side-menu-container{
   grid-column: 7/8 ;
+  border-left: 1px solid black;
 }
 
 

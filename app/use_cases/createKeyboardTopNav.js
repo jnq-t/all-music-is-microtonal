@@ -1,5 +1,4 @@
 import createEle from "../utilities/createBasicDomElement.js"
-import scaleDataInputs from "./keyboardScaleDataSetup.js"
 
 /**
  * @method createKeyboardTopNav creates top menu navigation for keyboard
@@ -9,7 +8,7 @@ export default function createKeyboardTopNav () {
     {className: `keyboard-top-nav`},
   )
   
-  topNav.appendChild(scaleDataInputs) // appends item list to <nav/>
+  // topNav.appendChild(scaleDataInputs) // appends item list to <nav/>
   
   return topNav
 }
