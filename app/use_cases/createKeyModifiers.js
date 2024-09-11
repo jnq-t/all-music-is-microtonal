@@ -1,4 +1,6 @@
 import createEle from "../utilities/createBasicDomElement.js"
+import createInput from "../utilities/createInput.js"
+import createInputLabel from "../utilities/createInputLabel.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav
@@ -9,19 +11,9 @@ import createEle from "../utilities/createBasicDomElement.js"
  */
 function createSustainModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-sustain-show' : 'modifier-sustain-hidden'}`)
-    const sustainLabel = Object.assign(document.createElement('label'), 
-      {className: `sustain-scale-degree-label`},
-      {for: "sustain-scale-degree"},
-      {innerHTML: "Sustain"}
-    )
-
-    const sustainInput = Object.assign(document.createElement('input'), 
-        { className: `sustain-scale-degree scale-degree-modifier` },
-        { name: `sustain-scale-degree` }, 
-        { ariaLabel: 'Sustain scale degree' },
-        { label: 'Sustain scale degree' },
-        {type: "checkbox"}
-    )
+    
+    const sustainLabel = createInputLabel('sustain-scale-degree-label', 'sustain-scale-degree', 'Sustain')
+    const sustainInput =  createInput('sustain-scale-degree scale-degree-modifier', 'sustain-scale-degree', 'checkbox', 'Sustain scale degree')
 
     modifierContainer.appendChild(sustainLabel);
     modifierContainer.appendChild(sustainInput);
@@ -36,19 +28,9 @@ function createSustainModifier(index, mock_octave) {
  */
 function createDetuneModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container  ${ index < mock_octave ? 'modifier-detune-show' : 'modifier-detune-hidden'}`)
-    const detuneLabel = Object.assign(document.createElement('label'), 
-      {className: `detune-scale-degree-label`},
-      {for: "detune-scale-degree"},
-      {innerHTML: "Detune"}
-    )
-
-    const detuneInput = Object.assign(document.createElement('input'), 
-        { className: `detune-scale-degree scale-degree-modifier` },
-        { name: `detune-scale-degree` }, 
-        { ariaLabel: 'Detune scale degree' },
-        { label: 'Detune scale degree' },
-        {type: "number"}
-    )
+    
+    const detuneLabel = createInputLabel('detune-scale-degree-label', 'detune-scale-degree', 'Detune')
+    const detuneInput = createInput('detune-scale-degree scale-degree-modifier', 'detune-scale-degree', 'number', 'Detune scale degree')
 
     modifierContainer.appendChild(detuneLabel);
     modifierContainer.appendChild(detuneInput);
@@ -63,21 +45,9 @@ function createDetuneModifier(index, mock_octave) {
  */
 function createRatioModifier(index, mock_octave) {
     const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-ratio-show' : 'modifier-ratio-hidden'}`, 'Ratio')
-  
-    const numeratorInput = Object.assign(document.createElement('input'), 
-        { className: `numerator-ratio-scale-degree scale-degree-modifier` },
-        { name: `numerator-ratio-scale-degree` }, 
-        { ariaLabel: 'Scale degree numerator ratio' },
-        { label: 'Scale degree numerator ratio' },
-        {type: "number"}
-    )
-    const denominatorInput = Object.assign(document.createElement('input'), 
-        { className: `denominator-ratio-scale-degree scale-degree-modifier` },
-        { name: `denominator-ratio-scale-degree` }, 
-        { ariaLabel: 'Scale degree denominator ratio' },
-        { label: 'Scale degree denominator ratio' },
-        {type: "number"}
-    )
+    
+    const numeratorInput = createInput('numerator-ratio-scale-degree scale-degree-modifier', 'numerator-ratio-scale-degree', 'number', 'Scale degree numerator ratio')
+    const denominatorInput = createInput('denominator-ratio-scale-degree scale-degree-modifier', 'denominator-ratio-scale-degree', 'number', 'Scale degree denominator ratio')
 
     modifierContainer.appendChild(numeratorInput);
     modifierContainer.appendChild(denominatorInput);
