@@ -1,7 +1,6 @@
 import Scale from "../classes/Scale.js";
 import Keyboard from "../classes/Keyboard.js"
 import createKeyboardContainer from "./createKeyboard.js"
-import keyboardSideNav from "./createKeyboardSideNav.js"
 import createKeyElement from "./createKeys.js";
 import createEle from "../utilities/createBasicDomElement.js"
 
@@ -21,7 +20,7 @@ function appendKeyboard () {
       startingFreq: startingFreq.value,
       lengthOfScale: lengthOfScale.value
     };
-   
+    
     // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
     const newKeyboard = new Keyboard(newScale) // calls Keyboard class
@@ -36,7 +35,6 @@ function appendKeyboard () {
     });
 
     keyboardContainer.appendChild(allKeysContainer) // appends keys to parent <div/> 
-    keyboardContainer.appendChild( keyboardSideNav() ) // appends side <nav/> to parent <div/>
     wrapper.appendChild(keyboardContainer); // appends keyboard to wrapper <div/>
   }
 

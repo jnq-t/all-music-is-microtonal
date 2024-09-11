@@ -1,4 +1,4 @@
-export default function scaleInput(inputClassName, inputName, inputType, inputAriaLabel) {
+export default function inputElement(inputClassName, inputName, inputType, inputAriaLabel) {
     const input = Object.assign(document.createElement('input'), 
         {className: inputClassName },
         {name: inputName},

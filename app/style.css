@@ -63,23 +63,23 @@ img, picture, video, canvas, svg {
   #main {
     margin-bottom: 5rem;
   }
-  #scale-generator-container {
+  #scale-wrapper {
+    display: flex;
+    justify-content: space-around;
     margin: 1.5em ;
   }
+  
   .scale-data-inputs-container{
-      width: 30%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
+    display: flex;
   }
-  .scale-input-container {
-    padding: .2em;
+  
+  .scale-generator-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem 1rem 0;
   }
-  .scale-input {
-    min-width: 10em;
-    max-width: 10em;
+ .scale-input {
+    height: 1.5rem;
   }
 
   .scale-btn{
@@ -108,7 +108,7 @@ img, picture, video, canvas, svg {
 .keys-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
-  grid-column: 1/7;
+  grid-column: 1/-1;
   justify-items: center;
 }
 .key-container-show {
@@ -148,7 +148,6 @@ img, picture, video, canvas, svg {
 
 .keyboard-side-menu-container{
   grid-column: 7/8 ;
-  border-left: 1px solid black;
 }
 
 
