@@ -1,4 +1,4 @@
-import createEle from "../utilities/createDomElement.js"
+import createEle from "../utilities/createBasicDomElement.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav

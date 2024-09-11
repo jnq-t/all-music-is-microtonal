@@ -66,7 +66,7 @@ img, picture, video, canvas, svg {
   #scale-generator-container {
     margin: 1.5em ;
   }
-  #scale-data-inputs-container{
+  .scale-data-inputs-container{
       width: 30%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -74,15 +74,15 @@ img, picture, video, canvas, svg {
       grid-column-gap: 0px;
       grid-row-gap: 0px;
   }
-  .scale-generator-item {
+  .scale-input-container {
     padding: .2em;
   }
-  .scale-generator-input{
+  .scale-input {
     min-width: 10em;
     max-width: 10em;
   }
 
-  #generate-scale-btn{
+  .scale-btn{
     padding: .03em 1em;
     background-color: #ffffff
   }
@@ -92,76 +92,19 @@ img, picture, video, canvas, svg {
 
   }
 
-/* ********** */
-/* Keyboard Nav's */
-/* ********** */
 
-/* hamburger toggle for top nav */
-.hamburger-icon {
-  position: absolute;
-  height: 3rem;
-  width: 3rem;
-  top: 10%;
-  left: 3%;
-  z-index: 1000;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.2s ease-in-out;
-}
-.hamburger-icon:hover {
-  transform: scale(1.2);
-}
-.icon-line {
-  position: absolute;
-  left: 25%;
-  top: 50%;
-  width: 1.5rem;
-  height: 3px;
-  background-color: black;
-  transition: all 400ms cubic-bezier(.84,.06,.52,1.8);
-}
-.icon-line1 {
-  transform: translateY(-8px);
-  animation-delay: 100ms;
-}
-.icon-line3 {
-  transform: translateY(8px);
-  animation-delay: 250ms;
-}
-.icon-line1.a {
-  transform: rotate(40deg);
-}
-.icon-line3.b {
-  transform: rotate(-40deg);
-}
-.icon-line2.c {
-  opacity: 0;
-}
-
-/* top nav on open */
-/* TODO: fix top nav */
+/* ********** */
+/* Keyboard */
+/* ********** */
 .keyboard-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   margin: 0 auto;
   gap: .5rem;
   pointer-events: auto;
   width: 80%;
   
   border: 1px solid black;
-}
-.keyboard-top-nav {
-  position: relative;
-  min-height: 2.5rem;
-  border-bottom: 1px solid black;
-}
-.keyboard-top-nav-items {
-  display: flex;
-  grid-column: 1/-1;
-}
-
-.keyboard-side-menu-container{
-  grid-column: 7/8 ;
 }
 .keys-container {
   display: grid;
@@ -190,6 +133,24 @@ img, picture, video, canvas, svg {
 .denominator-ratio-scale-degree {
   width: 2.5rem;
 }
+
+/* ********** */
+/* Keyboard Nav's */
+/* ********** */
+.keyboard-top-nav {
+  position: relative;
+  min-height: 2.5rem;
+  border-bottom: 1px solid black;
+  grid-column: 1/-1;
+}
+.keyboard-top-nav-items {
+  display: flex;
+}
+
+.keyboard-side-menu-container{
+  grid-column: 7/8 ;
+}
+
 
 /* ********** */
 /* Media Styles */

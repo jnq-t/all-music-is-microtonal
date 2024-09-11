@@ -1,4 +1,4 @@
-import createEle from "../utilities/createDomElement.js"
+import createEle from "../utilities/createBasicDomElement.js"
 
 /**
  * @method createKeyboardSideMenu creates side menu navigation for keyboard

@@ -3,7 +3,7 @@ import Keyboard from "../classes/Keyboard.js"
 import createKeyboardContainer from "./createKeyboard.js"
 import keyboardSideNav from "./createKeyboardSideNav.js"
 import createKeyElement from "./createKeys.js";
-import createEle from "../utilities/createDomElement.js"
+import createEle from "../utilities/createBasicDomElement.js"
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
 const author = document.getElementById('scale-author-input');

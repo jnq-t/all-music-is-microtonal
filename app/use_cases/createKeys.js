@@ -1,5 +1,5 @@
 
-import createEle from "../utilities/createDomElement.js"
+import createEle from "../utilities/createBasicDomElement.js"
 import roundFreq from "../utilities/roundFreq.js"
 import KeyModifiers from "./createKeyModifiers.js"
 
