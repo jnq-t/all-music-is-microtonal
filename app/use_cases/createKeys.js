@@ -16,9 +16,11 @@ const mock_octave = 24
    */
   export default function createKeyElement (key, index, container ) {
     
-    const keyContainer = createEle('div', `${ index < mock_octave ? 'key-container-show' : 'key-container-hidden'}`)
+    const keyContainer = createEle('div', `${ index < mock_octave ? 'key-container-show' : 'key-container-hidden'}`) // initial logic for which keys to show/hide
+          keyContainer.id = `key-container${index+1}`
+          
     const btn = Object.assign(document.createElement('button'), 
-        { className: `${ index < mock_octave ? 'keyboard-key-show' : 'keyboard-key-hidden'}` }, // initial logic for which keys to show/hide
+        { className: 'keyboard-key' },
         { id: `keyboard-key${index}` }, 
         { name: `${key.frequency}` }, 
         { innerHTML: `${roundFreq(key.frequency, 3)}` }, // todo: change to scale position (e.g. scale degree "8") + rounded freq.

@@ -114,7 +114,19 @@ img, picture, video, canvas, svg {
 .key-container-show {
   margin-bottom: 2rem;
 }
-.keyboard-key-show {
+.key-container-hidden,
+.modifier-sustain-hidden,
+.modifier-detune-hidden,
+.modifier-ratio-hidden {
+  display: none;
+}
+.modifier-sustain-show,
+.modifier-detune-show,
+.modifier-ratio-show {
+  display: block;
+}
+
+.keyboard-key {
   margin: .5em 0;
   max-width: .8em;
 }

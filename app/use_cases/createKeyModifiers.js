@@ -10,15 +10,16 @@ import createInputLabel from "../utilities/createInputLabel.js"
  * @param {mock_octave} number = length of octave
  */
 function createSustainModifier(index, mock_octave) {
-    const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-sustain-show' : 'modifier-sustain-hidden'}`)
-    
-    const sustainLabel = createInputLabel('sustain-scale-degree-label', 'sustain-scale-degree', 'Sustain')
-    const sustainInput =  createInput('sustain-scale-degree scale-degree-modifier', 'sustain-scale-degree', 'checkbox', 'Sustain scale degree')
+    const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-sustain-hidden');
+          modifierContainer.id = `modifier-sustain${index+1}`;
+          
+    const sustainLabel = createInputLabel('sustain-scale-degree-label', 'sustain-scale-degree', 'Sustain');
+    const sustainInput =  createInput('sustain-scale-degree scale-degree-modifier', 'sustain-scale-degree', 'checkbox', 'Sustain scale degree');
 
     modifierContainer.appendChild(sustainLabel);
     modifierContainer.appendChild(sustainInput);
 
-    return modifierContainer
+    return modifierContainer;
   }
 
 /**
@@ -27,15 +28,16 @@ function createSustainModifier(index, mock_octave) {
  * @param {mock_octave} number = length of octave
  */
 function createDetuneModifier(index, mock_octave) {
-    const modifierContainer = createEle('div', `scale-degree-modifier-container  ${ index < mock_octave ? 'modifier-detune-show' : 'modifier-detune-hidden'}`)
-    
-    const detuneLabel = createInputLabel('detune-scale-degree-label', 'detune-scale-degree', 'Detune')
-    const detuneInput = createInput('detune-scale-degree scale-degree-modifier', 'detune-scale-degree', 'number', 'Detune scale degree')
+    const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-detune-hidden');
+          modifierContainer.id = `modifier-detune${index+1}`;
+
+    const detuneLabel = createInputLabel('detune-scale-degree-label', 'detune-scale-degree', 'Detune');
+    const detuneInput = createInput('detune-scale-degree scale-degree-modifier', 'detune-scale-degree', 'number', 'Detune scale degree');
 
     modifierContainer.appendChild(detuneLabel);
     modifierContainer.appendChild(detuneInput);
 
-    return modifierContainer
+    return modifierContainer;
   }
 
 /**
@@ -44,15 +46,18 @@ function createDetuneModifier(index, mock_octave) {
  * @param {mock_octave} number = length of octave
  */
 function createRatioModifier(index, mock_octave) {
-    const modifierContainer = createEle('div', `scale-degree-modifier-container ${ index < mock_octave ? 'modifier-ratio-show' : 'modifier-ratio-hidden'}`, 'Ratio')
-    
-    const numeratorInput = createInput('numerator-ratio-scale-degree scale-degree-modifier', 'numerator-ratio-scale-degree', 'number', 'Scale degree numerator ratio')
-    const denominatorInput = createInput('denominator-ratio-scale-degree scale-degree-modifier', 'denominator-ratio-scale-degree', 'number', 'Scale degree denominator ratio')
+    const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-ratio-hidden', 'Ratio');
+          modifierContainer.id = `modifier-ratio${index+1}`;
+
+    const numeratorInput = createInput('numerator-ratio-scale-degree scale-degree-modifier', 'numerator-ratio-scale-degree', 'number', 'Scale degree numerator ratio');
+    const denominatorInput = createInput('denominator-ratio-scale-degree scale-degree-modifier', 'denominator-ratio-scale-degree', 'number', 'Scale degree denominator ratio');
 
     modifierContainer.appendChild(numeratorInput);
     modifierContainer.appendChild(denominatorInput);
 
-    return modifierContainer
+    return modifierContainer;
   }
 
   export default { createSustainModifier, createDetuneModifier,  createRatioModifier, }
+
+  
