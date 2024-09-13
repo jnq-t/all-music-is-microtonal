@@ -59,5 +59,3 @@ function createRatioModifier(index, mock_octave) {
   }
 
   export default { createSustainModifier, createDetuneModifier,  createRatioModifier, }
-
-  

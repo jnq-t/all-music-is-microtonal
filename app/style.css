@@ -130,10 +130,10 @@ img, picture, video, canvas, svg {
   margin: .5em 0;
   max-width: .8em;
 }
-.keyboard-key-hidden,
+/* .keyboard-key-hidden,
 .modifier-sustain-hidden {
   display: none;
-}
+} */
 .scale-degree-modifier{
   width: 4rem;
 }
