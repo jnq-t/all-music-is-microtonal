@@ -59,6 +59,7 @@ img, picture, video, canvas, svg {
     min-width: 6.5em;
     border: 1px solid black;
     border-radius: 1em;
+    background-color: #ffffff
   }
   #main {
     margin-bottom: 5rem;
@@ -84,7 +85,6 @@ img, picture, video, canvas, svg {
 
   .scale-btn{
     padding: .03em 1em;
-    background-color: #ffffff
   }
 
   /* todo: keyboards not centered, learn why and fix */
@@ -102,8 +102,11 @@ img, picture, video, canvas, svg {
   margin: 0 auto;
   pointer-events: auto;
   width: 80%;
-  
-  border: 1px solid black;
+  background-color: #bec7e7;
+  border: 3px solid black;
+  border-color: #45516e;
+  box-shadow: 0px 0px 0px 5px #182052;;
+  border-radius: 25px;
 }
 .keys-container {
   display: grid;
@@ -127,7 +130,7 @@ img, picture, video, canvas, svg {
 }
 
 .keyboard-key {
-  margin: .63em 0;
+  margin: .72em 0;
   max-width: .8em;
 }
 /* .keyboard-key-hidden,
@@ -190,14 +193,14 @@ img, picture, video, canvas, svg {
 /* key edit modes */
 .sustain-mode{
   margin: .5em 0;
-  border: .2em solid #b1ff00
+  border: .3em solid #72c000;
 }
 .detune-mode{
-  background-color: #75da00;
+  background-color: #b1ff00;
 
 }
 .ratio-mode{
-  color: blue;
+  color: #000eff;
   font-weight: bold;
 }
 

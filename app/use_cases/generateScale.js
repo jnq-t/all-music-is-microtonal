@@ -5,29 +5,30 @@ import createKeyElement from "./createKeys.js";
 import createEle from "../utilities/createBasicDomElement.js"
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
-const author = document.getElementById('scale-author-input');
 const scaleName = document.getElementById('scale-name-input');
 const startingFreq = document.getElementById('starting-frequency-input');
 const lengthOfScale = document.getElementById('length-of-scale-input');
+const octaveSpan = document.getElementById('octave-span-input');
 
 generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
 
 function appendKeyboard () { 
-  if(document.getElementById('keyboard1')) { return } // only allow 1 keyboard on screen;
+  // if keyboard already exists, it is removed and replaced removes previous scale and generates a new one scale
+  if(document.getElementById('keyboard1')) { document.getElementById('keyboard1').remove() }
    
   // grabs data from DOM
     const scaleData = {
       scaleName: scaleName.value,
-      author: author.value,
-      startingFreq: startingFreq.value,
-      lengthOfScale: lengthOfScale.value
+      startingFreq: Number(startingFreq.value),
+      lengthOfScale: Number(lengthOfScale.value),
+      octaveSpan: Number(octaveSpan.value)
     };
-    // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
-    const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
-    const newKeyboard = new Keyboard(newScale) // calls Keyboard class
-    const allKeysContainer = createEle('div', 'keys-container') // creates parent <div/> for key elements
-    const keyboardContainer = createKeyboardContainer() // creates parent <div/> for keyboard elements
-    const wrapper = document.getElementById('keyboards-wrapper') // wrapper for all keyboards on DOM
+    
+    const newScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan); 
+    const newKeyboard = new Keyboard(newScale);
+    const allKeysContainer = createEle('div', 'keys-container'); // creates parent <div/> for key elements
+    const keyboardContainer = createKeyboardContainer(); // creates parent <div/> for keyboard elements
+    const wrapper = document.getElementById('keyboards-wrapper'); // wrapper for all keyboards on DOM
     console.log('New Scale: ', newScale)
     
     //creates keys & maps through to create DOM element for each 
@@ -35,7 +36,7 @@ function appendKeyboard () {
         createKeyElement(key, index, allKeysContainer);
     });
 
-    keyboardContainer.appendChild(allKeysContainer) // appends keys to parent <div/> 
+    keyboardContainer.appendChild(allKeysContainer); // appends keys to parent <div/> 
     wrapper.appendChild(keyboardContainer); // appends keyboard to wrapper <div/>
   }
 
