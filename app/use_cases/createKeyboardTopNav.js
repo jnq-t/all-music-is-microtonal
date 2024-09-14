@@ -31,21 +31,44 @@ function keyModifierOptions () {
   // sustain edit mode
   const sustainContainer = createEle('div', 'edit-keys-option-container');
         sustainContainer.id = 'sustain-edit-mode';
-        sustainContainer.appendChild( createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain') );
+        const sustainMode = createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain');
+        sustainContainer.appendChild( sustainMode );
         sustainContainer.appendChild( createInputLabel('edit-keys-option-label', 'sustain-edit', 'Sustain') );
+        
+        sustainMode.addEventListener('click', function(e){
+            const modifiers = document.querySelectorAll(`.modifier-sustain-hidden`)
+            const modifiersArray = [...modifiers]
+            modifiersArray.map(modifier => modifier.classList.toggle(`modifier-sustain-show`))
+          
+        })
 
   // detune edit mode
   const detuneContainer = createEle('div', 'edit-keys-option-container');
         detuneContainer.id = 'detune-edit-mode';
-        detuneContainer.appendChild( createInput('edit-keys-option', 'detune-edit', 'checkbox', 'Turn edit on for key detune') );
+  const detuneMode = createInput('edit-keys-option', 'detune-edit', 'checkbox', 'Turn edit on for key detune');
+        detuneContainer.appendChild( detuneMode );
         detuneContainer.appendChild( createInputLabel('edit-keys-option-label', 'detune-edit', 'Detune') );
   
+        detuneMode.addEventListener('click', function(e){
+          const modifiers = document.querySelectorAll(`.modifier-detune-hidden`)
+          const modifiersArray = [...modifiers]
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-detune-show`))
+        
+      })
+        
   // ratio edit mode
   const ratioContainer = createEle('div', 'edit-keys-option-container');
         ratioContainer.id = 'ratio-edit-mode';
-        ratioContainer.appendChild( createInput('edit-keys-option', 'ratio-edit', 'checkbox', 'Turn edit on for key ratio') );
+  const ratioMode = createInput('edit-keys-option', 'ratio-edit', 'checkbox', 'Turn edit on for key ratio');
+        ratioContainer.appendChild( ratioMode );
         ratioContainer.appendChild( createInputLabel('edit-keys-option-label', 'ratio-edit', 'Ratio') );
 
+        ratioMode.addEventListener('click', function(e){
+          const modifiers = document.querySelectorAll(`.modifier-ratio-hidden`)
+          const modifiersArray = [...modifiers]
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-ratio-show`))
+        
+      })
   // append items to nav container
   editKeysNav.appendChild(sustainContainer);
   editKeysNav.appendChild(detuneContainer);
@@ -116,16 +139,3 @@ function addOrRemoveOctave(scaleLength) {
 function numOfKeysToShow (scaleLength, numOfOctavesShown) {
   return scaleLength * numOfOctavesShown
 }
-
-// toggles edit modes
-document.addEventListener("click", function(e){
-  const target = e.target.closest(".edit-keys-option"); 
-
-  keyModifierTypes.map(modifierType => {
-    if(target.name.includes(modifierType)) {
-      const modifiers = document.querySelectorAll(`.modifier-${modifierType}-hidden`)
-      const modifiersArray = [...modifiers]
-      modifiersArray.map(modifier => modifier.classList.toggle(`modifier-${modifierType}-show`))
-    }
-  })
-});

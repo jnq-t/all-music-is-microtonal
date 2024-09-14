@@ -16,7 +16,14 @@ function createSustainModifier(index, mock_octave) {
           
     const sustainLabel = createInputLabel('sustain-scale-degree-label', 'sustain-scale-degree', 'Sustain');
     const sustainInput =  createInput('sustain-scale-degree scale-degree-modifier', 'sustain-scale-degree', 'checkbox', 'Sustain scale degree');
-
+            sustainInput.addEventListener('click', function(){
+            
+                  const keyContainer = sustainInput.parentNode.parentNode
+                  const key = keyContainer.children[0]
+                        key.classList.toggle(`sustain-mode`)
+                      
+            })
+   
     modifierContainer.appendChild(sustainLabel);
     modifierContainer.appendChild(sustainInput);
 
@@ -34,6 +41,17 @@ function createDetuneModifier(index, mock_octave) {
 
     const detuneLabel = createInputLabel('detune-scale-degree-label', 'detune-scale-degree', 'Detune');
     const detuneInput = createInput('detune-scale-degree scale-degree-modifier', 'detune-scale-degree', 'number', 'Detune scale degree');
+            
+            detuneInput.addEventListener('input', (e) => {
+                  const keyContainer = detuneInput.parentNode.parentNode
+                  const key = keyContainer.children[0]
+                
+                  if(e.target.value > 0 || e.target.value < 0) {
+                        key.classList.add(`detune-mode`)
+                        console.log(target.value)
+                  } else {key.classList.remove(`detune-mode`)}
+                  
+            })
 
     modifierContainer.appendChild(detuneLabel);
     modifierContainer.appendChild(detuneInput);
@@ -52,6 +70,29 @@ function createRatioModifier(index, mock_octave) {
 
     const numeratorInput = createInput('numerator-ratio-scale-degree scale-degree-modifier', 'numerator-ratio-scale-degree', 'number', 'Scale degree numerator ratio');
     const denominatorInput = createInput('denominator-ratio-scale-degree scale-degree-modifier', 'denominator-ratio-scale-degree', 'number', 'Scale degree denominator ratio');
+           
+            numeratorInput.addEventListener('input', (e) => {
+                  const keyContainer = numeratorInput.parentNode.parentNode
+                  const key = keyContainer.children[0]
+            
+                  if(e.target.value > 0 || e.target.value < 0) {
+                        key.classList.add(`ratio-mode`)
+                        console.log(target.value)
+                  } else {key.classList.remove(`ratio-mode`)}
+                  
+            })
+
+
+            denominatorInput.addEventListener('input', (e) => {
+                  const keyContainer = denominatorInput.parentNode.parentNode
+                  const key = keyContainer.children[0]
+            
+                  if(e.target.value > 0 || e.target.value < 0) {
+                        key.classList.add(`ratio-mode`)
+                        console.log(target.value)
+                  } else {key.classList.remove(`ratio-mode`)}
+                  
+            })
 
     modifierContainer.appendChild(numeratorInput);
     modifierContainer.appendChild(denominatorInput);
@@ -62,23 +103,23 @@ function createRatioModifier(index, mock_octave) {
   export default { createSustainModifier, createDetuneModifier,  createRatioModifier, }
 
 // UI styling for when edit modes are being used
-  document.addEventListener("click", function(e){
-      const target = e.target.closest(".scale-degree-modifier"); 
-      const keyContainer = target.parentNode.parentNode
-      const key = keyContainer.children[0]
-      console.log(target.type)
-      keyModifierTypes.map(modifierType => {
-            if(target.name.includes(modifierType) && target.type === 'checkbox') {
-                  key.classList.toggle(`${modifierType}-mode`)
-            }
-            console.log(target.value)
-            if(target.name.includes(modifierType) && target.type === 'number') {
-                  target.addEventListener('input', (e) => {
-                        if(e.target.value > 0 || e.target.value < 0) {
-                              key.classList.add(`${modifierType}-mode`)
-                              console.log(target.value)
-                        } else {key.classList.remove(`${modifierType}-mode`)}
-                  })
-            } 
-      })
-    });
+//   document.addEventListener("click", function(e){
+//       const target = e.target.closest(".scale-degree-modifier"); 
+//       const keyContainer = target.parentNode.parentNode
+//       const key = keyContainer.children[0]
+//       // console.log(target.type)
+//       keyModifierTypes.map(modifierType => {
+//             if(target.name.includes(modifierType) && target.type === 'checkbox') {
+//                   key.classList.toggle(`${modifierType}-mode`)
+//             }
+//             // console.log(target.value)
+//             if(target.name.includes(modifierType) && target.type === 'number') {
+//                   target.addEventListener('input', (e) => {
+//                         if(e.target.value > 0 || e.target.value < 0) {
+//                               key.classList.add(`${modifierType}-mode`)
+//                               // console.log(target.value)
+//                         } else {key.classList.remove(`${modifierType}-mode`)}
+//                   })
+//             } 
+//       })
+//     });
