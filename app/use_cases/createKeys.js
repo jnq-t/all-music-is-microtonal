@@ -21,7 +21,7 @@ const mock_octave = 24
           
     const btn = Object.assign(document.createElement('button'), 
         { className: 'keyboard-key' },
-        { id: `keyboard-key${index}` }, 
+        { id: `keyboard-key${index+1}` }, 
         { name: `${key.frequency}` }, 
         { innerHTML: `${roundFreq(key.frequency, 3)}` }, // todo: change to scale position (e.g. scale degree "8") + rounded freq.
         { ariaLabel: 'Button to play frequency' }

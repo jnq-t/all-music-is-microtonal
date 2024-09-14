@@ -1,6 +1,7 @@
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
 import createInputLabel from "../utilities/createInputLabel.js"
+import keyModifierTypes from "../utilities/keyModifierTypes.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav
@@ -59,3 +60,24 @@ function createRatioModifier(index, mock_octave) {
   }
 
   export default { createSustainModifier, createDetuneModifier,  createRatioModifier, }
+
+  document.addEventListener("click", function(e){
+      const target = e.target.closest(".scale-degree-modifier"); 
+      const keyContainer = target.parentNode.parentNode
+      const key = keyContainer.children[0]
+      console.log(target.type)
+      keyModifierTypes.map(modifierType => {
+            if(target.name.includes(modifierType) && target.type === 'checkbox') {
+                  key.classList.toggle(`${modifierType}-mode`)
+            }
+            console.log(target.value)
+            if(target.name.includes(modifierType) && target.type === 'number') {
+                  target.addEventListener('input', (e) => {
+                        if(e.target.value > 0 || e.target.value < 0) {
+                              key.classList.add(`${modifierType}-mode`)
+                              console.log(target.value)
+                        } else {key.classList.remove(`${modifierType}-mode`)}
+                  })
+            } 
+      })
+    });

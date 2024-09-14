@@ -20,7 +20,6 @@ function appendKeyboard () {
       startingFreq: startingFreq.value,
       lengthOfScale: lengthOfScale.value
     };
-    
     // todo: send same data to API call & newScale; right now i am writing it twice since it isn't getting picked up from scaleData
     const newScale = new Scale(author.value, scaleName.value, startingFreq.value, lengthOfScale.value); //todo: send scale data.. find issue and resovle
     const newKeyboard = new Keyboard(newScale) // calls Keyboard class

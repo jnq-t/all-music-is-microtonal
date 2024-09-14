@@ -2,6 +2,7 @@
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
 import createInputLabel from "../utilities/createInputLabel.js"
+import keyModifierTypes from "../utilities/keyModifierTypes.js"
 
 const mock_octave = 12 // todo: remove mock_octave
 
@@ -116,18 +117,15 @@ function numOfKeysToShow (scaleLength, numOfOctavesShown) {
   return scaleLength * numOfOctavesShown
 }
 
-// toggles edit mode
+// toggles edit modes
 document.addEventListener("click", function(e){
   const target = e.target.closest(".edit-keys-option"); 
-  const modifierTypes = ['sustain', 'detune', 'ratio']
 
-  modifierTypes.map(modifierType => {
-    if(target.name.includes(`${modifierType}`)) {
+  keyModifierTypes.map(modifierType => {
+    if(target.name.includes(modifierType)) {
       const modifiers = document.querySelectorAll(`.modifier-${modifierType}-hidden`)
       const modifiersArray = [...modifiers]
       modifiersArray.map(modifier => modifier.classList.toggle(`modifier-${modifierType}-show`))
-      
     }
   })
-} 
-);
+});

@@ -127,7 +127,7 @@ img, picture, video, canvas, svg {
 }
 
 .keyboard-key {
-  margin: .5em 0;
+  margin: .63em 0;
   max-width: .8em;
 }
 /* .keyboard-key-hidden,
@@ -187,8 +187,19 @@ img, picture, video, canvas, svg {
   }
 }
 
+/* key edit modes */
+.sustain-mode{
+  margin: .5em 0;
+  border: .2em solid #b1ff00
+}
+.detune-mode{
+  background-color: #75da00;
 
-
+}
+.ratio-mode{
+  color: blue;
+  font-weight: bold;
+}
 
 
 
