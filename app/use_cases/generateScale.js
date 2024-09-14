@@ -48,3 +48,32 @@ const addScaleToDatabase = async (scaleData) => {
     body: JSON.stringify(scaleData)
   }).then(resp => resp.json());
 }
+
+// testing to figure out new and better way to call synth 
+async function callSynth(key) {
+  await Tone.start();
+  
+  const synth = new Tone.Synth().toDestination();
+  const now = Tone.now();
+
+  // trigger the attack immediately
+  synth.triggerAttack(key.frequency, now);
+  // wait one second before triggering the release
+  synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+}
+
+// working synth test
+document.addEventListener('click', async ({target}) => {
+  if(target.classList.contains('keyboard-key')) {
+      await Tone.start();
+      
+      const frequency = target.getAttribute('name')
+      const synth = new Tone.Synth().toDestination();
+      const now = Tone.now();
+
+      // trigger the attack immediately
+      synth.triggerAttack(frequency, now);
+      // wait one second before triggering the release
+      synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+  }
+})
