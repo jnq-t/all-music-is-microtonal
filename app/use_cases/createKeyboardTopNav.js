@@ -15,8 +15,8 @@ export default function createKeyboardTopNav () {
     {id: 'keyboard-top-nav'}
   )
 
-  topNav.appendChild( keyModifierOptions() )
   topNav.appendChild( addOrRemoveOctave(mock_octave) ) // todo: remove mock_octave
+  topNav.appendChild( keyModifierOptions() )
   // topNav.appendChild(scaleDataInputs) // appends item list to <nav/>
   
   return topNav
