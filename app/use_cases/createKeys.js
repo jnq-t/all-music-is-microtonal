@@ -18,6 +18,8 @@ const mock_octave = 24
     
     const keyContainer = createEle('div', `${ index < mock_octave ? 'key-container-show' : 'key-container-hidden'}`) // initial logic for which keys to show/hide
           keyContainer.id = `key-container${index+1}`
+
+    const keyModifiersContainer = createEle('div', 'scale-degree-modifiers-container')
           
     const btn = Object.assign(document.createElement('button'), 
         { className: 'keyboard-key' },
@@ -28,14 +30,18 @@ const mock_octave = 24
         // { setAttribute: `key-position-${position}` } // todo: add scale position; should it be an attribute or additional class? google use case
     );
 
-    keyContainer.appendChild(btn); // appends keyBtn to parent <div/> => keyContainer
-    keyContainer.appendChild(KeyModifiers.createSustainModifier(index, mock_octave)) // appends sustain modifier to parent <div/> => keyContainer
-   
-    // appends detune and ratio modifier to first octave only //todo: replace mock_length with actual length
-    if (index < mock_length) {
-      keyContainer.appendChild(KeyModifiers.createDetuneModifier(index, mock_octave))
-      keyContainer.appendChild(KeyModifiers.createRatioModifier(index, mock_octave))
+    
+    
+    keyModifiersContainer.appendChild( KeyModifiers.createSustainModifier(index, mock_octave)) // append sustain modifier
+     if (index < mock_length) { // appends detune and ratio modifier to first octave only //todo: replace mock_length with actual length
+      keyModifiersContainer.appendChild(KeyModifiers.createDetuneModifier(index, mock_octave))
+      keyModifiersContainer.appendChild(KeyModifiers.createRatioModifier(index, mock_octave))
     }
+
+    keyContainer.appendChild(btn); // appends keyBtn to parent <div/> => keyContainer
+    keyContainer.appendChild(keyModifiersContainer) // appends key modifiers to parent <div/> => keyContainer
+   
+   
 
     //appends each key to parent <div/> => keysContainer
     container.appendChild(keyContainer);

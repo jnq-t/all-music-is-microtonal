@@ -1,6 +1,7 @@
 
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
+import createButton from "../utilities/createButton.js"
 import createInputLabel from "../utilities/createInputLabel.js"
 import keyModifierTypes from "../utilities/keyModifierTypes.js"
 
@@ -31,9 +32,11 @@ function keyModifierOptions () {
   // sustain edit mode
   const sustainContainer = createEle('div', 'edit-keys-option-container');
         sustainContainer.id = 'sustain-edit-mode';
-        const sustainMode = createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain');
+  const sustainMode = createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain');
+  const sustainLabel = createInputLabel('edit-keys-option-label', 'sustain-edit', 'Sustain')
+        sustainLabel.id = 'sustain-edit-label'
         sustainContainer.appendChild( sustainMode );
-        sustainContainer.appendChild( createInputLabel('edit-keys-option-label', 'sustain-edit', 'Sustain') );
+        sustainContainer.appendChild( sustainLabel );
         
         sustainMode.addEventListener('click', function(e){
             const modifiers = document.querySelectorAll(`.modifier-sustain-hidden`)
@@ -46,8 +49,10 @@ function keyModifierOptions () {
   const detuneContainer = createEle('div', 'edit-keys-option-container');
         detuneContainer.id = 'detune-edit-mode';
   const detuneMode = createInput('edit-keys-option', 'detune-edit', 'checkbox', 'Turn edit on for key detune');
+  const detuneLabel = createInputLabel('edit-keys-option-label', 'detune-edit', 'Detune')
+        detuneLabel.id = 'detune-edit-label'
         detuneContainer.appendChild( detuneMode );
-        detuneContainer.appendChild( createInputLabel('edit-keys-option-label', 'detune-edit', 'Detune') );
+        detuneContainer.appendChild( detuneLabel );
   
         detuneMode.addEventListener('click', function(e){
           const modifiers = document.querySelectorAll(`.modifier-detune-hidden`)
@@ -60,8 +65,10 @@ function keyModifierOptions () {
   const ratioContainer = createEle('div', 'edit-keys-option-container');
         ratioContainer.id = 'ratio-edit-mode';
   const ratioMode = createInput('edit-keys-option', 'ratio-edit', 'checkbox', 'Turn edit on for key ratio');
+  const ratioLabel = createInputLabel('edit-keys-option-label', 'ratio-edit', 'Ratio')
+        ratioLabel.id = 'ratio-edit-label'
         ratioContainer.appendChild( ratioMode );
-        ratioContainer.appendChild( createInputLabel('edit-keys-option-label', 'ratio-edit', 'Ratio') );
+        ratioContainer.appendChild( ratioLabel );
 
         ratioMode.addEventListener('click', function(e){
           const modifiers = document.querySelectorAll(`.modifier-ratio-hidden`)
@@ -77,6 +84,14 @@ function keyModifierOptions () {
   return editKeysNav;
 }
 
+
+function saveScale() {
+  const saveBtn = createButton("save-scale-btn", "top-nav-btn", "Save Scale", "Saves scale", "Save Scale")
+}
+function deleteScale() {
+  const deleteBtn = createButton("delete-scale-btn", "top-nav-btn", "Delete Scale", "Deletes scale", "Delete Scale")
+}
+
 // TODO: refactor addOrRemoveOctave method
 /**
  * 
@@ -85,19 +100,9 @@ function keyModifierOptions () {
 function addOrRemoveOctave(scaleLength) {
   let numOfOctavesShown = 2; 
   const container = createEle('div', 'add-remove-octaves-container');
-  const addOctaveBtn = Object.assign(document.createElement("button"), 
-    {id: "add-octave-btn"},
-    {value: "Add Octave"},
-    {ariaLabel: "Add an octave to the webpage"},
-    {innerText: "Add Octave"}
-  );
-  const removeOctaveBtn = Object.assign(document.createElement("button"), 
-    {id: "remove-octave-btn"},
-    {value: "Remove Octave"},
-    {ariaLabel: "Remove an octave from the webpage"},
-    {innerText: "Remove Octave"}
-  );
-
+  const addOctaveBtn = createButton("add-octave-btn", "top-nav-btn", "Add an octave to the webpage", "Add Octave", "Add Octave");
+  const removeOctaveBtn = createButton("remove-octave-btn", "top-nav-btn", "Remove an octave to the webpage", "Remove Octave", "Remove Octave");
+  
   // add octave 
   addOctaveBtn.addEventListener('click', () => {
     numOfOctavesShown ++;

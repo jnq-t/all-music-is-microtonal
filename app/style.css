@@ -101,6 +101,7 @@ img, picture, video, canvas, svg {
   grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   margin: 0 auto;
   pointer-events: auto;
+  max-width: 70vw;
   width: 80%;
   background-color: #fdffbb;
   border: 3px solid black;
@@ -108,13 +109,17 @@ img, picture, video, canvas, svg {
   border-radius: 25px;
 }
 .keys-container {
+  padding: 0 .5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   grid-column: 1/-1;
   justify-items: center;
 }
 .key-container-show {
-  margin-bottom: 2rem;
+  margin: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .key-container-hidden,
 .modifier-sustain-hidden,
@@ -125,20 +130,28 @@ img, picture, video, canvas, svg {
 .modifier-sustain-show,
 .modifier-detune-show,
 .modifier-ratio-show {
-  display: block;
+  display: flex;
+  margin-bottom: .5rem
 }
 
 .keyboard-key {
   margin: .72em 0;
   max-width: .8em;
 }
-/* .keyboard-key-hidden,
-.modifier-sustain-hidden {
-  display: none;
-} */
-.scale-degree-modifier{
-  width: 4rem;
+.scale-degree-modifier-label {
+  font-size: .9rem;
+    align-self: center;
+    padding-right: .5rem;
 }
+.scale-degree-modifiers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.detune-scale-degree{
+  width: 3rem;
+}
+
 .modifier-ratio-show{
   display: flex;
 }
@@ -165,13 +178,43 @@ img, picture, video, canvas, svg {
 .keyboard-top-nav-items {
   display: flex;
 }
+
+.top-nav-btn {
+  padding: .3rem 1.1rem;
+}
+#add-octave-btn {
+  margin-right: 1rem;
+}
 .keys-edit-nav {
   display: flex;
+  justify-content: center;
+    align-items: center;
 }
 .edit-keys-option-container {
   margin: 0 1rem 0 0;
 }
-
+.edit-keys-option, .edit-keys-option-label{
+  margin-right: .4rem;
+  font-size: .92rem;
+}
+#sustain-edit-label, #detune-edit-label {
+  border: 1px solid black;
+  border-radius: 1em;
+}
+#detune-edit-label {
+  padding: .3rem .7rem;
+  background-color: #b1ff00;
+}
+#ratio-edit-label {
+  color: #ca0241;
+  font-weight: bold;
+}
+#sustain-edit-label{
+  margin: .5em 0;
+  padding: .2rem .3rem;
+  border: .3em solid #005eaf;
+  background-color: white;
+}
 .keyboard-side-menu-container{
   grid-column: 7/8 ;
 }
