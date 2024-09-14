@@ -7,6 +7,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body {
     line-height: 1.5;
@@ -21,6 +22,11 @@ img, picture, video, canvas, svg {
   }
   p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
   /* ********** */
   /* Imported Fonts */
@@ -39,65 +45,161 @@ img, picture, video, canvas, svg {
   }
   header{
     text-align: center;
-    font-family:'UnifrakturMaguntia Book';
     font-weight:normal;
     font-size: 1.6em;
     color: #ad7aaa;
     text-shadow: 2px 1.6px black
   }
-  main {
-    
+  .title, .subtitle {
+    font-family:'UnifrakturMaguntia Book';
   }
   button {
     cursor: pointer;
-    margin: .5em .8em .5em 0em;
     padding: .1em .2em;
     min-width: 6.5em;
     border: 1px solid black;
     border-radius: 1em;
   }
-  #scale-generator-container {
+  #main {
+    margin-bottom: 5rem;
+  }
+  #scale-wrapper {
+    display: flex;
+    justify-content: space-around;
     margin: 1.5em ;
   }
-  #scale-data-inputs-container{
-      width: 30%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
+  
+  .scale-data-inputs-container{
+    display: flex;
   }
+  
   .scale-generator-item {
-    padding: .2em;
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem 1rem 0;
   }
-  .scale-generator-input{
-    min-width: 10em;
-    max-width: 10em;
+ .scale-input {
+    height: 1.5rem;
   }
 
-  #generate-scale-btn{
+  .scale-btn{
     padding: .03em 1em;
     background-color: #ffffff
   }
 
   /* todo: keyboards not centered, learn why and fix */
-  #keyboard-parent-container {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    align-self: center;
-    justify-self: center;
+  #keyboards-wrapper {
+
   }
-  .keyboard-container {
-   margin: auto;
-   margin-bottom: 2em;
-   width: 50%;
-   border: 1px solid black
+
+
+/* ********** */
+/* Keyboard */
+/* ********** */
+.keyboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
+  margin: 0 auto;
+  pointer-events: auto;
+  width: 80%;
+  
+  border: 1px solid black;
+}
+.keys-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
+  grid-column: 1/-1;
+  justify-items: center;
+}
+.key-container-show {
+  margin-bottom: 2rem;
+}
+.key-container-hidden,
+.modifier-sustain-hidden,
+.modifier-detune-hidden,
+.modifier-ratio-hidden {
+  display: none;
+}
+.modifier-sustain-show,
+.modifier-detune-show,
+.modifier-ratio-show {
+  display: block;
+}
+
+.keyboard-key {
+  margin: .63em 0;
+  max-width: .8em;
+}
+/* .keyboard-key-hidden,
+.modifier-sustain-hidden {
+  display: none;
+} */
+.scale-degree-modifier{
+  width: 4rem;
+}
+.modifier-ratio-show{
+  display: flex;
+}
+.numerator-ratio-scale-degree, 
+.denominator-ratio-scale-degree {
+  width: 2.5rem;
+}
+
+/* ********** */
+/* Keyboard Nav's */
+/* ********** */
+.keyboard-top-nav {
+  position: relative;
+  min-height: 2.5rem;
+  border-bottom: 1px solid black;
+  grid-column: 1/-1;
+}
+.keyboard-top-nav-items {
+  display: flex;
+}
+
+.keyboard-side-menu-container{
+  grid-column: 7/8 ;
+}
+
+
+/* ********** */
+/* Media Styles */
+/* ********** */
+@media (min-width: 63em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr));
   }
-  .keyboard-key {
+}
+@media (max-width: 63em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(15vw, .5fr));
   }
-  .keyboard-key-hidden {
-    display: none;
+}
+@media (max-width: 42em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
   }
+}
+@media (max-width: 28em) {
+  .keys-container {
+    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
+  }
+}
+
+/* key edit modes */
+.sustain-mode{
+  margin: .5em 0;
+  border: .2em solid #b1ff00
+}
+.detune-mode{
+  background-color: #75da00;
+
+}
+.ratio-mode{
+  color: blue;
+  font-weight: bold;
+}
+
+
+

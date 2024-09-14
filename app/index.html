@@ -14,41 +14,43 @@
         <nav>
         </nav>
         <main id="main">
-            <div id="scale-generator-container">
-                <!-- scale author -->
-               <div id="scale-data-inputs-container">
-                <div class="scale-generator-item scale-author-container">
-                    <div>
-                        <label class="scale-generator-label scale-author-label" for="scale-author">Author</label>
+            <div id="scale-wrapper">
+                <div id="scale-generator-container">
+                    <!-- scale author -->
+                <div id="scale-generator-data-inputs-container" class="scale-data-inputs-container">
+                    <div class="scale-generator-item scale-input-container scale-author-container">
+                        
+                            <label class="scale-generator-label scale-label scale-author-label" for="scale-author">Author</label>
+                        
+                        <input class="scale-generator-input scale-input" type="text" name="scale-author" id="scale-author-input" placeholder="optional" aria-label="Author of scale">
                     </div>
-                    <input class="scale-generator-input" type="text" name="scale-author" id="scale-author-input" placeholder="optional" aria-label="Author of scale">
+                    <!-- scale name -->
+                    <div class="scale-generator-item scale-input-container scale-name-container">
+                        
+                            <label class="scale-generator-label scale-label scale-name-label" for="scale-name">Scale Name</label>
+                        
+                        <input class="scale-generator-input scale-input" type="text" name="scale-name" id="scale-name-input" aria-label="name of scale">
+                    </div>
+                    <!-- starting freq. -->
+                    <div class="scale-generator-item scale-input-container starting-frequency-container">
+                        
+                            <label class="scale-generator-label scale-label starting-frequency-label" for="starting-frequency">Starting Frequency</label>
+                        
+                        <input class="scale-generator-input scale-input" type="number" id="starting-frequency-input" name="starting-frequency" step=".001" value="240" min="20" max="20000" aria-label="scale starting frequency" />
+                    </div>
+                    <!-- scale degrees / length -->
+                    <div class="scale-generator-item scale-input-container length-of-scale-container">
+                        
+                            <label class="scale-generator-label scale-label length-of-scale-label" for="length-of-scale">Length of Scale</label>
+                        
+                        <input class="scale-generator-input scale-input" type="number" id="length-of-scale-input" name="length-of-scale" step="1" value="12" min="2" max="100" aria-label="scale starting frequency" />
+                    </div>  
                 </div>
-                <!-- scale name -->
-                <div class="scale-generator-item scale-name-container">
-                    <div>
-                        <label class="scale-generator-label scale-name-label" for="scale-name">Scale Name</label>
-                    </div>
-                    <input class="scale-generator-input" type="text" name="scale-name" id="scale-name-input" aria-label="name of scale">
+                    <!-- generate scale btn -->
+                    <button type="button" value="Generate Scale" class="scale-btn" id="generate-scale-btn" aria-label="generate scale">Generate Scale</button>
                 </div>
-                <!-- starting freq. -->
-                <div class="scale-generator-item starting-frequency-container">
-                    <div>
-                        <label class="scale-generator-label starting-frequency-label" for="starting-frequency">Starting Frequency</label>
-                    </div>
-                    <input class="scale-generator-input" type="number" id="starting-frequency-input" name="starting-frequency" step=".001" value="240" min="20" max="20000" aria-label="scale starting frequency" />
-                </div>
-                <!-- scale degrees / length -->
-                <div class="scale-generator-item length-of-scale-container">
-                    <div>
-                        <label class="scale-generator-label length-of-scale-label" for="length-of-scale">Length of Scale</label>
-                    </div>
-                    <input class="scale-generator-input" type="number" id="length-of-scale-input" name="length-of-scale" step="1" value="12" min="2" max="100" aria-label="scale starting frequency" />
-                </div>  
-               </div>
-                <!-- generate scale btn -->
-                <button type="button" value="Generate Scale" id="generate-scale-btn" aria-label="generate scale">Generate Scale</button>
             </div>
-            <div id="keyboards-parent-container">
+            <div id="keyboards-wrapper">
                 <!-- insert keyboards here -->
             </div>
         </main>
