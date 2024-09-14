@@ -12,8 +12,10 @@ const lengthOfScale = document.getElementById('length-of-scale-input');
 
 generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
 
-function appendKeyboard () {
-   // grabs data from DOM
+function appendKeyboard () { 
+  if(document.getElementById('keyboard1')) { return } // only allow 1 keyboard on screen;
+   
+  // grabs data from DOM
     const scaleData = {
       scaleName: scaleName.value,
       author: author.value,
