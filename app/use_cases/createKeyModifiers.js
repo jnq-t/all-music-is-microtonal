@@ -61,6 +61,7 @@ function createRatioModifier(index, mock_octave) {
 
   export default { createSustainModifier, createDetuneModifier,  createRatioModifier, }
 
+// UI styling for when edit modes are being used
   document.addEventListener("click", function(e){
       const target = e.target.closest(".scale-degree-modifier"); 
       const keyContainer = target.parentNode.parentNode
