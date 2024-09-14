@@ -76,20 +76,19 @@ function createRatioModifier(index, mock_octave) {
             numeratorInput.addEventListener('input', (e) => {
                   const keyContainer = numeratorInput.parentNode.parentNode.parentNode
                   const key = keyContainer.children[0]
-            
-                  if(e.target.value > 0 || e.target.value < 0) {
+
+                  if(e.target.value > 0 || e.target.value < 0 || e.target.nextSibling.value > 0 || e.target.nextSibling.value < 0) {
                         key.classList.add(`ratio-mode`)
                         console.log(target.value)
                   } else {key.classList.remove(`ratio-mode`)}
                   
             })
 
-
             denominatorInput.addEventListener('input', (e) => {
                   const keyContainer = denominatorInput.parentNode.parentNode.parentNode
                   const key = keyContainer.children[0]
-            
-                  if(e.target.value > 0 || e.target.value < 0) {
+
+                  if(e.target.value > 0 || e.target.value < 0 || e.target.previousSibling.value > 0 || e.target.previousSibling.value < 0) {
                         key.classList.add(`ratio-mode`)
                         console.log(target.value)
                   } else {key.classList.remove(`ratio-mode`)}
