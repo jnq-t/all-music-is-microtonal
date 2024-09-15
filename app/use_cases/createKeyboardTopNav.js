@@ -5,18 +5,16 @@ import createButton from "../utilities/createButton.js"
 import createInputLabel from "../utilities/createInputLabel.js"
 import keyModifierTypes from "../utilities/keyModifierTypes.js"
 
-const mock_octave = 12 // todo: remove mock_octave
-
 /**
  * @method createKeyboardTopNav creates top menu navigation for keyboard
  */
-export default function createKeyboardTopNav () {
+export default function createKeyboardTopNav (lengthOfScale) {
   const topNav = Object.assign(document.createElement('nav'), // DOM nav container
     {className: 'keyboard-top-nav'},
     {id: 'keyboard-top-nav'}
   )
 
-  topNav.appendChild( addOrRemoveOctave(mock_octave) ) // todo: remove mock_octave
+  topNav.appendChild( addOrRemoveOctave(lengthOfScale) ) /
   topNav.appendChild( keyModifierOptions() )
   // topNav.appendChild(scaleDataInputs) // appends item list to <nav/>
   
@@ -39,10 +37,9 @@ function keyModifierOptions () {
         sustainContainer.appendChild( sustainLabel );
         
         sustainMode.addEventListener('click', function(e){
-            const modifiers = document.querySelectorAll(`.modifier-sustain-hidden`)
-            const modifiersArray = [...modifiers]
-            modifiersArray.map(modifier => modifier.classList.toggle(`modifier-sustain-show`))
-          
+            const modifiers = document.querySelectorAll(`.modifier-sustain-hidden`); // grabs all key modifiers
+            const modifiersArray = [...modifiers];
+            modifiersArray.map(modifier => modifier.classList.toggle(`modifier-sustain-show`)); // maps through and toggles class
         })
 
   // detune edit mode
@@ -55,10 +52,9 @@ function keyModifierOptions () {
         detuneContainer.appendChild( detuneLabel );
   
         detuneMode.addEventListener('click', function(e){
-          const modifiers = document.querySelectorAll(`.modifier-detune-hidden`)
-          const modifiersArray = [...modifiers]
-          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-detune-show`))
-        
+          const modifiers = document.querySelectorAll(`.modifier-detune-hidden`); // grabs all key modifiers
+          const modifiersArray = [...modifiers];
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-detune-show`)); // maps through and toggles class
       })
         
   // ratio edit mode
@@ -71,11 +67,11 @@ function keyModifierOptions () {
         ratioContainer.appendChild( ratioLabel );
 
         ratioMode.addEventListener('click', function(e){
-          const modifiers = document.querySelectorAll(`.modifier-ratio-hidden`)
-          const modifiersArray = [...modifiers]
-          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-ratio-show`))
-        
-      })
+          const modifiers = document.querySelectorAll(`.modifier-ratio-hidden`); // grabs all key modifiers
+          const modifiersArray = [...modifiers];
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-ratio-show`)); // maps through and toggles class
+        })
+
   // append items to nav container
   editKeysNav.appendChild(sustainContainer);
   editKeysNav.appendChild(detuneContainer);

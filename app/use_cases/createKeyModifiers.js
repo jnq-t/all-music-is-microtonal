@@ -1,16 +1,15 @@
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
 import createInputLabel from "../utilities/createInputLabel.js"
-import keyModifierTypes from "../utilities/keyModifierTypes.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav
 /**
  * @method createSustainModifier creates sustain modifier for each key
  * @param {Index} index of key
- * @param {mock_octave} number = length of octave
+ * @param {lengthOfScale} number = length of octave
  */
-function createSustainModifier(index, mock_octave) {
+function createSustainModifier(index, lengthOfScale) {
     const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-sustain-hidden');
           modifierContainer.id = `modifier-sustain${index+1}`;
           
@@ -34,9 +33,9 @@ function createSustainModifier(index, mock_octave) {
 /**
  * @method createDetuneModifier creates detune modifier for first octave
  * @param {Index} index of key
- * @param {mock_octave} number = length of octave
+ * @param {lengthOfScale} number = length of octave
  */
-function createDetuneModifier(index, mock_octave) {
+function createDetuneModifier(index, lengthOfScale) {
     const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-detune-hidden');
           modifierContainer.id = `modifier-detune${index+1}`;
 
@@ -63,9 +62,9 @@ function createDetuneModifier(index, mock_octave) {
 /**
  * @method createRatioModifier creates ratio modifier for first octave
  * @param {Index} index of key
- * @param {mock_octave} number = length of octave
+ * @param {lengthOfScale} number = length of octave
  */
-function createRatioModifier(index, mock_octave) {
+function createRatioModifier(index, lengthOfScale) {
       const modifierContainer = createEle('div', 'scale-degree-modifier-container modifier-ratio-hidden');
           modifierContainer.id = `modifier-ratio${index+1}`;
 

@@ -27,13 +27,13 @@ function appendKeyboard () {
     const newScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan); 
     const newKeyboard = new Keyboard(newScale);
     const allKeysContainer = createEle('div', 'keys-container'); // creates parent <div/> for key elements
-    const keyboardContainer = createKeyboardContainer(); // creates parent <div/> for keyboard elements
+    const keyboardContainer = createKeyboardContainer(scaleData.lengthOfScale); // creates parent <div/> for keyboard elements
     const wrapper = document.getElementById('keyboards-wrapper'); // wrapper for all keyboards on DOM
     console.log('New Scale: ', newScale)
     
     //creates keys & maps through to create DOM element for each 
     newKeyboard.keys().map((key, index) => {
-        createKeyElement(key, index, allKeysContainer);
+        createKeyElement(key, index, allKeysContainer, scaleData.lengthOfScale);
     });
 
     keyboardContainer.appendChild(allKeysContainer); // appends keys to parent <div/> 
