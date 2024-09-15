@@ -1,22 +1,21 @@
 
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
+import createButton from "../utilities/createButton.js"
 import createInputLabel from "../utilities/createInputLabel.js"
 import keyModifierTypes from "../utilities/keyModifierTypes.js"
-
-const mock_octave = 12 // todo: remove mock_octave
 
 /**
  * @method createKeyboardTopNav creates top menu navigation for keyboard
  */
-export default function createKeyboardTopNav () {
+export default function createKeyboardTopNav (lengthOfScale) {
   const topNav = Object.assign(document.createElement('nav'), // DOM nav container
     {className: 'keyboard-top-nav'},
     {id: 'keyboard-top-nav'}
   )
 
+  topNav.appendChild( addOrRemoveOctave(lengthOfScale) ) /
   topNav.appendChild( keyModifierOptions() )
-  topNav.appendChild( addOrRemoveOctave(mock_octave) ) // todo: remove mock_octave
   // topNav.appendChild(scaleDataInputs) // appends item list to <nav/>
   
   return topNav
@@ -31,20 +30,47 @@ function keyModifierOptions () {
   // sustain edit mode
   const sustainContainer = createEle('div', 'edit-keys-option-container');
         sustainContainer.id = 'sustain-edit-mode';
-        sustainContainer.appendChild( createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain') );
-        sustainContainer.appendChild( createInputLabel('edit-keys-option-label', 'sustain-edit', 'Sustain') );
+  const sustainMode = createInput('edit-keys-option', 'sustain-edit', 'checkbox', 'Turn edit on for key sustain');
+  const sustainLabel = createInputLabel('edit-keys-option-label', 'sustain-edit', 'Sustain')
+        sustainLabel.id = 'sustain-edit-label'
+        sustainContainer.appendChild( sustainMode );
+        sustainContainer.appendChild( sustainLabel );
+        
+        sustainMode.addEventListener('click', function(e){
+            const modifiers = document.querySelectorAll(`.modifier-sustain-hidden`); // grabs all key modifiers
+            const modifiersArray = [...modifiers];
+            modifiersArray.map(modifier => modifier.classList.toggle(`modifier-sustain-show`)); // maps through and toggles class
+        })
 
   // detune edit mode
   const detuneContainer = createEle('div', 'edit-keys-option-container');
         detuneContainer.id = 'detune-edit-mode';
-        detuneContainer.appendChild( createInput('edit-keys-option', 'detune-edit', 'checkbox', 'Turn edit on for key detune') );
-        detuneContainer.appendChild( createInputLabel('edit-keys-option-label', 'detune-edit', 'Detune') );
+  const detuneMode = createInput('edit-keys-option', 'detune-edit', 'checkbox', 'Turn edit on for key detune');
+  const detuneLabel = createInputLabel('edit-keys-option-label', 'detune-edit', 'Detune')
+        detuneLabel.id = 'detune-edit-label'
+        detuneContainer.appendChild( detuneMode );
+        detuneContainer.appendChild( detuneLabel );
   
+        detuneMode.addEventListener('click', function(e){
+          const modifiers = document.querySelectorAll(`.modifier-detune-hidden`); // grabs all key modifiers
+          const modifiersArray = [...modifiers];
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-detune-show`)); // maps through and toggles class
+      })
+        
   // ratio edit mode
   const ratioContainer = createEle('div', 'edit-keys-option-container');
         ratioContainer.id = 'ratio-edit-mode';
-        ratioContainer.appendChild( createInput('edit-keys-option', 'ratio-edit', 'checkbox', 'Turn edit on for key ratio') );
-        ratioContainer.appendChild( createInputLabel('edit-keys-option-label', 'ratio-edit', 'Ratio') );
+  const ratioMode = createInput('edit-keys-option', 'ratio-edit', 'checkbox', 'Turn edit on for key ratio');
+  const ratioLabel = createInputLabel('edit-keys-option-label', 'ratio-edit', 'Ratio')
+        ratioLabel.id = 'ratio-edit-label'
+        ratioContainer.appendChild( ratioMode );
+        ratioContainer.appendChild( ratioLabel );
+
+        ratioMode.addEventListener('click', function(e){
+          const modifiers = document.querySelectorAll(`.modifier-ratio-hidden`); // grabs all key modifiers
+          const modifiersArray = [...modifiers];
+          modifiersArray.map(modifier => modifier.classList.toggle(`modifier-ratio-show`)); // maps through and toggles class
+        })
 
   // append items to nav container
   editKeysNav.appendChild(sustainContainer);
@@ -52,6 +78,14 @@ function keyModifierOptions () {
   editKeysNav.appendChild(ratioContainer);
 
   return editKeysNav;
+}
+
+
+function saveScale() {
+  const saveBtn = createButton("save-scale-btn", "top-nav-btn", "Save Scale", "Saves scale", "Save Scale")
+}
+function deleteScale() {
+  const deleteBtn = createButton("delete-scale-btn", "top-nav-btn", "Delete Scale", "Deletes scale", "Delete Scale")
 }
 
 // TODO: refactor addOrRemoveOctave method
@@ -62,19 +96,9 @@ function keyModifierOptions () {
 function addOrRemoveOctave(scaleLength) {
   let numOfOctavesShown = 2; 
   const container = createEle('div', 'add-remove-octaves-container');
-  const addOctaveBtn = Object.assign(document.createElement("button"), 
-    {id: "add-octave-btn"},
-    {value: "Add Octave"},
-    {ariaLabel: "Add an octave to the webpage"},
-    {innerText: "Add Octave"}
-  );
-  const removeOctaveBtn = Object.assign(document.createElement("button"), 
-    {id: "remove-octave-btn"},
-    {value: "Remove Octave"},
-    {ariaLabel: "Remove an octave from the webpage"},
-    {innerText: "Remove Octave"}
-  );
-
+  const addOctaveBtn = createButton("add-octave-btn", "top-nav-btn", "Add an octave to the webpage", "Add Octave", "Add Octave");
+  const removeOctaveBtn = createButton("remove-octave-btn", "top-nav-btn", "Remove an octave to the webpage", "Remove Octave", "Remove Octave");
+  
   // add octave 
   addOctaveBtn.addEventListener('click', () => {
     numOfOctavesShown ++;
@@ -116,16 +140,3 @@ function addOrRemoveOctave(scaleLength) {
 function numOfKeysToShow (scaleLength, numOfOctavesShown) {
   return scaleLength * numOfOctavesShown
 }
-
-// toggles edit modes
-document.addEventListener("click", function(e){
-  const target = e.target.closest(".edit-keys-option"); 
-
-  keyModifierTypes.map(modifierType => {
-    if(target.name.includes(modifierType)) {
-      const modifiers = document.querySelectorAll(`.modifier-${modifierType}-hidden`)
-      const modifiersArray = [...modifiers]
-      modifiersArray.map(modifier => modifier.classList.toggle(`modifier-${modifierType}-show`))
-    }
-  })
-});

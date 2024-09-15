@@ -10,7 +10,7 @@ function updateBtn() {
         {id: "update-scale-btn" },
         {className: "scale-btn" },
         {value: "Update Scale"},
-        {ariaLabel: "update scale"},
+        {ariaLabel: "Update scale"},
         {innerText: "Update Scale"}
     )
     return updateBtn

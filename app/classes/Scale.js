@@ -3,18 +3,14 @@ import ScaleDegreeModifier from "./ScaleDegreeModifier.js";
 
 export default class Scale {
     constructor(
-        isPreset = false,
         name,
         startingFreq = 240,
-        author,
         length = 12,
         period = 2,
     ) {
         this.id = "stubbedScaleId"
-        this.isPreset = isPreset;
         this.name = name;
         this.startingFreq = startingFreq;
-        this.author = author;
         this.length = length; // num. of scale degrees
         this.period = period; // size of octave interval - how much space is covered in the scale before it repeats.
     };
