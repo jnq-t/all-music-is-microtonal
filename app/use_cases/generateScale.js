@@ -74,9 +74,26 @@ document.addEventListener('click', async ({target}) => {
       const synth = new Tone.Synth().toDestination();
       const now = Tone.now();
 
-      // trigger the attack immediately
+      // SUSTAIN NOTE
+      if (target.classList.contains('sustain-mode')) {
+        // checks if note is already sustaining
+        if(target.classList.contains('note-is-sustaining')) {
+          console.log(target)
+          synth.triggerRelease() // release note
+
+        } else { 
+          synth.triggerAttack(frequency); // sustain note
+        }
+        console.log(target)
+        //changes color of btn border to indicate whether or not the note is playing
+        target.classList.toggle('note-is-sustaining')
+      } else  {
+        // trigger the attack immediately
       synth.triggerAttack(frequency, now);
       // wait one second before triggering the release
       synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
+      }
+      
+      
   }
 })

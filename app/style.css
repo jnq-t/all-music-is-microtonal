@@ -130,7 +130,7 @@ img, picture, video, canvas, svg {
 .modifier-sustain-show,
 .modifier-detune-show,
 .modifier-ratio-show {
-  display: flex;
+  display: block;
   margin-bottom: .5rem
 }
 
@@ -158,6 +158,13 @@ img, picture, video, canvas, svg {
 .numerator-ratio-scale-degree, 
 .denominator-ratio-scale-degree {
   width: 2.5rem;
+}
+.modifier-btn {
+  font-size: .92rem;
+  padding: 0.4rem;
+  background-color: #2c4d9c;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 /* ********** */
@@ -251,6 +258,9 @@ img, picture, video, canvas, svg {
 .sustain-mode{
   margin: .5em 0;
   border: .3em solid #005eaf;
+}
+.note-is-sustaining {
+  border-color: red;
 }
 .detune-mode{
   background-color: #b1ff00;
