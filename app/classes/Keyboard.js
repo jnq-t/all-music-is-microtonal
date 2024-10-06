@@ -5,12 +5,20 @@ export default class Keyboard {
     constructor(scale) {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
+        this.keys = []
     }
     
     keys() {
-        let scaffold = this.#buildKeyboardFrequencies()
-        return scaffold.map(frequency => new Key(frequency));
+        if (this.keys.length === 0) {
+            let scaffold = this.#buildKeyboardFrequencies()
+            this.keys.push(scaffold.map(frequency => new Key(frequency)))
+        }
+        return this.keys
     };
+
+    findKey(index){
+        return this.keys()[index]
+    }
 
     // private methods
     #buildKeyboardFrequencies() {
