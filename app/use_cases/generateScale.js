@@ -1,43 +1,41 @@
-import Scale from "../classes/Scale.js";
-import Keyboard from "../classes/Keyboard.js"
 import createKeyboardContainer from "./createKeyboard.js"
 import createKeyElement from "./createKeys.js";
 import createEle from "../utilities/createBasicDomElement.js"
+import {scaleData, currentKeyboard, currentKeys} from "../utilities/currentScale.js"
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
-const scaleName = document.getElementById('scale-name-input');
-const startingFreq = document.getElementById('starting-frequency-input');
-const lengthOfScale = document.getElementById('length-of-scale-input');
-const octaveSpan = document.getElementById('octave-span-input');
-
-generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
+      generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
 
 function appendKeyboard () { 
   // if keyboard already exists, it is removed and replaced removes previous scale and generates a new one scale
   if(document.getElementById('keyboard1')) { document.getElementById('keyboard1').remove() }
    
-  // grabs data from DOM
-    const scaleData = {
-      scaleName: scaleName.value,
-      startingFreq: Number(startingFreq.value),
-      lengthOfScale: Number(lengthOfScale.value),
-      octaveSpan: Number(octaveSpan.value)
-    };
-    
-    const newScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan); 
-    const newKeyboard = new Keyboard(newScale);
+    // dom elements
     const allKeysContainer = createEle('div', 'keys-container'); // creates parent <div/> for key elements
     const keyboardContainer = createKeyboardContainer(scaleData.lengthOfScale); // creates parent <div/> for keyboard elements
     const wrapper = document.getElementById('keyboards-wrapper'); // wrapper for all keyboards on DOM
-    console.log('New Scale: ', newScale)
     
-    //creates keys & maps through to create DOM element for each 
-    newKeyboard.keys().map((key, index) => {
+    // creates keys & maps through to create DOM element for each 
+    currentKeys.map((key, index) => {
         createKeyElement(key, index, allKeysContainer, scaleData.lengthOfScale);
     });
 
     keyboardContainer.appendChild(allKeysContainer); // appends keys to parent <div/> 
     wrapper.appendChild(keyboardContainer); // appends keyboard to wrapper <div/>
+    
+    // Executes Tone.js on key click
+    document.addEventListener('click', ({target}, keyboard) => {
+      keyboard = currentKeyboard // defines current keyboard in scope
+
+      // if a key is clicked on the DOM, finds key  
+      if(target.classList.contains('keyboard-key')) {
+        const keyIndex = target.getAttribute('index'); 
+        const targetKey = currentKeyboard.findKey(keyIndex); 
+
+        targetKey.play();
+      }
+    })
+
   }
 
 //this method creates a new scale in our database, not currently used 
@@ -51,49 +49,3 @@ const addScaleToDatabase = async (scaleData) => {
     body: JSON.stringify(scaleData)
   }).then(resp => resp.json());
 }
-
-// testing to figure out new and better way to call synth 
-async function callSynth(key) {
-  await Tone.start();
-  
-  const synth = new Tone.Synth().toDestination();
-  const now = Tone.now();
-
-  // trigger the attack immediately
-  synth.triggerAttack(key.frequency, now);
-  // wait one second before triggering the release
-  synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
-}
-
-// working synth test
-document.addEventListener('click', async ({target}) => {
-  if(target.classList.contains('keyboard-key')) {
-      await Tone.start();
-      
-      const frequency = target.getAttribute('name')
-      const synth = new Tone.Synth().toDestination();
-      const now = Tone.now();
-
-      // SUSTAIN NOTE
-      if (target.classList.contains('sustain-mode')) {
-        // checks if note is already sustaining
-        if(target.classList.contains('note-is-sustaining')) {
-          console.log(target)
-          synth.triggerRelease() // release note
-
-        } else { 
-          synth.triggerAttack(frequency); // sustain note
-        }
-        console.log(target)
-        //changes color of btn border to indicate whether or not the note is playing
-        target.classList.toggle('note-is-sustaining')
-      } else  {
-        // trigger the attack immediately
-      synth.triggerAttack(frequency, now);
-      // wait one second before triggering the release
-      synth.triggerRelease(now + 0.2); //todo: make release time a variable the user can change
-      }
-      
-      
-  }
-})
