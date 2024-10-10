@@ -73,8 +73,10 @@ function createRatioModifier(index, lengthOfScale) {
 
       const ratioLabel = createInputLabel('scale-degree-modifier-label ratio-scale-degree-label', 'ratio-scale-degree', 'Ratio');
       const numeratorInput = createInput('numerator-ratio-scale-degree scale-degree-modifier', 'numerator-ratio-scale-degree', 'number', 'Scale degree numerator ratio');
+            numeratorInput.min = 0 // cannot go negative 
       const denominatorInput = createInput('denominator-ratio-scale-degree scale-degree-modifier', 'denominator-ratio-scale-degree', 'number', 'Scale degree denominator ratio');
-           
+            denominatorInput.min = 0 // cannot go negative
+
             numeratorInput.addEventListener('input', (e) => {
                   const keyContainer = numeratorInput.parentNode.parentNode.parentNode
                   const key = keyContainer.children[0]
