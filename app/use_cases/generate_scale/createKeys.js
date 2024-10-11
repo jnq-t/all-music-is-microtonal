@@ -1,6 +1,6 @@
 
-import createEle from "../utilities/createBasicDomElement.js"
-import roundFreq from "../utilities/roundFreq.js"
+import createEle from "../../utilities/createBasicDomElement.js"
+import roundFreq from "../../utilities/roundFreq.js"
 import KeyModifiers from "./createKeyModifiers.js"
 
 //todo: refactor code

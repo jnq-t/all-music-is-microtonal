@@ -1,7 +1,7 @@
 import createKeyboardContainer from "./createKeyboard.js"
 import createKeyElement from "./createKeys.js";
-import createEle from "../utilities/createBasicDomElement.js"
-import {scaleData, currentKeyboard, currentKeys} from "../utilities/currentScale.js"
+import createEle from "../../utilities/createBasicDomElement.js"
+import {scaleData, currentKeyboard, currentKeys} from "../../utilities/currentScale.js"
 
 const generateScaleBtn = document.getElementById('generate-scale-btn');
       generateScaleBtn.addEventListener('click', appendKeyboard ); // creates & appends keyboard on click
