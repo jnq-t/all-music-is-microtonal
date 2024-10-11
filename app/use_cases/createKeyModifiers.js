@@ -1,6 +1,7 @@
 import createEle from "../utilities/createBasicDomElement.js"
 import createInput from "../utilities/createInput.js"
 import createInputLabel from "../utilities/createInputLabel.js"
+import {currentKeyboard} from "../utilities/currentScale.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav
@@ -16,12 +17,14 @@ function createSustainModifier(index, lengthOfScale) {
     const sustainLabel = createInputLabel('scale-degree-modifier-label sustain-scale-degree-label', 'sustain-scale-degree', 'Sustain');
     const sustainInput =  createInput('sustain-scale-degree scale-degree-modifier', 'sustain-scale-degree', 'checkbox', 'Sustain scale degree');
             sustainInput.addEventListener('click', function(){
-            
-                  console.log(sustainInput.parentNode)
+                  
                   const keyContainer = sustainInput.parentNode.parentNode.parentNode
                   const key = keyContainer.children[0]
-                        key.classList.toggle(`sustain-mode`)
-                      
+                  const keyIndex = key.getAttribute('index')
+                  const targetKey = currentKeyboard.findKey(keyIndex)
+                  
+                  targetKey.toggleSustain()
+                  key.classList.toggle(`sustain-mode`)
             })
    
     modifierContainer.appendChild(sustainLabel);

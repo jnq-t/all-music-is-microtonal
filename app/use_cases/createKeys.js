@@ -26,6 +26,7 @@ import KeyModifiers from "./createKeyModifiers.js"
         { ariaLabel: 'Button to play frequency' }
         // { setAttribute: `key-position-${position}` } // todo: add scale position; should it be an attribute or additional class? google use case
     );
+        btn.setAttribute('index', index)
     
     keyModifiersContainer.appendChild( KeyModifiers.createSustainModifier(index, lengthOfScale)) // append sustain modifier
      if (index < lengthOfScale) { // appends detune and ratio modifier to first octave only 
@@ -39,3 +40,5 @@ import KeyModifiers from "./createKeyModifiers.js"
     //appends each key to parent <div/> => keysContainer
     container.appendChild(keyContainer);
   }
+
+
