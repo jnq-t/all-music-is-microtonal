@@ -40,3 +40,5 @@ import KeyModifiers from "./createKeyModifiers.js"
     //appends each key to parent <div/> => keysContainer
     container.appendChild(keyContainer);
   }
+
+
