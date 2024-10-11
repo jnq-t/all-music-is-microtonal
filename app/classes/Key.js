@@ -1,12 +1,14 @@
 export default class Key {
-    constructor(frequency) {
+    constructor(frequency, scaleDegree) {
         this.frequency = frequency; // this is mostly for the ui
         this.sustainMode = false;
         this.playingSustain = false;
-        this.synth
+        this.scaleDegree = scaleDegree;
+        this.synth;
     };
 
     play() {
+        console.log(this.modifier())
         this.#callSynth(this.frequency);
     };
 
@@ -18,7 +20,11 @@ export default class Key {
         this.playingSustain = !this.playingSustain;
     };
 
-    // memoize this method: set result to variable in memory so you don't have to keep computing
+    modifier() {
+        return this.scaleDegree.modifier
+    }
+
+    //private methods
    async #callSynth(frequency) {
        await Tone.start();
        const now = Tone.now();
@@ -38,6 +44,8 @@ export default class Key {
             } else {
                 console.log("turning off key sustain")
                 this.synth.triggerRelease() // release note
+                // if you're changing it
+                this.synth.triggerAttack(frequency*2)
             }
             
             //changes color of btn border to indicate whether or not the note is playing

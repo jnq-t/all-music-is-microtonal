@@ -11,7 +11,8 @@ export default class Keyboard {
     keys() {
         if (!this.keys_memo) {
             let scaffold = this.#buildKeyboardFrequencies()
-            this.keys_memo = scaffold.map(frequency => new Key(frequency))
+            let scaleDegrees = this.scale.scaleDegrees()
+            this.keys_memo = scaffold.map((frequency,index) => new Key(frequency,scaleDegrees[index]))
         }
         return this.keys_memo
     };
