@@ -1,7 +1,7 @@
-import createEle from "../utilities/createBasicDomElement.js"
-import createInput from "../utilities/createInput.js"
-import createInputLabel from "../utilities/createInputLabel.js"
-import {currentKeyboard} from "../utilities/currentScale.js"
+import createEle from "../../utilities/createBasicDomElement.js"
+import createInput from "../../utilities/createInput.js"
+import createInputLabel from "../../utilities/createInputLabel.js"
+import {currentKeyboard} from "../../utilities/currentScale.js"
 
 // Note: all keys get sustain; only first octave gets detune & ratio, since change on one degree wil effect all octaves
 // todo: build out functionality; all modifiers should start as hidden and only show when checked off in the side nav

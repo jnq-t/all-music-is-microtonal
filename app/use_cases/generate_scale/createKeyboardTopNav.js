@@ -1,9 +1,9 @@
 
-import createEle from "../utilities/createBasicDomElement.js"
-import createInput from "../utilities/createInput.js"
-import createButton from "../utilities/createButton.js"
-import createInputLabel from "../utilities/createInputLabel.js"
-import keyModifierTypes from "../utilities/keyModifierTypes.js"
+import createEle from "../../utilities/createBasicDomElement.js"
+import createInput from "../../utilities/createInput.js"
+import createButton from "../../utilities/createButton.js"
+import createInputLabel from "../../utilities/createInputLabel.js"
+import keyModifierTypes from "../../utilities/keyModifierTypes.js"
 
 /**
  * @method createKeyboardTopNav creates top menu navigation for keyboard
