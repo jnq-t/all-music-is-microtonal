@@ -10,34 +10,22 @@ const lengthOfScale = document.getElementById('length-of-scale-input');
 const octaveSpan = document.getElementById('octave-span-input');
 const generateScaleBtn = document.getElementById('generate-scale-btn'); 
 
-let scaleData = {
-    scaleName: scaleName.value,
-    startingFreq: Number(startingFreq.value),
-    lengthOfScale: Number(lengthOfScale.value),
-    octaveSpan: Number(octaveSpan.value)
-};
-
-// grabs input changes from dom
-scaleName.addEventListener('change', (e)=> { scaleData.scaleName = e.target.value })
-startingFreq.addEventListener('change', (e)=> { scaleData.startingFreq = Number(e.target.value) })
-lengthOfScale.addEventListener('change', (e)=> { scaleData.lengthOfScale = Number(e.target.value) })
-octaveSpan.addEventListener('change', (e)=> { scaleData.octaveSpan = e.target.value })
-// creates & appends keyboard to dom on button click
 generateScaleBtn.addEventListener('click', appendKeyboard );
 
-function createScaleClass() {
-  return new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan)
-}
-
-export function createKeyboardClass () {
-  return new Keyboard (createScaleClass())
-}
 
 function appendKeyboard () { 
   // if keyboard already exists, it is removed and replaced removes previous scale and generates a new one scale
   if(document.getElementById('keyboard1')) { document.getElementById('keyboard1').remove() }
-   
-  const currentKeyboard = createKeyboardClass() // creates keyboard class
+  
+  const scaleData = {
+    scaleName: scaleName.value,
+    startingFreq: Number(startingFreq.value),
+    lengthOfScale: Number(lengthOfScale.value),
+    octaveSpan: Number(octaveSpan.value)
+  };
+
+  const currentScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan)
+  const currentKeyboard = new Keyboard(currentScale) // creates keyboard class
   const currentKeys = currentKeyboard.keys() // creates keys
   const allKeyboardsDomWrapper = document.getElementById('keyboards-wrapper'); // wrapper for all keyboards on DOM
   const keyboardDomContainer = createKeyboardContainer(scaleData.lengthOfScale); // creates parent <div/> for keyboard elements
