@@ -26,6 +26,7 @@ function appendKeyboard () {
     // Executes Tone.js on key click
     document.addEventListener('click', ({target}, keyboard) => {
       keyboard = currentKeyboard // defines current keyboard in scope
+      keyboard.refreshKeys()
 
       // if a key is clicked on the DOM, finds key  
       if(target.classList.contains('keyboard-key')) {

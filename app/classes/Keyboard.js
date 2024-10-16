@@ -21,6 +21,10 @@ export default class Keyboard {
         return this.keys()[index]
     }
 
+    refreshKeys(){
+        this.keys_memo = null;
+    }
+
     // private methods
     #buildKeyboardFrequencies() {
         const scaleDegrees = this.scale.scaleDegrees();
