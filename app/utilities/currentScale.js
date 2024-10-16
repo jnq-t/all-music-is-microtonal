@@ -22,13 +22,11 @@ startingFreq.addEventListener('change', (e)=> {
 })
 lengthOfScale.addEventListener('change', (e)=> {
    scaleData.lengthOfScale = Number(e.target.value)
-   console.log('inside lengthOfScale event: ',scaleData)
 })
 octaveSpan.addEventListener('change', (e)=> {
    scaleData.octaveSpan = e.target.value
 })
 
-console.log('line 30: ', scaleData)
   
 const currentScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan); 
 const currentKeyboard = new Keyboard(currentScale);

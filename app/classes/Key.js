@@ -8,7 +8,7 @@ export default class Key {
     };
 
     play() {
-        console.log(this.modifier())
+        // console.log(this.modifier())
         this.#callSynth(this.frequency);
     };
 
@@ -32,12 +32,11 @@ export default class Key {
         if (!this.synth){
             this.synth = new Tone.Synth().toDestination();
         }
-
+        console.log('Key Class Sustain Mode: ',this.sustainMode)
         // SUSTAIN NOTE
         if (this.sustainMode) {
             
             this.togglePlayingSustain()
-            
             // checks if note is playing
             if(this.playingSustain) {
                 this.synth.triggerAttack(frequency); // sustain note
@@ -45,7 +44,7 @@ export default class Key {
                 console.log("turning off key sustain")
                 this.synth.triggerRelease() // release note
                 // if you're changing it
-                this.synth.triggerAttack(frequency*2)
+                // this.synth.triggerAttack(frequency*2)
             }
             
             //changes color of btn border to indicate whether or not the note is playing
