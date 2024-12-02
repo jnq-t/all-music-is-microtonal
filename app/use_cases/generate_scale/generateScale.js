@@ -41,18 +41,31 @@ function appendKeyboard () {
   keyboardDomContainer.appendChild(allKeysDomContainer); // appends keys to parent <div/> 
   allKeyboardsDomWrapper.appendChild(keyboardDomContainer); // appends keyboard to wrapper <div/>
   
-  // event listener to execute midi tone on key click
-  document.addEventListener('click', ({target}, keyboard) => {
-    keyboard = currentKeyboard // defines current keyboard in scope
-
+  // execute midi tone on key click
+  document.addEventListener('click', ({target}) => {
     // if a key is clicked on the DOM, finds key  
     if(target.classList.contains('keyboard-key')) {
       const keyIndex = target.getAttribute('index'); 
       const targetKey = currentKeyboard.findKey(keyIndex); 
 
       targetKey.play();
-    }
-  })
+    };
+  });
+
+  // stop midi tone when unchecking sustain on key 
+  document.addEventListener('click', ({target}) => {
+    if (target.classList.contains('sustain-scale-degree')) {
+      const checkbox = target;
+      const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
+      const keyIndex = keyboardKey.getAttribute('index'); 
+      const targetKey = currentKeyboard.findKey(keyIndex); 
+      
+      if (!target.checked) {
+        targetKey.stop();
+      };
+    };
+  });
+
 }
 
 //this method creates a new scale in our database, not currently used 

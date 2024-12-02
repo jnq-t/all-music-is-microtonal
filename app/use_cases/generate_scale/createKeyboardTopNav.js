@@ -94,7 +94,7 @@ function deleteScale() {
  * @param {Number} scaleLength 
  */
 function addOrRemoveOctave(scaleLength) {
-  let numOfOctavesShown = 2; 
+  let numOfOctavesShown = 1;  //todo: remove hard coded number - let user choose how many octaves it starts with;
   const container = createEle('div', 'add-remove-octaves-container');
   const addOctaveBtn = createButton("add-octave-btn", "top-nav-btn", "Add an octave to the webpage", "Add Octave", "Add Octave");
   const removeOctaveBtn = createButton("remove-octave-btn", "top-nav-btn", "Remove an octave to the webpage", "Remove Octave", "Remove Octave");
