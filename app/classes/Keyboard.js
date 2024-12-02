@@ -5,7 +5,7 @@ export default class Keyboard {
     constructor(scale) {
         this.scale = scale;
         this.cutoffFrequency = 20_000;
-        this.keys_memo
+        this.keys_memo = null;
     }
     
     keys() {
