@@ -12,6 +12,13 @@ export default class Key {
         this.#callSynth(this.frequency);
     };
 
+    stop() {
+        if(this.synth) {
+            this.synth.triggerRelease();
+            this.playingSustain = false;
+        }
+    };
+
     toggleSustain() {
         this.sustainMode = !this.sustainMode;
     };
@@ -37,6 +44,7 @@ export default class Key {
         if (this.sustainMode) {
             
             this.togglePlayingSustain()
+            
             // checks if note is playing
             if(this.playingSustain) {
                 this.synth.triggerAttack(frequency); // sustain note
@@ -46,6 +54,8 @@ export default class Key {
                 // if you're changing it
                 // this.synth.triggerAttack(frequency*2)
             }
+            
+            //todo: toggle note off if sustain check is un-checked event.target.classList.contains('sustain-scale-degree')
             
             //changes color of btn border to indicate whether or not the note is playing
             // event.target.classList.toggle('note-is-sustaining') //todo: add visual toggle for when sustained note is playing

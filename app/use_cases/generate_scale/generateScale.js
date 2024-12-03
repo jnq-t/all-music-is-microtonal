@@ -9,6 +9,7 @@ const startingFreq = document.getElementById('starting-frequency-input');
 const lengthOfScale = document.getElementById('length-of-scale-input');
 const octaveSpan = document.getElementById('octave-span-input');
 const generateScaleBtn = document.getElementById('generate-scale-btn'); 
+let currentKeyboard = null; // initialized here so event listeners can access currentKeyboard
 
 generateScaleBtn.addEventListener('click', appendKeyboard );
 
@@ -24,10 +25,12 @@ function appendKeyboard () {
     octaveSpan: Number(octaveSpan.value)
   };
 
+  // class objects 
   const currentScale = new Scale(scaleData.scaleName, scaleData.startingFreq, scaleData.lengthOfScale, scaleData.octaveSpan)
-  const currentKeyboard = new Keyboard(currentScale) // creates keyboard class
+  currentKeyboard = new Keyboard(currentScale) // creates keyboard class
+  // DOM elements
   const currentKeys = currentKeyboard.keys() // creates keys
-  const allKeyboardsDomWrapper = document.getElementById('keyboards-wrapper'); // wrapper for all keyboards on DOM
+  const allKeyboardsDomWrapper = document.getElementById('keyboards-wrapper'); // <div/> wrapper for all keyboards on DOM
   const keyboardDomContainer = createKeyboardContainer(scaleData.lengthOfScale); // creates parent <div/> for keyboard elements
   const allKeysDomContainer = createEle('div', 'keys-container'); // creates parent <div/> for key elements
   
@@ -41,19 +44,39 @@ function appendKeyboard () {
   keyboardDomContainer.appendChild(allKeysDomContainer); // appends keys to parent <div/> 
   allKeyboardsDomWrapper.appendChild(keyboardDomContainer); // appends keyboard to wrapper <div/>
   
-  // event listener to execute midi tone on key click
-  document.addEventListener('click', ({target}, keyboard) => {
-    keyboard = currentKeyboard // defines current keyboard in scope
+  // HTML node lists to attach event listeners to
+  const keyNodeList = document.querySelectorAll('.keyboard-key'); // button input
+  const sustainNodeList = document.querySelectorAll('.sustain-scale-degree'); // checkbox input
 
-    // if a key is clicked on the DOM, finds key  
-    if(target.classList.contains('keyboard-key')) {
-      const keyIndex = target.getAttribute('index'); 
-      const targetKey = currentKeyboard.findKey(keyIndex); 
+  keyNodeList.forEach(node => {
+    node.addEventListener('click', handlePlayKey);
+  });
+  sustainNodeList.forEach(node => {
+    node.addEventListener('click', handleSustain);
+  });
+};
 
-      targetKey.play();
-    }
-  })
-}
+/* Event Handlers */
+// plays midi note when clicked
+const handlePlayKey = (event) => {
+  // if a key is clicked on the DOM, finds key  
+    const keyIndex = event.target.getAttribute('index'); 
+    const targetKey = currentKeyboard.findKey(keyIndex); 
+    targetKey.play();
+};
+
+// when unchecking sustain on key, stop() method called: releases midi note and playingSustain = false;
+const handleSustain = (event) => {
+  const checkbox = event.target;
+  const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
+  const keyIndex = keyboardKey.getAttribute('index'); 
+  const targetKey = currentKeyboard.findKey(keyIndex); 
+  
+  if (!event.target.checked) {
+    targetKey.stop();
+  };
+};
+
 
 //this method creates a new scale in our database, not currently used 
 //todo: move this function out to "save" button onclick event -- look at figma design for reference
