@@ -44,25 +44,7 @@ function appendKeyboard () {
 
   const keyNodeList = document.querySelectorAll('.keyboard-key'); // Select the nodes
   const sustainNodeList = document.querySelectorAll('.sustain-scale-degree'); // Select the nodes
-  
 
-  const handlePlayKey = (event) => {
-    // if a key is clicked on the DOM, finds key  
-      const keyIndex = event.target.getAttribute('index'); 
-      const targetKey = currentKeyboard.findKey(keyIndex); 
-      targetKey.play();
-  };
-
-  const handleSustain = (event) => {
-    const checkbox = event.target;
-    const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
-    const keyIndex = keyboardKey.getAttribute('index'); 
-    const targetKey = currentKeyboard.findKey(keyIndex); 
-    
-    if (!event.target.checked) {
-      targetKey.stop();
-    };
-  };
 
   keyNodeList.forEach(node => {
     node.addEventListener('click', handlePlayKey);
@@ -83,3 +65,23 @@ const addScaleToDatabase = async (scaleData) => {
     body: JSON.stringify(scaleData)
   }).then(resp => resp.json());
 }
+
+
+// Event Handlers
+const handlePlayKey = (event) => {
+  // if a key is clicked on the DOM, finds key  
+    const keyIndex = event.target.getAttribute('index'); 
+    const targetKey = currentKeyboard.findKey(keyIndex); 
+    targetKey.play();
+};
+
+const handleSustain = (event) => {
+  const checkbox = event.target;
+  const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
+  const keyIndex = keyboardKey.getAttribute('index'); 
+  const targetKey = currentKeyboard.findKey(keyIndex); 
+  
+  if (!event.target.checked) {
+    targetKey.stop();
+  };
+};
