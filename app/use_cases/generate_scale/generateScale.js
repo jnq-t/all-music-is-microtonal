@@ -41,32 +41,37 @@ function appendKeyboard () {
   keyboardDomContainer.appendChild(allKeysDomContainer); // appends keys to parent <div/> 
   allKeyboardsDomWrapper.appendChild(keyboardDomContainer); // appends keyboard to wrapper <div/>
   
-  // execute midi tone on key click
-  document.addEventListener('click', ({target}) => {
+
+  const nodeList = document.querySelectorAll('.keyboard-key'); // Select the nodes
+
+  const handlePlayKey = (event) => {
     // if a key is clicked on the DOM, finds key  
-    if(target.classList.contains('keyboard-key')) {
-      const keyIndex = target.getAttribute('index'); 
+    if(event.target.classList.contains('keyboard-key')) {
+      const keyIndex = event.target.getAttribute('index'); 
       const targetKey = currentKeyboard.findKey(keyIndex); 
 
       targetKey.play();
     };
-  });
+  }
 
-  // stop midi tone when unchecking sustain on key 
-  document.addEventListener('click', ({target}) => {
-    if (target.classList.contains('sustain-scale-degree')) {
-      const checkbox = target;
+  const handleSustain = (event) => {
+    if (event.target.classList.contains('sustain-scale-degree')) {
+      const checkbox = event.target;
       const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
       const keyIndex = keyboardKey.getAttribute('index'); 
       const targetKey = currentKeyboard.findKey(keyIndex); 
       
-      if (!target.checked) {
+      if (!event.target.checked) {
         targetKey.stop();
       };
     };
-  });
+  }
 
-}
+  nodeList.forEach(node => {
+    node.addEventListener('click', handlePlayKey);
+    node.addEventListener('click', handleSustain);
+  });
+};
 
 //this method creates a new scale in our database, not currently used 
 //todo: move this function out to "save" button onclick event -- look at figma design for reference
