@@ -42,33 +42,32 @@ function appendKeyboard () {
   allKeyboardsDomWrapper.appendChild(keyboardDomContainer); // appends keyboard to wrapper <div/>
   
 
-  const nodeList = document.querySelectorAll('.keyboard-key'); // Select the nodes
+  const keyNodeList = document.querySelectorAll('.keyboard-key'); // Select the nodes
+  const sustainNodeList = document.querySelectorAll('.sustain-scale-degree'); // Select the nodes
+  
 
   const handlePlayKey = (event) => {
     // if a key is clicked on the DOM, finds key  
-    if(event.target.classList.contains('keyboard-key')) {
       const keyIndex = event.target.getAttribute('index'); 
       const targetKey = currentKeyboard.findKey(keyIndex); 
-
       targetKey.play();
-    };
-  }
+  };
 
   const handleSustain = (event) => {
-    if (event.target.classList.contains('sustain-scale-degree')) {
-      const checkbox = event.target;
-      const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
-      const keyIndex = keyboardKey.getAttribute('index'); 
-      const targetKey = currentKeyboard.findKey(keyIndex); 
-      
-      if (!event.target.checked) {
-        targetKey.stop();
-      };
+    const checkbox = event.target;
+    const keyboardKey = checkbox.parentElement.parentElement.previousElementSibling
+    const keyIndex = keyboardKey.getAttribute('index'); 
+    const targetKey = currentKeyboard.findKey(keyIndex); 
+    
+    if (!event.target.checked) {
+      targetKey.stop();
     };
-  }
+  };
 
-  nodeList.forEach(node => {
+  keyNodeList.forEach(node => {
     node.addEventListener('click', handlePlayKey);
+  });
+  sustainNodeList.forEach(node => {
     node.addEventListener('click', handleSustain);
   });
 };
